@@ -1,11 +1,40 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
 project(GJGameJam CXX)
-
 set(CMAKE_CXX_STANDARD 11)
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3")
+
+function (set_flags target)
+    #Set C++11
+    target_compile_features(${target} 
+        PUBLIC 
+        cxx_std_11
+    )
+    set_target_properties(${target} 
+        PROPERTIES 
+        CXX_EXTENSIONS OFF
+    )
+
+    #Set flags
+    if(MSVC)
+        target_compile_options(${target} 
+            PRIVATE 
+            /W4 
+            #/WX
+        )
+    else()
+        target_compile_options(${target} 
+            PRIVATE 
+            -Wall 
+            -Wextra 
+            -pedantic
+            -Wshadow 
+            -Wpointer-arith
+           # -Werror 
+        )	
+    endif()
+endfunction(set_flags)
+
 include_directories(${PROJECT_SOURCE_DIR}/include)
-set(CMAKE_INCLUDE_PATH ${PROJECT_SOURCE_DIR}/include)
 
 set(SFML_STATIC_LIBRARIES FALSE)
 set(SFML_DIR "../SFML-2.5.1/lib/cmake/SFML")
@@ -75,4 +104,9 @@ set(SRC
 )
 
 add_executable (alien ${SRC})
+set_flags(alien)
 target_link_libraries(alien sfml-graphics sfml-window sfml-audio sfml-system)
+
+install(TARGETS alien
+    RUNTIME
+    DESTINATION ${PROJECT_INSTALL_DIR})
