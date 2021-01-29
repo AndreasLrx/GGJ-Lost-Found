@@ -11,6 +11,7 @@ GameState::GameState(GameDataRef data)
 {
     m_data = data;
     m_gui = new GUIManager(data);
+    m_astronaut.initSprite();
 }
 
 GameState::~GameState()
@@ -39,6 +40,7 @@ void GameState::update(float dt)
 void GameState::draw(float interpolation)
 {
     m_data->wind.clear(sf::Color::Black);
+    m_data->wind.draw(m_astronaut);
     m_gui->draw(interpolation);
     m_data->wind.display();
 }
