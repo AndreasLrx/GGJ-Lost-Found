@@ -10,6 +10,8 @@
 
 #include <SFML/Graphics.hpp>
 
+class Room;
+
 class Entity : public sf::Drawable
 {
     public:
@@ -28,6 +30,7 @@ class Entity : public sf::Drawable
 
     protected:
         bool m_isAlive;
+        Room *m_room;
 };
 
 #endif /* !ENTITY_HPP */

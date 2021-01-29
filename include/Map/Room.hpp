@@ -19,7 +19,7 @@ class Room
         Room(std::string str);
         void drawRoom();
 
-        bool isWalkable(sf::Vector2i pos) {return true;};
+        Tile *getTile(sf::Vector2i pos) {return nullptr;};
 
     private:
         std::string m_room_str;

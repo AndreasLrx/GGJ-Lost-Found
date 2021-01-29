@@ -10,6 +10,10 @@
 
 #include <vector>
 #include "Entity/Astronauts/AbstractAstronaut.hpp"
+#include "Map/Tile.hpp"
+#include "Map/Room.hpp"
+
+class Tile;
 
 class Astronaut : public AbstractAstronaut
 {
@@ -30,20 +34,23 @@ class Astronaut : public AbstractAstronaut
         int isAlive();
     
     private:
-        /*struct node {
-            sf::Vector2i pos;
+        struct node {
+            Tile *tile;
             float cost;
             float heuristic_cost;
+            struct node *parent;
         };
-        bool nodeCompare(struct node nodeA, struct node nodeB);
-        void computePath(struct node startNode, struct node endNode);*/
+        
+        bool nodeCompare(struct node *nodeA, struct node *nodeB);
+        void computePath(struct node *startNode, struct node *endNode);
+        bool vectContains(std::vector<struct node *> vect, Tile *tile);
 
         sf::Sprite m_sprite;
         sf::RectangleShape m_rect;
 
 
         //std::vector<sf::Vector2i> m_moves;
-        //std::vector<struct node> m_path;
+        std::vector<sf::Vector2i> m_path;
 };
 
 #endif /* !ASTRONAUT_HPP */
