@@ -21,7 +21,10 @@ SRCS_BASE := 	main.cpp \
 				ClickableText.cpp \
 				\
 				MenuState.cpp \
-				GameState.cpp
+				GameState.cpp \
+				\
+				\
+				Astronaut.cpp
 
 OBJS := $(addprefix $(OBJ_PATH)/, $(SRCS_BASE:.cpp=.o))
 CC := g++
@@ -45,6 +48,10 @@ re: fclean all
 
 $(OBJ_PATH)/%.o: ./srcs/%.cpp
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
+
+$(OBJ_PATH)/%.o: ./srcs/Entity/Astronauts/%.cpp
+	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
+
 
 $(OBJ_PATH)/%.o: ./srcs/GameEngine/%.cpp
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
