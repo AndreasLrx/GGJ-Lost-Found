@@ -1,0 +1,5 @@
+*.a
+alien
+bin*
+include/SFML*
+*.o
