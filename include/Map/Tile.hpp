@@ -16,10 +16,14 @@ class Tile
     public:
         Tile() {};
         Tile(unsigned char const type, sf::Vector2f vect);
+
+        sf::Vector2i getPosition() {};
+        bool isWalkable() {return true;};
     
     private:
         Entity *m_entity;
         unsigned char m_type;
+        sf::Vector2i pos;
 };
 
 #endif
