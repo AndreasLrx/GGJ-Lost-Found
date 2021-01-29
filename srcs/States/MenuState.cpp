@@ -7,13 +7,8 @@
 
 #include <iostream>
 #include "States/MenuState.hpp"
-#include "GUI/TextField.hpp"
+#include "States/GameState.hpp"
 #include "GUI/Button.hpp"
-#include "GUI/CheckBox.hpp"
-#include "GUI/RadioButtons.hpp"
-#include "GUI/ScrollBar.hpp"
-#include "GUI/TextButton.hpp"
-#include "GUI/ClickableText.hpp"
 
 MenuState::MenuState(GameDataRef data)
 {
@@ -21,7 +16,8 @@ MenuState::MenuState(GameDataRef data)
     m_gui = new GUIManager(data);
 
     Button *btn = new Button(sf::Vector2f(10, 10), sf::Vector2f(100, 100), \
-    [](GUIAbstract *btn, int tag){std::cout<<"Button clicked"<<std::endl;});
+    [](GUIAbstract *btn, int tag){
+        btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);});
     btn->setShapeTexturedRectUpdate(m_data->assets.getTexture("iceButtons"), sf::Vector2i(650, 0), sf::Vector2i(130, 130), 1);
     m_gui->addItem(btn, 0);
 }

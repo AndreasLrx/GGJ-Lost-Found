@@ -5,8 +5,16 @@
 ** stateMachine
 */
 
+#include <iostream>
 #include "GameEngine/StateMachine.hpp"
 #include "GameEngine/State.hpp"
+
+StateMachine::StateMachine()
+{
+    m_isRemoving = false;
+    m_isReplacing = false;
+    m_isAdding = false;
+}
 
 void StateMachine::addState(StateRef newState, bool isReplacing)
 {

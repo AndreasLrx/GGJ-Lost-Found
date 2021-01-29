@@ -48,6 +48,7 @@ class GUIItem : public GUIAbstractShape
         void setTag(int tag) {m_tag = tag;};
         int getTag() {return m_tag;};
         void setData(GameDataRef data) {m_data = data;setDataRec();};
+        GameDataRef getData(void) {return m_data;};
         int getState(void) {return m_state;};
     
     protected:

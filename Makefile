@@ -20,7 +20,8 @@ SRCS_BASE := 	main.cpp \
 				TextButton.cpp \
 				ClickableText.cpp \
 				\
-				MenuState.cpp
+				MenuState.cpp \
+				GameState.cpp
 
 OBJS := $(addprefix $(OBJ_PATH)/, $(SRCS_BASE:.cpp=.o))
 CC := g++

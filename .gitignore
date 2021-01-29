@@ -3,3 +3,4 @@ alien
 bin*
 include/SFML*
 *.o
+.vscode*

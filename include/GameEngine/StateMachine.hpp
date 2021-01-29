@@ -17,7 +17,7 @@ typedef std::unique_ptr<State> StateRef;
 class StateMachine
 {
     public:
-        StateMachine() {};
+        StateMachine();
         ~StateMachine() {};
 
         void addState(StateRef newState, bool isReplacing = true);

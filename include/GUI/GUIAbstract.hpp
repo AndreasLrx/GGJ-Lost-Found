@@ -36,6 +36,7 @@ class GUIAbstract : public sf::Drawable
         virtual void setTag(int tag)  = 0;
         virtual int getTag() = 0;
         virtual void setData(GameDataRef data) = 0;
+        virtual GameDataRef getData(void) = 0;
     
     protected:
         virtual void setDataRec() = 0;
