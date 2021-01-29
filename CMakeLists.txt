@@ -48,6 +48,28 @@ set(SRC
 	${SRCROOT}/main.cpp
 )
 
+# Entity Directory
+set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity)
+set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity)
+set(SRC
+    ${SRC}
+	${INCROOT}/Entity.hpp
+	${SRCROOT}/Test.cpp
+	${INCROOT}/Test.hpp
+)
+
+# Entity/Astronauts Directory
+set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity/Astronauts)
+set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity/Astronauts)
+set(SRC
+    ${SRC}
+	${INCROOT}/AbstractAstronaut.hpp
+	${SRCROOT}/Astronaut.cpp
+	${INCROOT}/Astronaut.hpp
+	${SRCROOT}/Scientist.cpp
+	${INCROOT}/Scientist.hpp
+)
+
 # GameEngine Directory
 set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/GameEngine)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/GameEngine)
