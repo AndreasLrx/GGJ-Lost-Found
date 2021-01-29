@@ -1,0 +1,27 @@
+#include "Entity/Entity.hpp"
+
+class Tile
+{
+public:
+    Entity *entity;
+    char type;
+};
+
+class Room
+{
+private:
+    char const *room;
+public:
+    Room(char const *str);
+    void drawRoom();
+    Tile *Room_Entity;
+};
+
+class Floor
+{
+private:
+    char const *floor;
+public:
+    Room *room;
+    void Floor_init();
+};
