@@ -10,6 +10,7 @@
 
 #include "GameEngine/Core.hpp"
 #include "GUI/GUIManager.hpp"
+#include "Entity/Astronauts/Astronaut.hpp"
 
 class GameState : public State
 {
@@ -28,6 +29,7 @@ class GameState : public State
 
     private:
         GameDataRef m_data;
+        Astronaut m_astronaut;
 };
 
 #endif /* !STATE_GAME_STATE_H */

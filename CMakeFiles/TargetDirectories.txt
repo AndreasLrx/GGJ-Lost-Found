@@ -1,0 +1,3 @@
+/home/landreas/projets/GGJ/alien/CMakeFiles/rebuild_cache.dir
+/home/landreas/projets/GGJ/alien/CMakeFiles/edit_cache.dir
+/home/landreas/projets/GGJ/alien/CMakeFiles/alien.dir
