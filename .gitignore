@@ -1,6 +1,16 @@
 *.a
 alien
-bin*
 include/SFML*
 *.o
 .vscode*
+.vs
+
+# CMake Outputs
+CMakeFiles
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Output Directories
+bin
+out
