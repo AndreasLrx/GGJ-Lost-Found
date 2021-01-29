@@ -8,7 +8,8 @@ class Tile
 {
 public:
     Tile() {};
-    Tile(unsigned char const type, sf::Vector2f vect);
+    Tile(unsigned char const type, sf::Vector2i vect);
+    void Tile_init(unsigned char const type, sf::Vector2i vect);
     Entity *m_entity;
     unsigned char m_type;
 };
