@@ -15,36 +15,38 @@ MenuState::MenuState(GameDataRef data)
 {
     m_data = data;
     m_gui = new GUIManager(data);
+    m_background.setSize(sf::Vector2f(470, 520));
+    m_background.setTexture(m_data->assets.getTexture("menu"));
+    m_background.setPosition((m_data->wind.getSize().x - 470) / 2.f,  (m_data->wind.getSize().y - 520) / 2.f);
 
-
-    TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("roboto"), sf::Vector2f(0, 200 * SCL(this)), sf::Vector2f(200  * SCL(this), 50  * SCL(this)), \
+    TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 200 * SCL(this)), sf::Vector2f(198  * SCL(this), 62.4f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
             btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);});
+    playBtn->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
     playBtn->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     playBtn->setCharacterSize(30  * SCL(this));
-    playBtn->setShapeFillColoredUpdate(sf::Color::White, sf::Color::Cyan, sf::Color::Blue);
     playBtn->setTextColors(sf::Color::Black);
 
-    TextButton *tuto = new TextButton("Tutorial", m_data->assets.getFont("roboto"), sf::Vector2f(0, 300 * SCL(this)), sf::Vector2f(200  * SCL(this), 50  * SCL(this)));
+    TextButton *tuto = new TextButton("Tutorial", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 280 * SCL(this)), sf::Vector2f(198  * SCL(this), 62.4f  * SCL(this)));
+    tuto->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
     tuto->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     tuto->setCharacterSize(30  * SCL(this));
-    tuto->setShapeFillColoredUpdate(sf::Color::White, sf::Color::Cyan, sf::Color::Blue);
     tuto->setTextColors(sf::Color::Black);
 
-    TextButton *settings = new TextButton("Settings", m_data->assets.getFont("roboto"), sf::Vector2f(0, 400 * SCL(this)), sf::Vector2f(200  * SCL(this), 50  * SCL(this)));
+    TextButton *settings = new TextButton("Settings", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 360 * SCL(this)), sf::Vector2f(198  * SCL(this), 62.4f  * SCL(this)));
+    settings->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
     settings->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     settings->setCharacterSize(30  * SCL(this));
-    settings->setShapeFillColoredUpdate(sf::Color::White, sf::Color::Cyan, sf::Color::Blue);
     settings->setTextColors(sf::Color::Black);
 
-    TextButton *quit = new TextButton("Quit", m_data->assets.getFont("roboto"), sf::Vector2f(0, 500 * SCL(this)), sf::Vector2f(200  * SCL(this), 50  * SCL(this)), \
+    TextButton *quit = new TextButton("Quit", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 440 * SCL(this)), sf::Vector2f(198  * SCL(this), 62.4f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
             btn->getData()->wind.close();});
+    quit->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
     quit->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     quit->setCharacterSize(30  * SCL(this));
-    quit->setShapeFillColoredUpdate(sf::Color::White, sf::Color::Cyan, sf::Color::Blue);
     quit->setTextColors(sf::Color::Black);
 
     m_gui->addItem(playBtn->getBase(), PLAY_BUTTON);
@@ -76,7 +78,8 @@ void MenuState::update(float dt)
 
 void MenuState::draw(float interpolation)
 {
-    m_data->wind.clear(sf::Color::Black);
+    m_data->wind.clear(sf::Color(100, 100, 100));
+    m_data->wind.draw(m_background);
     m_gui->draw(interpolation);
     m_data->wind.display();
 }
