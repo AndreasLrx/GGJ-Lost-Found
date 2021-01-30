@@ -22,6 +22,7 @@ AssetManager::~AssetManager()
 void AssetManager::loadAll(void)
 {
     loadTexture("iceButtons", "res/Textures/GUI/buttons.png");
+    loadTexture("astronaut", "res/Textures/astronaut.png");
     loadFont("roboto", "res/Fonts/roboto_regular.ttf");
 }
 

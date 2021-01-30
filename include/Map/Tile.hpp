@@ -17,7 +17,7 @@ class Tile
         Tile() {};
         Tile(unsigned char const type, sf::Vector2f vect);
 
-        sf::Vector2i getPosition() {};
+        sf::Vector2i getPosition() {return sf::Vector2i(0, 0);};
         bool isWalkable() {return true;};
     
     private:

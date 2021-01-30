@@ -22,11 +22,11 @@ void Astronaut::init()
 
 }
 
-void Astronaut::initSprite(sf::Vector2f pos, sf::Vector2f scale)
+void Astronaut::initSprite(sf::Texture *texture, sf::Vector2f pos, sf::Vector2f scale)
 {
-    m_rect.setPosition(pos);
-    m_rect.setSize(scale);
-    m_rect.setFillColor(sf::Color::Blue);
+    m_sprite.setTexture(*texture);
+    m_sprite.setPosition(pos);
+    m_sprite.setScale(scale);
 }
 
 void Astronaut::handleInput(sf::Event event)
@@ -36,27 +36,35 @@ void Astronaut::handleInput(sf::Event event)
 
 void Astronaut::update(float dt)
 {
-    m_pathUpdateTimer += dt;
+    /*m_pathUpdateTimer += dt;
     if (m_pathUpdateTimer >= 1) {
         m_pathUpdateTimer = 0;
         resetPath();
     }
     sf::Vector2i nextPos = m_path[m_path.size() - 1];
     sf::Vector2f posTile(nextPos.x * 32, nextPos.y * 32);
-    sf::Vector2f diff = posTile - m_rect.getPosition();
+    sf::Vector2f diff = posTile - m_sprite.getPosition();
 
     if (diff.x * diff.x + diff.y * diff.y <= 5) {
         m_path.pop_back();
         nextPos = m_path[m_path.size() - 1];
         posTile = sf::Vector2f(nextPos.x * 32, nextPos.y * 32);
-        diff = posTile - m_rect.getPosition();
+        diff = posTile - m_sprite.getPosition();
     }
-    m_rect.move(diff * (dt * 50));    
+    m_sprite.move(diff * (dt * 50));*/
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+        m_sprite.move(0, -200 * dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+        m_sprite.move(-200 * dt, 0);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        m_sprite.move(0, 200 * dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        m_sprite.move(200 * dt, 0);
 }
 
 void Astronaut::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(m_rect, states);
+    target.draw(m_sprite, states);
 }
 
 sf::Vector2f Astronaut::getPosition()
@@ -79,15 +87,6 @@ int Astronaut::isAlive()
     return m_isAlive;
 }
 
-static int get_heuristic_cost(sf::Vector2f posA, sf::Vector2f posB)
-{
-    sf::Vector2f delta = posA - posB;
-
-    if (delta.x > delta.y)
-        return 14 * delta.y + 10 * (delta.x - delta.y);
-  return 14 * delta.x + 10 * (delta.y - delta.x);
-}
-
 static int get_heuristic_cost(sf::Vector2i posA, sf::Vector2i posB)
 {
     sf::Vector2i delta = posA - posB;
@@ -95,11 +94,6 @@ static int get_heuristic_cost(sf::Vector2i posA, sf::Vector2i posB)
     if (delta.x > delta.y)
         return 14 * delta.y + 10 * (delta.x - delta.y);
   return 14 * delta.x + 10 * (delta.y - delta.x);
-}
-
-bool Astronaut::nodeCompare(struct node *nodeA, struct node *nodeB)
-{
-    return (nodeA->cost > nodeB->cost);
 }
 
 bool Astronaut::vectContains(std::vector<struct node *> vect, Tile *tile)
@@ -116,7 +110,7 @@ void Astronaut::resetPath()
     struct node start;
     struct node end;
 
-    start.tile = m_room->getTile(sf::Vector2i(m_rect.getPosition().x / 32, m_rect.getPosition().y / 32));
+    start.tile = m_room->getTile(sf::Vector2i(m_sprite.getPosition().x / 32, m_sprite.getPosition().y / 32));
     start.cost = 0;
     start.heuristic_cost = 0;
     start.parent = nullptr;
@@ -139,7 +133,7 @@ void Astronaut::computePath(struct node *startNode, struct node *endNode)
 
     opened.push_back(startNode);
     while (!opened.empty()) {
-        std::sort(opened.begin(), opened.end(), nodeCompare);
+        std::sort(opened.begin(), opened.end());
         current = opened.at(opened.size() - 1);
         opened.pop_back();
         if (current->tile == endNode->tile) {

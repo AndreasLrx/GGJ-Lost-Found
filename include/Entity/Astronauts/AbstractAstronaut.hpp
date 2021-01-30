@@ -17,7 +17,7 @@ class AbstractAstronaut : public Entity
 
         virtual ~AbstractAstronaut() {};
 
-        virtual void initSprite(sf::Vector2f pos = sf::Vector2f(200, 200), sf::Vector2f scale = sf::Vector2f(50, 100)) = 0;
+        //virtual void initSprite(sf::Vector2f pos = sf::Vector2f(200, 200), sf::Vector2f scale = sf::Vector2f(50, 100)) = 0;
         
     protected:
         int m_type;
