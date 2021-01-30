@@ -12,6 +12,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 #include "GameEngine/Core.hpp"
+#include "Map/Tile.hpp"
 
 class Tile;
 
@@ -23,7 +24,8 @@ class Room : public sf::Drawable
         void drawRoom();
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-        Tile *getTile(sf::Vector2i pos) {if (pos.x || pos.y)return nullptr;};
+        Tile *getTileAt(sf::Vector2f pos);
+        Tile *getTile(sf::Vector2i pos);
 
     private:
         std::vector <sf::Sprite> m_sprites;
@@ -31,6 +33,7 @@ class Room : public sf::Drawable
         std::vector<std::vector<Tile *>> m_tilesVec;
         Tile *m_tiles;
         GameDataRef m_data;
+        unsigned int m_tileSize;
 };
 
 #endif

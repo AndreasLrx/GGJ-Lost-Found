@@ -12,14 +12,25 @@
 #include "Entity/Entity.hpp"
 #include "Entity/Test.hpp" // Remove after Entity.hpp work
 
-struct Tile
+class Tile
 {
-    enum Type : char {EMPTY, OBSTACLE};
-    Type type;
-    sf::Vector2i pos;
-    unsigned int index;
-    bool isWalkable() {return (true);};
-    sf::Vector2i getPosition() {sf::Vector2i vec{0, 0}; return (vec);};
+    public:
+        enum Type : char {EMPTY, OBSTACLE};
+        Tile() {};
+        ~Tile() {};
+
+        void init(Type type, sf::Vector2i pos, unsigned int index);
+        bool isWalkable() {return m_type == EMPTY;};
+
+        Type getType() {return m_type;};
+        sf::Vector2i getPosition() {return m_pos;};
+        unsigned int getIndex() {return m_index;};
+
+    private:
+        Type m_type;
+        sf::Vector2i m_pos;
+        unsigned int m_index;
+    
 /*    Tile() {};
     Tile(unsigned char const type, sf::Vector2i pos);
 

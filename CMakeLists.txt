@@ -124,9 +124,11 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Map)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/Map)
 set(SRC
     ${SRC}
-	${SRCROOT}/Map.cpp
+	${SRCROOT}/Floor.cpp
 	${INCROOT}/Floor.hpp
+	${SRCROOT}/Room.cpp
 	${INCROOT}/Room.hpp
+	${SRCROOT}/Tile.cpp
 	${INCROOT}/Tile.hpp
 )
 

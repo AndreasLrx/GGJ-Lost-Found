@@ -129,12 +129,12 @@ void Astronaut::resetPath()
     struct node start;
     struct node end;
 
-    start.tile = m_room->getTile(sf::Vector2i(m_sprite.getPosition().x / 32, m_sprite.getPosition().y / 32));
+    start.tile = m_room->getTileAt(m_sprite.getPosition());
     start.cost = 0;
     start.heuristic_cost = 0;
     start.parent = nullptr;
 
-    end.tile = m_room->getTile(sf::Vector2i(15, 20));
+    end.tile = m_room->getTile(sf::Vector2i(9, 2));
     end.cost = 0;
     end.heuristic_cost = 0;
     end.parent = nullptr;
@@ -168,7 +168,7 @@ void Astronaut::computePath(struct node *startNode, struct node *endNode)
                     continue;
                 neighbour = new struct node;
                 neighbour->tile = m_room->getTile(current->tile->getPosition() + sf::Vector2i(x, y));
-                if (!neighbour->tile->isWalkable() || vectContains(closed, neighbour->tile)) {
+                if (!neighbour->tile || !neighbour->tile->isWalkable() || vectContains(closed, neighbour->tile)) {
                     delete neighbour;
                     continue;
                 }
@@ -232,7 +232,7 @@ float Astronaut::getMaxDistInDir(float dir)
     sf::Vector2f pos = m_sprite.getPosition();
     int i = 0;
 
-    while (m_room->getTile(sf::Vector2i(pos.x / 32, pos.y / 32))->isWalkable()) {
+    while (m_room->getTileAt(pos) && m_room->getTileAt(pos)->isWalkable()) {
         i++;
         pos += vec;
     }
