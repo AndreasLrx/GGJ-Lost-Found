@@ -7,9 +7,18 @@
 
 #include "Entity/Astronauts/Astronaut.hpp"
 
+static float getRand(float min, float max)
+{
+    float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = max - min;
+    float r = random * diff;
+    return min + r;
+}
+
 Astronaut::Astronaut()
 {
     m_pathUpdateTimer = 5;
+    m_orientation = getRand(0, 360);
 }
 
 Astronaut::~Astronaut()
@@ -27,10 +36,10 @@ void Astronaut::initSprite(sf::Texture *texture, sf::Vector2f pos, sf::Vector2f 
     sf::IntRect frames[] = { {0, 0, 32, 32}, {32, 0, 32, 32}, {64, 0, 32, 32}, {96, 0, 32, 32}, {0, 32, 32, 32}, {32, 32, 32, 32}, {64, 32, 32, 32}, {96, 32, 32, 32} };
 
     m_sprite.setTexture(*texture);
-    this->m_sprite.setTextureFrames(8, frames);
-    this->m_sprite.setAnimationSpeed(3.25f);
     m_sprite.setPosition(pos);
     m_sprite.setScale(scale);
+    this->m_sprite.setTextureFrames(8, frames);
+    this->m_sprite.setAnimationSpeed(3.25f);
 }
 
 void Astronaut::handleInput(sf::Event event)
@@ -191,4 +200,41 @@ bool Astronaut::seePos(sf::Vector2f pos)
             return false;
     }
     return true;
+}
+
+void Astronaut::runAway(sf::Vector2f fleePos)
+{
+    sf::Vector2f diff = fleePos - m_sprite.getPosition();
+    float diffLen = sqrt(diff.x * diff.x + diff.y * diff.y);
+    float fleeDir = acos(diff.x / diffLen) * (180 / 3.14159265359f) + 90;
+    float maxDist = 0;
+    int bestDir = fleeDir + 90;
+    float currentDist;
+
+    while (fleeDir >= 360 || fleeDir < 0)
+        fleeDir += (fleeDir < 0) ? 360 : -360;
+    for (int i = 0; i < 7; i++) {
+        currentDist = getMaxDistInDir(fleeDir + i * 30);
+        if (currentDist > maxDist) {
+            maxDist = currentDist;
+            bestDir = fleeDir + i * 30;
+        }
+    }
+    //set move from bestDir
+    if (bestDir)
+        return;
+}
+
+float Astronaut::getMaxDistInDir(float dir)
+{
+    float radDir = dir * (3.14159265359f / 180.f);
+    sf::Vector2f vec(cos(radDir) * 10, sin(radDir) * 10);
+    sf::Vector2f pos = m_sprite.getPosition();
+    int i = 0;
+
+    while (m_room->getTile(sf::Vector2i(pos.x / 32, pos.y / 32))->isWalkable()) {
+        i++;
+        pos += vec;
+    }
+    return i * 10;
 }

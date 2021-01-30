@@ -8,6 +8,7 @@
 #ifndef ABSTRACT_ASTRONAUT_HPP
 #define ABSTRACT_ASTRONAUT_HPP
 
+#include <random>
 #include "Entity/Entity.hpp"
 
 class AbstractAstronaut : public Entity
@@ -21,6 +22,7 @@ class AbstractAstronaut : public Entity
         
     protected:
         int m_type;
+        float m_orientation;
 };
 
 #endif /* !ASTRONAUT_HPP */

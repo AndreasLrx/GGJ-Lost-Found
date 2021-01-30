@@ -50,6 +50,9 @@ class Astronaut : public AbstractAstronaut
         bool vectContains(std::vector<struct node *> vect, Tile *tile);
         bool seePos(sf::Vector2f pos);
 
+        void runAway(sf::Vector2f fleePos);
+        float getMaxDistInDir(float dir);
+
         AnimatedSprite m_sprite;
         float m_pathUpdateTimer;
 
