@@ -47,16 +47,9 @@ find_package(SFML 2.5 COMPONENTS graphics window audio system REQUIRED)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include)
 set(SRC
+	${INCROOT}/functions.hpp
+	${SRCROOT}/functions.cpp
 	${SRCROOT}/main.cpp
-)
-
-# Functions Directory
-set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Functions)
-set(INCROOT ${PROJECT_SOURCE_DIR}/include)
-set(SRC
-	${SRC}
-	${INCROOT}/Functions.hpp
-	${SRCROOT}/Functions.cpp
 )
 
 # Entity Directory

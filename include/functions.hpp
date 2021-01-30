@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2021
-** GGJ Functions
+** GGJ 
 ** File description:
-** Functions
+** 
 */
 
-#ifndef FUNCTIONS_HPP_
-#define FUNCTIONS_HPP_
+#ifndef _HPP_
+#define _HPP_
 
 #include <math.h>
 #include <SFML/Graphics.hpp>
@@ -15,5 +15,14 @@ float getDist(sf::Vector2f posA, sf::Vector2f posB);
 float getDistSquared(sf::Vector2f posA, sf::Vector2f posB);
 float getLenSquared(sf::Vector2f vec);
 
+inline float toDegrees(float radians)
+{
+    return radians * 180.0 / 3.141592653589793238463;
+}
 
-#endif /* !FUNCTIONS_HPP_ */
+inline float toRadians(float degrees)
+{
+    return degrees * 3.141592653589793238463 / 180.0;
+}
+
+#endif /* !_HPP_ */

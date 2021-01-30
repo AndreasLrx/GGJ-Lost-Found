@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2021
-** GGJ Functions
+** GGJ 
 ** File description:
-** functions
+** Useful functions
 */
 
-#include "Functions.hpp"
+#include "functions.hpp"
 
 float getLenSquared(sf::Vector2f vec)
 {
