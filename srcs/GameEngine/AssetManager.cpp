@@ -23,6 +23,7 @@ void AssetManager::loadAll(void)
 {
     loadTexture("iceButtons", "res/Textures/GUI/buttons.png");
     loadFont("roboto", "res/Fonts/roboto_regular.ttf");
+    loadTexture("TestTile_Set", "res/Textures/tileset_test.png");
 }
 
 void AssetManager::loadTexture(std::string name, std::string fileName)
