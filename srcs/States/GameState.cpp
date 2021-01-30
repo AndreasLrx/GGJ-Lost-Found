@@ -14,7 +14,7 @@ GameState::GameState(GameDataRef data)
     m_floor = nullptr;
     m_data = data;
     m_gui = new GUIManager(data);
-    m_astronaut.init(*m_data->assets.getTexture("squares"), sf::Vector2f(100, 100), sf::Vector2f(2.5, 2.5));
+    m_astronaut.init(nullptr, *m_data->assets.getTexture("squares"), sf::Vector2f(100, 100), sf::Vector2f(2.5, 2.5));
 }
 
 GameState::~GameState()

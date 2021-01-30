@@ -26,10 +26,11 @@ Astronaut::~Astronaut()
 
 }
 
-void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
+void Astronaut::init(Alien *alien, sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
 {
     sf::IntRect frames[] = { {0, 0, 32, 32}, {32, 0, 32, 32}, {64, 0, 32, 32}, {96, 0, 32, 32}, {0, 32, 32, 32}, {32, 32, 32, 32}, {64, 32, 32, 32}, {96, 32, 32, 32} };
 
+    m_alien = alien;
     this->m_sprite.setTexture(texture);
     this->m_sprite.setPosition(pos);
     this->m_sprite.setScale(scale);
@@ -45,11 +46,20 @@ void Astronaut::handleInput(sf::Event event)
         return;
 }
 
+static double distSquared(sf::Vector2f p1, sf::Vector2f p2)
+{
+    return pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2);
+}
+
 void Astronaut::update(float dt)
 {
+    if (distSquared(m_sprite.getPosition(), m_alien->getPosition()) < 1000 && seePos(m_alien->getPosition())) {
+        m_path.empty();
+        //shoot
+        //flee if needed
+        return;
+    }
     /*
-    //if dist < max_po && seepos
-    //  empty path, shoot, walk back return
     m_pathUpdateTimer += dt;
     if (m_pathUpdateTimer >= 1) {
         m_pathUpdateTimer = 0;
@@ -131,7 +141,7 @@ void Astronaut::resetPath()
     start.heuristic_cost = 0;
     start.parent = nullptr;
 
-    end.tile = m_room->getTile(sf::Vector2i(9, 2));
+    end.tile = m_room->getTileAt(m_alien->getPosition());
     end.cost = 0;
     end.heuristic_cost = 0;
     end.parent = nullptr;

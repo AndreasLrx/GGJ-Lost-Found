@@ -10,6 +10,7 @@
 
 #include <random>
 #include "Entity/Entity.hpp"
+#include "Entity/Alien.hpp"
 
 class AbstractAstronaut : public Entity
 {
@@ -21,6 +22,7 @@ class AbstractAstronaut : public Entity
         //virtual void initSprite(sf::Vector2f pos = sf::Vector2f(200, 200), sf::Vector2f scale = sf::Vector2f(50, 100)) = 0;
         
     protected:
+        Alien *m_alien;
         int m_type;
 };
 
