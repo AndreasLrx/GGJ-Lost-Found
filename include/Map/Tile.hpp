@@ -30,7 +30,6 @@ class Tile
         Type m_type;
         sf::Vector2i m_pos;
         unsigned int m_index;
-    
 /*    Tile() {};
     Tile(unsigned char const type, sf::Vector2i pos);
 

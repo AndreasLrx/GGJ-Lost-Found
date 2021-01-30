@@ -6,6 +6,7 @@
 */
 
 #include "Map/Room.hpp"
+#include <SFML/Graphics/Sprite.hpp>
 
 static const unsigned int TILES_VERT = 18;
 static const unsigned int TILES_HORZ = 32;
@@ -16,12 +17,12 @@ void Room::set(std::string str, GameDataRef data)
     sf::Vector2i cur_pos = {0, 0};
     sf::Texture *texture = data->assets.getTexture("TestTile_Set");
     Tile *currTile;
-    m_tileSize = 128;
+    m_tileSize = 64;
 
     this->m_tiles = new Tile[TILES_PER_ROOM]; // init Tile array
-    this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 128, 128}));
-    this->m_sprites.push_back(sf::Sprite(*texture, {512, 0, 128, 128}));
-
+    this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 64, 64}));
+    this->m_sprites.push_back(sf::Sprite(*texture, {64, 0, 64, 64}));
+    this->background = sf::Sprite(*data->assets.getTexture("bg"));
     this->m_data = data;
     this->m_tilesVec.push_back(std::vector<Tile *>());
     for (unsigned int i = 0; str[i] != '\0'; i++) {
@@ -53,14 +54,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
             target.draw(sprite, states);
         }
     }
-    /*for(unsigned int i = 0; i != TILES_PER_ROOM; i++) {
-        std::cout << m_sprites.size() << '\n';
-        Tile &cur_tile = this->m_tiles[i];
-        sf::Sprite sprite = this->m_sprites[cur_tile.index];
-        sprite.setPosition({cur_tile.pos.x, cur_tile.pos.y});
-        target.draw(sprite, states);
-        cur_tile.index;
-    }*/
+    target.draw(background, states);
 }
 
 Tile *Room::getTile(sf::Vector2i pos)

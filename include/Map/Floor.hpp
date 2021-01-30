@@ -18,11 +18,14 @@ class Floor
     public:
     Floor(GameDataRef data);
 
-    void set(std::string floor, GameDataRef data);
-    Room *get_room() {return (this->m_room);};
+    void set(std::string cur_room, GameDataRef data);
+    void change_room(std::string cur_room);
+    Room *get_room() {return (this->m_cur_room);};
+
     private:
         std::string m_floor_str;
-        Room *m_room; // Change to arr when everything is good.
+        Room *m_room;
+        Room *m_cur_room;
         GameDataRef m_data;
 };
 

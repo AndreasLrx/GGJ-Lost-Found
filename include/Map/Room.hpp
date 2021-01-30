@@ -20,6 +20,7 @@ class Room : public sf::Drawable
 {
     public:
         Room() {};
+    //    ~Room();
         void set(std::string str, GameDataRef data);
         void drawRoom();
 
@@ -31,6 +32,7 @@ class Room : public sf::Drawable
         std::vector <sf::Sprite> m_sprites;
         std::string m_room_str;
         std::vector<std::vector<Tile *>> m_tilesVec;
+        sf::Sprite background;
         Tile *m_tiles;
         GameDataRef m_data;
         unsigned int m_tileSize;
