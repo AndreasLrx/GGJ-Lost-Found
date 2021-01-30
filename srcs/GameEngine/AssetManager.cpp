@@ -25,7 +25,8 @@ void AssetManager::loadAll(void)
     loadTexture("astronaut", "res/Textures/astronaut.png");
     loadTexture("squares", "res/Textures/squares.png");
     loadFont("roboto", "res/Fonts/roboto_regular.ttf");
-    loadTexture("TestTile_Set", "res/Textures/tileset_test.png");
+    loadTexture("TestTile_Set", "res/Textures/tile.png");
+    loadTexture("bg", "res/Textures/bg.png");
 }
 
 void AssetManager::loadTexture(std::string name, std::string fileName)

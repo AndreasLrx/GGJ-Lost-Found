@@ -43,6 +43,7 @@ void GameState::handleInput()
 
 void GameState::update(float dt)
 {
+    m_floor->change_room("1");
     m_gui->update(dt);
     m_astronaut.update(dt);
 }

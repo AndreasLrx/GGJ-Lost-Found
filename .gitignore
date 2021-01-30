@@ -10,7 +10,8 @@ CMakeFiles
 CMakeCache.txt
 Makefile
 cmake_install.cmake
-
+*~
+vg*
 # Output Directories
 bin
 out

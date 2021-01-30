@@ -24,7 +24,6 @@ void Alien::handleInput(sf::Event event)
 	if (event.type != sf::Event::EventType::KeyPressed)
 		return;
 	sf::Event::KeyEvent evt = event.key;
-		
 	switch (evt.code) {
 	case sf::Keyboard::Z:
 		this->move(0, 200);
