@@ -6,6 +6,7 @@
 */
 
 #include "Entity/Astronauts/Astronaut.hpp"
+#include "Entity/Alien.hpp"
 
 static float getRand(float min, float max)
 {
@@ -26,11 +27,10 @@ Astronaut::~Astronaut()
 
 }
 
-void Astronaut::init(Alien *alien, sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
+void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
 {
-    sf::IntRect frames[] = { {0, 0, 32, 32}, {32, 0, 32, 32}, {64, 0, 32, 32}, {96, 0, 32, 32}, {0, 32, 32, 32}, {32, 32, 32, 32}, {64, 32, 32, 32}, {96, 32, 32, 32} };
+	sf::IntRect frames[] = { {0, 0, 32, 32}, {32, 0, 32, 32}, {64, 0, 32, 32}, {96, 0, 32, 32}, {0, 32, 32, 32}, {32, 32, 32, 32}, {64, 32, 32, 32}, {96, 32, 32, 32} };
 
-    m_alien = alien;
     this->m_sprite.setTexture(texture);
     this->m_sprite.setPosition(pos);
     this->m_sprite.setScale(scale);
@@ -38,6 +38,11 @@ void Astronaut::init(Alien *alien, sf::Texture const& texture, sf::Vector2f pos,
     this->m_sprite.setAnimationSpeed(3.25f);
     this->setPosition(pos);
     this->setScale(scale);
+}
+
+void Astronaut::setAlien(Alien *alien)
+{
+    m_alien = alien;
 }
 
 void Astronaut::handleInput(sf::Event event)
@@ -77,14 +82,6 @@ void Astronaut::update(float dt)
     }
     m_sprite.move(diff * (dt * 50));
     */
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-        m_sprite.move(0, -200 * dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-        m_sprite.move(-200 * dt, 0);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        m_sprite.move(0, 200 * dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        m_sprite.move(200 * dt, 0);
     this->m_sprite.update(dt);
 }
 
