@@ -30,48 +30,65 @@ void Tile::set(unsigned char const type, sf::Vector2i vect, sf::Texture *texture
 void Room::set(std::string str, GameDataRef data)
 {
     sf::Vector2i cur_pos = {0, 0};
+    sf::Texture *texture = data->assets.getTexture("TestTile_Set");
+    Tile *currTile;
 
-    sf::Texture *texture = data->assets.getTexture("TestTile_set");
-    std::cout << "DEBUG\n";
     this->m_tiles = new Tile[TILES_PER_ROOM]; // init Tile array
-    this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 50, 50}));
+    this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 128, 128}));
 
     this->m_data = data;
+    this->m_tilesVec.push_back(std::vector<Tile *>());
     for (unsigned int i = 0; str[i] != '\0'; i++) {
+        currTile = new Tile;
+        currTile->pos = cur_pos;
+        currTile->index = 0;
+        this->m_tilesVec[cur_pos.y].push_back(currTile);
+
         this->m_tiles[i].pos = {cur_pos.x, cur_pos.y};
         this->m_tiles[i].index = 0;
         cur_pos.x++;
         if (str[i] == '\n') {
             cur_pos.y++;
             cur_pos.x = 0;
+            m_tilesVec.push_back(std::vector<Tile *>());
         }
     }
+    std::cout<<"room set"<<std::endl;
 }
 
 Floor::Floor(GameDataRef data)
 {
     this->m_data = data;
     this->m_room = new Room();
-    this->set("1111111", data);
+    this->set(std::string("1111111"), data);
 }
 
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    for(unsigned int i = 0; i != TILES_PER_ROOM; i++) {
+    //J'ai remplacé par un double vec pour les tiles je te laisse check ça
+    for (size_t y = 0; y < m_tilesVec.size(); y++) {
+        for (size_t x = 0; x < m_tilesVec[y].size(); x++) {
+            Tile *cur_tile = this->m_tilesVec[y][x];
+            sf::Sprite sprite = this->m_sprites[cur_tile->index];
+            sprite.setPosition({cur_tile->pos.x * 128, cur_tile->pos.y * 128});
+            target.draw(sprite, states);
+        }
+    }
+    /*for(unsigned int i = 0; i != TILES_PER_ROOM; i++) {
         std::cout << m_sprites.size() << '\n';
         Tile &cur_tile = this->m_tiles[i];
         sf::Sprite sprite = this->m_sprites[cur_tile.index];
         sprite.setPosition({cur_tile.pos.x, cur_tile.pos.y});
-        target.draw(sprite);
+        target.draw(sprite, states);
         cur_tile.index;
-    }
+    }*/
 }
 
 void Floor::set(std::string floor, GameDataRef data)
 {
-    std::cout << "FLOOR SET";
     std::ifstream t("file.txt");
     std::stringstream buffer;
     buffer << t.rdbuf();
     this->m_room->set(buffer.str(), data);
+    std::cout<<"Floor set"<<std::endl;
 }

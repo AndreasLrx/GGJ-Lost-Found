@@ -201,7 +201,6 @@ bool Astronaut::seePos(sf::Vector2f pos)
     }
     return true;
 }
-<<<<<<< HEAD
 
 void Astronaut::runAway(sf::Vector2f fleePos)
 {
@@ -239,5 +238,3 @@ float Astronaut::getMaxDistInDir(float dir)
     }
     return i * 10;
 }
-=======
->>>>>>> b4175b35d233412d959a9eff8a878573fc7025a4

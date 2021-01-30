@@ -9,6 +9,7 @@
 #define MAP_ROOM_HPP
 
 #include <string>
+#include <map>
 #include <SFML/Graphics.hpp>
 #include "GameEngine/Core.hpp"
 
@@ -27,6 +28,7 @@ class Room : public sf::Drawable
     private:
         std::vector <sf::Sprite> m_sprites;
         std::string m_room_str;
+        std::vector<std::vector<Tile *>> m_tilesVec;
         Tile *m_tiles;
         GameDataRef m_data;
 };

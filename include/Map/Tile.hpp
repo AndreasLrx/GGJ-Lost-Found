@@ -14,7 +14,7 @@
 
 struct Tile
 {
-    enum Type : char {OBSTACLE};
+    enum Type : char {EMPTY, OBSTACLE};
     Type type;
     sf::Vector2i pos;
     unsigned int index;
