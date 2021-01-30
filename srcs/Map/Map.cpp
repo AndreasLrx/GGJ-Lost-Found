@@ -68,7 +68,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
         for (size_t x = 0; x < m_tilesVec[y].size(); x++) {
             Tile *cur_tile = this->m_tilesVec[y][x];
             sf::Sprite sprite = this->m_sprites[cur_tile->index];
-            sprite.setPosition({cur_tile->pos.x * 128, cur_tile->pos.y * 128});
+            sprite.setPosition(static_cast<int>(cur_tile->pos.x * 128), static_cast<int>(cur_tile->pos.y * 128));
             target.draw(sprite, states);
         }
     }

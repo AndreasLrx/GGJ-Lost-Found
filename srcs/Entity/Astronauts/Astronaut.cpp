@@ -18,7 +18,7 @@ static float getRand(float min, float max)
 Astronaut::Astronaut()
 {
     m_pathUpdateTimer = 5;
-    m_orientation = getRand(0, 360);
+    this->setOrientation(getRand(0, 360));
 }
 
 Astronaut::~Astronaut()
@@ -26,20 +26,17 @@ Astronaut::~Astronaut()
 
 }
 
-void Astronaut::init()
-{
-
-}
-
-void Astronaut::initSprite(sf::Texture *texture, sf::Vector2f pos, sf::Vector2f scale)
+void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
 {
     sf::IntRect frames[] = { {0, 0, 32, 32}, {32, 0, 32, 32}, {64, 0, 32, 32}, {96, 0, 32, 32}, {0, 32, 32, 32}, {32, 32, 32, 32}, {64, 32, 32, 32}, {96, 32, 32, 32} };
 
-    m_sprite.setTexture(*texture);
-    m_sprite.setPosition(pos);
-    m_sprite.setScale(scale);
+    this->m_sprite.setTexture(texture);
+    this->m_sprite.setPosition(pos);
+    this->m_sprite.setScale(scale);
     this->m_sprite.setTextureFrames(8, frames);
     this->m_sprite.setAnimationSpeed(3.25f);
+    this->setPosition(pos);
+    this->setScale(scale);
 }
 
 void Astronaut::handleInput(sf::Event event)

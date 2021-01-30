@@ -22,8 +22,7 @@ class Astronaut : public AbstractAstronaut
         Astronaut();
         ~Astronaut();
 
-        void init();
-        void initSprite(sf::Texture *texture, sf::Vector2f pos = sf::Vector2f(200, 200), sf::Vector2f scale = sf::Vector2f(1, 1));
+        void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 });
         void handleInput(sf::Event event);
         void update(float dt);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
