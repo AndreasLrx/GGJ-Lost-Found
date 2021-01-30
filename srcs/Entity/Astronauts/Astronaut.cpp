@@ -177,7 +177,7 @@ bool Astronaut::seePos(sf::Vector2f pos)
     sf::Vector2f delta = pos - m_sprite.getPosition();
     sf::Vector2i tilePos;
     sf::Vector2f pas(delta.x / 100.f, delta.y / 100.f);
-    sf::Vector2f pos = m_sprite.getPosition();
+    sf::Vector2f pos2 = m_sprite.getPosition();
 
     for (int i = 0; i < 100; i++) {
         pos += pas;

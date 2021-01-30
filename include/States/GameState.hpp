@@ -32,7 +32,7 @@ class GameState : public State
     private:
         GameDataRef m_data;
         Astronaut m_astronaut;
-        Floor m_Floor;
+        Floor *m_floor;
 };
 
 #endif /* !STATE_GAME_STATE_H */

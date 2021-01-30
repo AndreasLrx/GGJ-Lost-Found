@@ -12,20 +12,25 @@
 #include "Entity/Entity.hpp"
 #include "Entity/Test.hpp" // Remove after Entity.hpp work
 
-class Tile
+struct Tile
 {
-public:
-    Tile() {};
+    enum Type : char {OBSTACLE};
+    Type type;
+    sf::Vector2i pos;
+    unsigned int index;
+    bool isWalkable() {return (true);};
+    sf::Vector2i getPosition() {sf::Vector2i vec{0, 0}; return (vec);};
+/*    Tile() {};
     Tile(unsigned char const type, sf::Vector2i pos);
 
-    void set(unsigned char const type, sf::Vector2i vect, sf::Texture *texture);
+    void set(unsigned char const type, sf::Vector2i pos, sf::Texture *texture);
     sf::Vector2i getPosition() {return sf::Vector2i{0, 0};};
     bool isWalkable() {return true;};
-
-private:
     Test *m_entity; // Change to Entity after Entity.hpp is functionnal
+private:
     unsigned char m_type; // Type of the block
     sf::Vector2i pos;
+*/
 };
 
 #endif
