@@ -77,8 +77,10 @@ set(SRC
 	${INCROOT}/Astronaut.hpp
 	${SRCROOT}/Scientist.cpp
 	${INCROOT}/Scientist.hpp
-	${SRCROOT}/Shooter.cpp
-	${INCROOT}/Shooter.hpp
+	${SRCROOT}/Soldier.cpp
+	${INCROOT}/Soldier.hpp
+	${SRCROOT}/Berserk.cpp
+	${INCROOT}/Berserk.hpp
 )
 
 # GameEngine Directory

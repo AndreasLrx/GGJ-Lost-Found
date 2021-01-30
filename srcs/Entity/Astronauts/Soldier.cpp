@@ -2,45 +2,38 @@
 ** EPITECH PROJECT, 2021
 ** GGJ Astronauts
 ** File description:
-** Scientist
+** Shooter
 */
 
-#include "Entity/Astronauts/Scientist.hpp"
-#include "Entity/Alien.hpp"
 #include <iostream>
+#include "Entity/Alien.hpp"
+#include "Entity/Astronauts/Soldier.hpp"
 
 static const int SHOOT_RANGE = 160000;
-static const int FLEE_RANGE = 70000;
+static const int CAC_MOD_RANGE = 70000;
+static const int CAC_RANGE = 30000;
 
-void Scientist::update(float dt)
+void Soldier::update(float dt)
 {
     float dist;
 
     if (m_room->getTileAt(this->getPosition()) == nullptr)
         return;
-    if (m_pathUpdateTimer >= 1) {
+    if (m_pathUpdateTimer >= 0.5) {
         m_pathUpdateTimer = 0;
-        if (m_running)
-            runAway(m_alien->getPosition());
-        else 
-            resetPath(m_alien->getPosition());
+        resetPath(m_alien->getPosition());
     }
     m_pathUpdateTimer += dt;
     this->m_sprite.update(dt);
     dist = getDistSquared(this->getPosition(), m_alien->getPosition());
     if (dist < SHOOT_RANGE && seePos(m_alien->getPosition())) {
-        m_path.clear();
-        //shoot
-        if (dist < FLEE_RANGE) {
-            if (!m_running)
-                runAway(m_alien->getPosition());
-            m_running = 1;
-            this->move(m_move * dt);
-        } else
-            m_running = 0;
-        return;
-    } else {
-        m_running = 0;
+        if (dist < CAC_RANGE) {
+            m_path.clear();
+            //attack cac
+        } else if (dist > CAC_MOD_RANGE) {
+            //shoot
+            return;
+        }
     }
     if (m_path.size() != 0) {
         unsigned int tileSize = m_room->getTileSize();
@@ -62,3 +55,4 @@ void Scientist::update(float dt)
         this->move(diff.x * (dt * 200) / lenSqrt, diff.y * dt * 200 / lenSqrt);
     }
 }
+

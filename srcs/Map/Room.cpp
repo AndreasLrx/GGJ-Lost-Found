@@ -46,11 +46,18 @@ void Room::set(std::string str, GameDataRef data)
         m_astronauts.push_back(sci);
     }
     for (int i = 0; i < 1; i++) {
-        Shooter *sho = new Shooter();
+        Soldier *sho = new Soldier();
         sho->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(600, 300), sf::Vector2f(0.5f, 0.5f));
         sho->setAlien(m_alien);
         sho->setRoom(this);
         m_astronauts.push_back(sho);
+    }
+    for (int i = 0; i < 1; i++) {
+        Berserk *bers = new Berserk();
+        bers->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(600, 300), sf::Vector2f(0.5f, 0.5f));
+        bers->setAlien(m_alien);
+        bers->setRoom(this);
+        m_astronauts.push_back(bers);
     }
 }
 

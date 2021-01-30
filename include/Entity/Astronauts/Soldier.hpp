@@ -2,23 +2,23 @@
 ** EPITECH PROJECT, 2021
 ** GGJ Astronauts
 ** File description:
-** Shooter
+** Soldier
 */
 
-#ifndef ASTRONAUT_SHOOTER_H
-#define ASTRONAUT_SHOOTER_H
+#ifndef ASTRONAUT_SOLDIER_H
+#define ASTRONAUT_SOLDIER_H
 
 #include "Entity/Astronauts/Astronaut.hpp"
 
-class Shooter : public Astronaut
+class Soldier : public Astronaut
 {
     public:
-        Shooter() {};
-        ~Shooter() {};
+        Soldier() {};
+        ~Soldier() {};
 
         void update(float dt);
 
     private:
 };
 
-#endif /* !ASTRONAUT_SHOOTER_H */
+#endif /* !ASTRONAUT_SOLDIER_H */
