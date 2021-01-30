@@ -14,6 +14,7 @@ Astronaut::Astronaut()
 {
     m_pathUpdateTimer = 5;
     this->setOrientation(0);
+    this->m_running = false;
 }
 
 Astronaut::~Astronaut()
