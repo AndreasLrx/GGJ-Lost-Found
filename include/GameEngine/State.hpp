@@ -8,6 +8,8 @@
 #ifndef GE_STATE_H
 #define GE_STATE_H
 
+#include "GameEngine/macro.hpp"
+
 class GUIManager;
 
 class State
@@ -22,9 +24,12 @@ class State
 
         virtual void pause() = 0;
         virtual void resume() = 0;
+
+        virtual GameDataRef getData() = 0;
     
     protected:
         GUIManager *m_gui;
+        GameDataRef m_data;
 };
 
 #endif /* !GE_STATE_H */

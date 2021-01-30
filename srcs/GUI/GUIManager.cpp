@@ -39,6 +39,8 @@ void GUIManager::draw(float interpolation)
 
     for (it = m_items.begin(); it != m_items.end(); it++)
         m_data->wind.draw(*it->second);
+    if (interpolation)
+        return;
 }
 
 void GUIManager::addItem(GUIAbstract *item, int tag)

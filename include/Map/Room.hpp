@@ -19,7 +19,7 @@ class Room
         Room(std::string str);
         void drawRoom();
 
-        Tile *getTile(sf::Vector2i pos) {return nullptr;};
+        Tile *getTile(sf::Vector2i pos) {if (pos.x || pos.y) {return nullptr;}return nullptr;};
 
     private:
         std::string m_room_str;

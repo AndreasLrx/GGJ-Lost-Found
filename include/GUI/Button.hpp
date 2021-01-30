@@ -17,6 +17,8 @@ class Button : public GUIItem
         inputReactFct input = NULL, updateReactFct update = NULL);
         ~Button();
 
+        void center(sf::Vector2u windSize, sf::Vector2i needCenter);
+
         void handleInput(sf::Event event);
         void update(float dt);
         virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;

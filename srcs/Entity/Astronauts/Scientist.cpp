@@ -29,12 +29,13 @@ void Scientist::handleInput(sf::Event event)
 
 void Scientist::update(float dt)
 {
-
+    if (dt)
+        return;
 }
 
 void Scientist::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
+    
 }
 
 sf::Vector2f Scientist::getPosition()

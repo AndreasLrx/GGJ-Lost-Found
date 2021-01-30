@@ -26,11 +26,23 @@ TextButton::~TextButton()
     clearTextUpdateType();
 }
 
+void TextButton::center(sf::Vector2u windSize, sf::Vector2i needCenter)
+{
+    Button::center(windSize, needCenter);
+    replaceText();
+}
+
 void TextButton::setString(std::string str)
 {
     sf::FloatRect localBounds;
 
     m_text.setString(str);
+    replaceText();
+}
+
+void TextButton::setCharacterSize(unsigned int size)
+{
+    TextItem::setCharacterSize(size);
     replaceText();
 }
 
@@ -57,13 +69,14 @@ void TextButton::handleInput(sf::Event event)
 
 void TextButton::update(float dt)
 {
-
+    if (dt)
+        return;
 }
 
 void TextButton::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
-    target.draw(m_rect);
-    target.draw(m_text);
+    target.draw(m_rect, states);
+    target.draw(m_text, states);
 }
 
 void TextButton::setPosition(sf::Vector2f pos)

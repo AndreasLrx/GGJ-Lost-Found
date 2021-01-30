@@ -123,7 +123,7 @@ void TextField::draw(sf::RenderTarget &target, sf::RenderStates states)const
             sf::Vertex(sf::Vector2f(pos.x, pos.y + height * 0.1f), color),
             sf::Vertex(sf::Vector2f(pos.x, pos.y + height * 1.1f), color)
         };
-        target.draw(cursor, 2, sf::Lines);
+        target.draw(cursor, 2, sf::Lines, states);
     }
 }
 

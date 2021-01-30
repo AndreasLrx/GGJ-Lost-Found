@@ -19,6 +19,8 @@ class GUIItem : public GUIAbstractShape
 
         void addShape(sf::Shape *shape);
 
+        void center(sf::Vector2u windSize, sf::Vector2i needCenter = sf::Vector2i(1, 1)) {if (windSize.x && needCenter.x){return;}};
+
         void setShapeColors(sf::Color fill, sf::Color outline = sf::Color::Transparent, float outlineThickness = 0, int shape = 0);
         void setShapeOutlineThickness(float thickness, int shape = 0);
 

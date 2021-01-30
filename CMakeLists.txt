@@ -68,8 +68,6 @@ set(SRC
 	${INCROOT}/AbstractAstronaut.hpp
 	${SRCROOT}/Astronaut.cpp
 	${INCROOT}/Astronaut.hpp
-	${SRCROOT}/Scientist.cpp
-	${INCROOT}/Scientist.hpp
 )
 
 # GameEngine Directory
@@ -85,6 +83,8 @@ set(SRC
 	${INCROOT}/InputManager.hpp
 	${SRCROOT}/StateMachine.cpp
 	${INCROOT}/StateMachine.hpp
+	${SRCROOT}/Settings.cpp
+	${INCROOT}/Settings.hpp
 )
 
 # GUI Directory

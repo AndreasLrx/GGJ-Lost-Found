@@ -35,7 +35,8 @@ void Astronaut::initSprite(sf::Texture *texture, sf::Vector2f pos, sf::Vector2f 
 
 void Astronaut::handleInput(sf::Event event)
 {
-
+    if (event.type == sf::Event::KeyPressed)
+        return;
 }
 
 void Astronaut::update(float dt)

@@ -6,10 +6,16 @@
 */
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
 #include "GameEngine/Core.hpp"
 
 int main(int argc, char **argv)
 {
-    Core core(1280, 720, "SFML Base", sf::Style::Close | sf::Style::Titlebar);
+    if (argc == 2 &&  std::string(argv[1]) == std::string("-h")) {
+        std::cout<<"set desc"<<std::endl;
+        return 0;
+    }
+    Core core(1280, 720, "Alien", sf::Style::Close | sf::Style::Titlebar);
     return 0;
 }

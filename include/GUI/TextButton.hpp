@@ -19,11 +19,14 @@ class TextButton : public Button, public TextItem
         inputReactFct input = NULL, updateReactFct update = NULL);
         ~TextButton();
 
+        void center(sf::Vector2u windSize, sf::Vector2i needCenter);
+
         void handleInput(sf::Event event);
         void update(float dt);
         virtual void draw(sf::RenderTarget &target, sf::RenderStates states)const;
 
         void setString(std::string str);
+        void setCharacterSize(unsigned int size);
 
         void setPosition(sf::Vector2f pos);
         void setPosition(float x, float y);

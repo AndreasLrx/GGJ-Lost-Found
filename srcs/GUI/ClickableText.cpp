@@ -28,6 +28,8 @@ void ClickableText::handleInput(sf::Event event)
     int clicked = sf::Mouse::isButtonPressed(sf::Mouse::Left);
     int state = m_state;
 
+    if (event.type != sf::Event::MouseMoved && event.type != sf::Event::MouseButtonPressed && event.type != sf::Event::MouseButtonReleased)
+        return;
     if (clicked && m_state == CLICKED)
         return;
     if (inRect)
@@ -45,12 +47,13 @@ void ClickableText::handleInput(sf::Event event)
 
 void ClickableText::update(float dt)
 {
-
+    if (dt)
+        return;
 }
 
 void ClickableText::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
-    target.draw(m_text);
+    target.draw(m_text, states);
 }
 
 int ClickableText::isClicked(void)

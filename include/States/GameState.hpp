@@ -27,8 +27,9 @@ class GameState : public State
         void pause() {};
         void resume() {};
 
+        GameDataRef getData() {return m_data;};
+
     private:
-        GameDataRef m_data;
         Astronaut m_astronaut;
 };
 

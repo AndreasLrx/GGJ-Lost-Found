@@ -18,6 +18,8 @@ class GUIAbstractShape : public GUIAbstract
         GUIAbstractShape() {};
         virtual ~GUIAbstractShape() {};
 
+        virtual void center(sf::Vector2u windSize, sf::Vector2i needCenter = sf::Vector2i(1, 1)) = 0;
+
         virtual void setShapeColors(sf::Color fill, sf::Color outline = sf::Color::Transparent, float outlineThickness = 0, int shape = 0) = 0;
         virtual void setShapeOutlineThickness(float thickness, int shape = 0) = 0;
 

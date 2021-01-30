@@ -69,13 +69,14 @@ void ScrollBar::handleInput(sf::Event event)
 
 void ScrollBar::update(float dt)
 {
-
+    if (dt)
+        return;
 }
 
 void ScrollBar::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
-    target.draw(m_bar);
-    target.draw(*m_cursor);
+    target.draw(m_bar, states);
+    target.draw(*m_cursor, states);
 }
 
 void ScrollBar::setValue(float value)

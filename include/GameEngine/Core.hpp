@@ -14,15 +14,16 @@
 #include "GameEngine/StateMachine.hpp"
 #include "GameEngine/AssetManager.hpp"
 #include "GameEngine/InputManager.hpp"
+#include "GameEngine/Settings.hpp"
+#include "GameEngine/macro.hpp"
 
 struct GameData {
     StateMachine machine;
     sf::RenderWindow wind;
     AssetManager assets;
     InputManager input;
+    Settings settings;
 };
-
-typedef std::shared_ptr<GameData> GameDataRef;
 
 class Core
 {

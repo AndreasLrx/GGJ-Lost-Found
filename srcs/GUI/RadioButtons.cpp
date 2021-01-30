@@ -93,13 +93,14 @@ void RadioButtons::handleInput(sf::Event event)
 
 void RadioButtons::update(float dt)
 {
-
+    if (dt)
+        return;
 }
 
 void RadioButtons::draw(sf::RenderTarget &target, sf::RenderStates states)const
 {
     for (int i = 0; i < m_nbButtons; i++)
-        target.draw(*(m_buttons[i]));
+        target.draw(*(m_buttons[i]), states);
 }
 
 void RadioButtons::setShapeColors(sf::Color fill, sf::Color outline, float outlineThickness)

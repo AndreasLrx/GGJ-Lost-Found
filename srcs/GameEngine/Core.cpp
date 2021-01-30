@@ -13,6 +13,7 @@ std::string title, sf::Uint32 style)
 {
     m_data->wind.create(sf::VideoMode(width, height, 32), title, style);
     m_data->assets.loadAll();
+    m_data->settings.setWindSize(width, height);
     m_data->machine.addState(StateRef(new MenuState(m_data)));
     run();
 }

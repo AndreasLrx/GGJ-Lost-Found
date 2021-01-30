@@ -28,8 +28,10 @@ class MenuState : public State
         void pause() {};
         void resume() {};
 
+        GameDataRef getData() {return m_data;};
+
     private:
-        GameDataRef m_data;
+        enum GUI_ITEMS {PLAY_BUTTON, TUTORIAL_BUTTON, SETTINGS_BUTTON, QUIT_BUTTON};
 };
 
 #endif /* !STATES_MENU_STATE_H */
