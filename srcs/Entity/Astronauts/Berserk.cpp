@@ -1,18 +1,16 @@
 /*
 ** EPITECH PROJECT, 2021
-** GGJ Astronauts
+** GGJ AStronaut
 ** File description:
-** Shooter
+** Berserk
 */
 
-#include <iostream>
+#include "Entity/Astronauts/Berserk.hpp"
 #include "Entity/Alien.hpp"
-#include "Entity/Astronauts/Shooter.hpp"
 
-static const int SHOOT_RANGE = 160000;
-static const int FLEE_RANGE = 70000;
+static const int ATTACK_RANGE = 40000;
 
-void Shooter::update(float dt)
+void Berserk::update(float dt)
 {
     float dist;
 
@@ -20,27 +18,15 @@ void Shooter::update(float dt)
         return;
     if (m_pathUpdateTimer >= 1) {
         m_pathUpdateTimer = 0;
-        if (m_running)
-            runAway(m_alien->getPosition());
-        else 
-            resetPath(m_alien->getPosition());
+        resetPath(m_alien->getPosition());
     }
     m_pathUpdateTimer += dt;
     this->m_sprite.update(dt);
     dist = getDistSquared(this->getPosition(), m_alien->getPosition());
-    if (dist < SHOOT_RANGE && seePos(m_alien->getPosition())) {
+    if (dist < ATTACK_RANGE && seePos(m_alien->getPosition())) {
         m_path.clear();
-        //shoot
-        if (dist < FLEE_RANGE) {
-            if (!m_running)
-                runAway(m_alien->getPosition());
-            m_running = 1;
-            this->move(m_move * dt);
-        } else
-            m_running = 0;
+        //attack
         return;
-    } else {
-        m_running = 0;
     }
     if (m_path.size() != 0) {
         unsigned int tileSize = m_room->getTileSize();
@@ -59,6 +45,6 @@ void Shooter::update(float dt)
             lenSquared = diff.x * diff.x + diff.y * diff.y;
         }
         float lenSqrt = sqrt(lenSquared);
-        this->move(diff.x * (dt * 200) / lenSqrt, diff.y * dt * 200 / lenSqrt);
+        this->move(diff.x * (dt * 100) / lenSqrt, diff.y * dt * 100 / lenSqrt);
     }
 }

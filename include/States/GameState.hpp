@@ -10,8 +10,9 @@
 
 #include "GameEngine/Core.hpp"
 #include "GUI/GUIManager.hpp"
-#include "Entity/Astronauts/Shooter.hpp"
+#include "Entity/Astronauts/Soldier.hpp"
 #include "Entity/Astronauts/Scientist.hpp"
+#include "Entity/Astronauts/Berserk.hpp"
 #include "Entity/Alien.hpp"
 #include "Map/Tile.hpp"
 #include "Map/Floor.hpp"
@@ -36,7 +37,7 @@ class GameState : public State
 
     private:
         Scientist m_scientist;
-        Shooter m_shooter;
+        Soldier m_shooter;
         Alien m_alien;
         Floor *m_floor;
 };
