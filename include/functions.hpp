@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2021
-** GGJ
+** GGJ Functions
 ** File description:
-**
+** Functions
 */
 
-#ifndef _HPP_
-#define _HPP_
+#ifndef FUNCTIONS_HPP_
+#define FUNCTIONS_HPP_
 
 #include <math.h>
 #include <SFML/Graphics.hpp>
@@ -26,4 +26,4 @@ inline float toRadians(float degrees)
     return degrees * (float)3.141592653589793238463f / 180.0;
 }
 
-#endif /* !_HPP_ */
+#endif /* !FUNCTIONS_HPP_ */

@@ -17,17 +17,17 @@ Alien::~Alien() {}
 void Alien::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
 {
 	this->m_bodySprite.setTexture(texture);
-	this->m_bodyRect = sf::IntRect(0, 484, 484, 484);
+	this->m_bodyRect = sf::IntRect(0, 500, 500, 500);
 	this->m_bodySprite.setTextureRect(this->m_bodyRect);
 	this->m_eyeSprite.setTexture(texture);
-	this->m_eyeRect = sf::IntRect(0, 0, 484, 484);
+	this->m_eyeRect = sf::IntRect(0, 0, 500, 500);
 	this->m_eyeSprite.setTextureRect(this->m_eyeRect);
 	this->m_slimeSprite.setTexture(texture);
-	this->m_slimeRect = sf::IntRect(484, 484, 484, 484);
+	this->m_slimeRect = sf::IntRect(500, 500, 500, 500);
 	this->m_slimeSprite.setTextureRect(this->m_slimeRect);
-	this->m_bodySprite.setOrigin(242, 242);
-	this->m_eyeSprite.setOrigin(242, 242);
-	this->m_slimeSprite.setOrigin(242, 260);
+	this->m_bodySprite.setOrigin(250, 250);
+	this->m_eyeSprite.setOrigin(250, 250);
+	this->m_slimeSprite.setOrigin(250, 260);
 	this->setPosition(pos);
 	this->setScale(scale);
 }
@@ -78,15 +78,15 @@ void Alien::onOrientationChanged()
 			range = 90 - angle;
 
 		if (range < 22.0f)
-			this->m_eyeRect = sf::IntRect(972, 0, 484, 484);
+			this->m_eyeRect = sf::IntRect(2500, 0, 500, 500);
 		else if (range < 67.5f)
-			this->m_eyeRect = sf::IntRect(1936, 0, 484, 484);
+			this->m_eyeRect = sf::IntRect(2000, 0, 500, 500);
 		else if (range < 112.5f)
-			this->m_eyeRect = sf::IntRect(1452, 0, 484, 484);
+			this->m_eyeRect = sf::IntRect(1500, 0, 500, 500);
 		else if (range < 157.0f)
-			this->m_eyeRect = sf::IntRect(2420, 0, 484, 484);
+			this->m_eyeRect = sf::IntRect(1000, 0, 500, 500);
 		else
-			this->m_eyeRect = sf::IntRect(484, 0, 484, 484);
+			this->m_eyeRect = sf::IntRect(500, 0, 500, 500);
 	}
 	if (angle >= 270.0f || angle < 90.0f) {
 		this->m_bodySprite.setTextureRect(bodyRect);
@@ -114,14 +114,14 @@ void Alien::update(float dt)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		offset.x += 250 * dt;
 	if (this->move(offset)) {
-		this->m_slimeRect = sf::IntRect(989, 484, 484, 484);
+		this->m_slimeRect = sf::IntRect(1000, 500, 500, 500);
 
 		if (offset.x < 0)
 			this->m_slimeSprite.setTextureRect(sf::IntRect(slimeRect.left + slimeRect.width, slimeRect.top, -slimeRect.width, slimeRect.height));
 		else
 			this->m_slimeSprite.setTextureRect(slimeRect);
 	} else {
-		this->m_slimeRect = sf::IntRect(484, 484, 484, 484);
+		this->m_slimeRect = sf::IntRect(500, 500, 500, 500);
 		this->m_slimeSprite.setTextureRect(slimeRect);
 	}
 	this->setOrientation(angle * 180.0 / 3.141592653589793238463 + 180.0);
