@@ -16,6 +16,17 @@
 
 class Tile;
 
+struct node {
+    Tile *tile;
+    float cost;
+    float heuristic_cost;
+    node *parent;
+    bool operator < (const node& n) const
+    {
+        return (cost > n.cost);
+    }
+};
+
 class Astronaut : public AbstractAstronaut
 {
     public:
@@ -24,30 +35,18 @@ class Astronaut : public AbstractAstronaut
 
         void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 });
         void setAlien(Alien *alien);
+        void setRoom(Room *room);
         void handleInput(sf::Event event);
+        void onPositionChanged() override;
         void update(float dt);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-        sf::Vector2f getPosition();
-        void setPosition(sf::Vector2f pos);
-        void setPosition(float x, float y);
 
         int isAlive();
         void resetPath();
     
     private:
-        struct node {
-            Tile *tile;
-            float cost;
-            float heuristic_cost;
-            struct node *parent;
-            bool operator < (const struct node& n) const
-            {
-                return (cost > n.cost);
-            }
-        };
-        void computePath(struct node *startNode, struct node *endNode);
-        bool vectContains(std::vector<struct node *> vect, Tile *tile);
+        void computePath(node *startNode, node *endNode);
+        bool vectContains(std::vector<node *> vect, Tile *tile);
         bool seePos(sf::Vector2f pos);
 
         void runAway(sf::Vector2f fleePos);
@@ -56,7 +55,7 @@ class Astronaut : public AbstractAstronaut
         AnimatedSprite m_sprite;
         float m_pathUpdateTimer;
 
-
+        sf::Vector2f m_move;
         //std::vector<sf::Vector2i> m_moves;
         std::vector<sf::Vector2i> m_path;
 };

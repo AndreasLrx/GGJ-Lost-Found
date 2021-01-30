@@ -22,7 +22,7 @@ class Entity : public sf::Drawable
         virtual void update(float dt) = 0;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
-        sf::Vector2f getPosition();
+        sf::Vector2f getPosition() const;
         sf::Vector2f getScale();
         float getOrientation();
 
@@ -53,7 +53,7 @@ class Entity : public sf::Drawable
         float m_orientation;
 };
 
-inline sf::Vector2f Entity::getPosition()
+inline sf::Vector2f Entity::getPosition() const
 {
     return this->m_pos;
 }
@@ -99,7 +99,7 @@ inline void Entity::setScale(sf::Vector2f scale)
         return;
     this->m_scale = scale;
     this->onScaleChanged();
-};
+}
 
 inline void Entity::setScale(float sx, float sy)
 {
@@ -112,11 +112,11 @@ inline void Entity::setOrientation(float orientation)
         return;
     this->m_orientation = orientation;
     this->onOrientationChanged();
-};
+}
 
 inline bool Entity::isAlive()
 {
-    this->m_isAlive;
+    return this->m_isAlive;
 }
 
 #endif /* !ENTITY_HPP */

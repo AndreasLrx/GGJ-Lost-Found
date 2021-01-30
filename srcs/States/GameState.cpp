@@ -15,7 +15,7 @@ GameState::GameState(GameDataRef data)
     m_data = data;
     m_gui = new GUIManager(data);
     m_alien.init(*m_data->assets.getTexture("alien"), sf::Vector2f(200, 200), sf::Vector2f(0.25, 0.25));
-    m_astronaut.init(*m_data->assets.getTexture("squares"), sf::Vector2f(100, 100), sf::Vector2f(2.5, 2.5));
+    m_astronaut.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(500, 300), sf::Vector2f(0.5, 0.5));
     m_astronaut.setAlien(&m_alien);
 }
 
@@ -27,6 +27,7 @@ GameState::~GameState()
 void GameState::init()
 {
     this->m_floor = new Floor(this->m_data);
+    m_astronaut.setRoom(m_floor->get_room());
     //this->m_floor = this->m_floor.set("11111111");
 }
 
