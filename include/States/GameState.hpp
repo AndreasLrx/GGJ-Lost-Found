@@ -20,7 +20,7 @@ class GameState : public State
         GameState(GameDataRef data);
         ~GameState();
 
-        void init() {};
+        void init();
 
         void handleInput();
         void update(float dt);
