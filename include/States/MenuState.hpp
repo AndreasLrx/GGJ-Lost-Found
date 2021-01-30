@@ -32,6 +32,7 @@ class MenuState : public State
 
     private:
         enum GUI_ITEMS {PLAY_BUTTON, TUTORIAL_BUTTON, SETTINGS_BUTTON, QUIT_BUTTON};
+        sf::RectangleShape m_background;
 };
 
 #endif /* !STATES_MENU_STATE_H */
