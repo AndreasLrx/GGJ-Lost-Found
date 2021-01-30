@@ -17,12 +17,12 @@ float getLenSquared(sf::Vector2f vec);
 
 inline float toDegrees(float radians)
 {
-    return radians * 180.0 / 3.141592653589793238463;
+    return radians * 180.0 / 3.141592653589793238463f;
 }
 
 inline float toRadians(float degrees)
 {
-    return degrees * 3.141592653589793238463 / 180.0;
+    return degrees * (float)3.141592653589793238463f / 180.0;
 }
 
 #endif /* !_HPP_ */

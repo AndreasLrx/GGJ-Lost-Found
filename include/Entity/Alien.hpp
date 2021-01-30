@@ -8,7 +8,6 @@
 #ifndef ALIEN_HPP
 #define ALIEN_HPP
 
-#include "GameEngine/macro.hpp"
 #include "Entity/Entity.hpp"
 
 class Alien : public Entity
@@ -34,4 +33,4 @@ private:
     GameDataRef m_gameData;
 };
 
-#endif // !defined(ASTRONAUT_HPP)
+#endif // !defined(ALIEN_HPP)

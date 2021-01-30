@@ -61,6 +61,7 @@ set(SRC
 	${INCROOT}/Alien.hpp
 	${SRCROOT}/AnimatedSprite.cpp
 	${INCROOT}/AnimatedSprite.hpp
+	${SRCROOT}/Entity.cpp
 	${INCROOT}/Entity.hpp
 	${SRCROOT}/Test.cpp
 	${INCROOT}/Test.hpp
@@ -81,6 +82,17 @@ set(SRC
 	${INCROOT}/Soldier.hpp
 	${SRCROOT}/Berserk.cpp
 	${INCROOT}/Berserk.hpp
+)
+
+# Entity/Astronauts Directory
+set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity/Projectiles)
+set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity/Projectiles)
+set(SRC
+    ${SRC}
+	${INCROOT}/AbstractProjectile.hpp
+	${SRCROOT}/AbstractProjectile.cpp
+	${INCROOT}/LaserProjectile.hpp
+	${SRCROOT}/LaserProjectile.cpp
 )
 
 # GameEngine Directory

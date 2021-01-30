@@ -28,6 +28,7 @@ void AssetManager::loadAll(void)
     loadFont("roboto", "res/Fonts/roboto_regular.ttf");
     loadTexture("TestTile_Set", "res/Textures/tile.png");
     loadTexture("bg", "res/Textures/bg.png");
+    loadTexture("laser", "res/Textures/laser.png");
 }
 
 void AssetManager::loadTexture(std::string name, std::string fileName)
