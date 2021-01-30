@@ -25,9 +25,11 @@ public:
     void onScaleChanged() override;
     void onOrientationChanged() override;
 private:
+    sf::Sprite m_slimeSprite;
     sf::Sprite m_bodySprite;
     sf::Sprite m_eyeSprite;
     sf::IntRect m_bodyRect;
+    sf::IntRect m_slimeRect;
     sf::IntRect m_eyeRect;
     GameDataRef m_gameData;
 };
