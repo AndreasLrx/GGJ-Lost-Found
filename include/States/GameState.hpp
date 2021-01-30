@@ -32,6 +32,7 @@ class GameState : public State
         void resume() {};
 
         GameDataRef getData() {return m_data;};
+        Alien *getAlien() {return &m_alien;};
 
     private:
         Scientist m_scientist;

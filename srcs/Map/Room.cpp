@@ -7,6 +7,7 @@
 
 #include "Map/Room.hpp"
 #include <SFML/Graphics/Sprite.hpp>
+#include "States/GameState.hpp"
 
 static const unsigned int TILES_VERT = 18;
 static const unsigned int TILES_HORZ = 32;
@@ -24,6 +25,7 @@ void Room::set(std::string str, GameDataRef data)
     this->background = sf::Sprite(*data->assets.getTexture("bg"));
     this->m_data = data;
     this->m_tilesVec.push_back(std::vector<Tile *>());
+    m_astronauts.clear();
     for (unsigned int i = 0; str[i] != '\0'; i++) {
         if (str[i] == '\n') {
             cur_pos.y++;
@@ -36,6 +38,26 @@ void Room::set(std::string str, GameDataRef data)
         this->m_tilesVec[cur_pos.y].push_back(currTile);
         cur_pos.x++;
     }
+    for (int i = 0; i < 1; i++) {
+        Scientist *sci = new Scientist();
+        sci->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(1100, 100), sf::Vector2f(0.5f, 0.5f));
+        sci->setAlien(m_alien);
+        sci->setRoom(this);
+        m_astronauts.push_back(sci);
+    }
+    for (int i = 0; i < 1; i++) {
+        Shooter *sho = new Shooter();
+        sho->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(600, 300), sf::Vector2f(0.5f, 0.5f));
+        sho->setAlien(m_alien);
+        sho->setRoom(this);
+        m_astronauts.push_back(sho);
+    }
+}
+
+void Room::update(float dt)
+{
+    for (size_t i = 0; i < m_astronauts.size(); i++)
+        m_astronauts[i]->update(dt);
 }
 
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -54,6 +76,8 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
         }
     }
     target.draw(background, states);
+    for (size_t i = 0; i < m_astronauts.size(); i++)
+        target.draw(*m_astronauts[i]);
 }
 
 Tile *Room::getTile(sf::Vector2i pos)

@@ -16,10 +16,10 @@ class Room;
 class Floor
 {
     public:
-    Floor(GameDataRef data);
+    Floor(GameDataRef data, Alien *alien);
 
     void set(std::string cur_room, GameDataRef data);
-    void change_room(std::string cur_room);
+    void change_room(float dt, std::string cur_room);
     Room *get_room() {return (this->m_cur_room);};
 
     private:
@@ -27,6 +27,7 @@ class Floor
         Room *m_room;
         Room *m_cur_room;
         GameDataRef m_data;
+        Alien *m_alien;
 };
 
 #endif

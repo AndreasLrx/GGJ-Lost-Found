@@ -11,18 +11,23 @@
 #include <string>
 #include <map>
 #include <SFML/Graphics.hpp>
+#include "Entity/Alien.hpp"
 #include "GameEngine/Core.hpp"
 #include "Map/Tile.hpp"
 
 class Tile;
+class Astronaut;
 
 class Room : public sf::Drawable
 {
     public:
         Room() {};
-    //    ~Room();
+        ~Room() {};
+        void setAlien(Alien *alien) {m_alien = alien;};
         void set(std::string str, GameDataRef data);
         void drawRoom();
+
+        void update(float dt);
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         Tile *getTileAt(sf::Vector2f pos);
@@ -37,6 +42,9 @@ class Room : public sf::Drawable
         Tile *m_tiles;
         GameDataRef m_data;
         unsigned int m_tileSize;
+
+        Alien *m_alien;
+        std::vector<Astronaut *> m_astronauts;
 };
 
 #endif

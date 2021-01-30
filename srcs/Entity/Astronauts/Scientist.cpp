@@ -7,7 +7,7 @@
 
 #include "Entity/Astronauts/Scientist.hpp"
 #include "Entity/Alien.hpp"
-
+#include <iostream>
 void Scientist::update(float dt)
 {
     if (m_room->getTileAt(this->getPosition()) == nullptr)
