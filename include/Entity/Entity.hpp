@@ -41,7 +41,7 @@ class Entity : public sf::Drawable
         
         void setOrientation(float orientation);
 
-        virtual int isAlive() = 0;
+        bool isAlive();
 
     protected:
         bool m_isAlive;
@@ -113,5 +113,10 @@ inline void Entity::setOrientation(float orientation)
     this->m_orientation = orientation;
     this->onOrientationChanged();
 };
+
+inline bool Entity::isAlive()
+{
+    this->m_isAlive;
+}
 
 #endif /* !ENTITY_HPP */

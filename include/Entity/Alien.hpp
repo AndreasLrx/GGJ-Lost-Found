@@ -22,7 +22,6 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void onPositionChanged() override;
     void onScaleChanged() override;
-    void onOrientationChanged() override;
 private:
     sf::Sprite m_bodySprite;
     sf::Sprite m_eyeSprite;
