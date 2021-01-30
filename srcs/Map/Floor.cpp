@@ -47,7 +47,7 @@ void Floor::set(std::string cur_floor, GameDataRef data)
     std::stringstream floor_buffer;
     floor_buffer << read_floor.rdbuf();
     this->m_room = new Room[floor_buffer.str().size()];
-    for (unsigned int i = 0; i < cur_floor.size(); i++) {
+    for (unsigned int i = 0; i < floor_buffer.str().size(); i++) {
         std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[i]);
         std::stringstream room_buffer;
         room_buffer << read_room.rdbuf();
