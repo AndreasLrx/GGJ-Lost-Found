@@ -24,7 +24,7 @@ Astronaut::~Astronaut()
 void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
 {
     sf::FloatRect bounds;
-	sf::IntRect frames[] = { {0, 0, 250, 250}, {250, 0, 250, 250}, {500, 0, 250, 250}, {750, 0, 250, 250}};
+	sf::IntRect frames[] = { {0, 0, 400, 400}, {400, 0, 400, 400}, {800, 0, 400, 400}, {1200, 0, 400, 400}};
 
     m_move = sf::Vector2f(0, 0);
     m_running = 0;

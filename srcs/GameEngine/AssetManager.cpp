@@ -22,7 +22,10 @@ AssetManager::~AssetManager()
 void AssetManager::loadAll(void)
 {
     loadTexture("iceButtons", "res/Textures/GUI/buttons.png");
-    loadTexture("astronaut", "res/Textures/astro.png");
+    //loadTexture("astronaut", "res/Textures/astro.png");
+    loadTexture("scientist", "res/Textures/scientist.png");
+    loadTexture("soldier", "res/Textures/soldier.png");
+    loadTexture("berserk", "res/Textures/berserk.png");
     loadTexture("squares", "res/Textures/squares.png");
     loadTexture("alien", "res/Textures/alien.png");
     loadFont("roboto", "res/Fonts/roboto_regular.ttf");

@@ -40,21 +40,21 @@ void Room::set(std::string str, GameDataRef data)
     }
     for (int i = 0; i < 1; i++) {
         Scientist *sci = new Scientist();
-        sci->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(getRand(100, 1100), getRand(100, 600)), sf::Vector2f(0.5f, 0.5f));
+        sci->init(*m_data->assets.getTexture("scientist"), sf::Vector2f(getRand(100, 1100), getRand(100, 600)), sf::Vector2f(0.35f, 0.35f));
         sci->setAlien(m_alien);
         sci->setRoom(this);
         m_astronauts.push_back(sci);
     }
     for (int i = 0; i < 1; i++) {
         Soldier *sho = new Soldier();
-        sho->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(600, 300), sf::Vector2f(0.5f, 0.5f));
+        sho->init(*m_data->assets.getTexture("soldier"), sf::Vector2f(600, 300), sf::Vector2f(0.35f, 0.35f));
         sho->setAlien(m_alien);
         sho->setRoom(this);
         m_astronauts.push_back(sho);
     }
     for (int i = 0; i < 1; i++) {
         Berserk *bers = new Berserk();
-        bers->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(600, 300), sf::Vector2f(0.5f, 0.5f));
+        bers->init(*m_data->assets.getTexture("berserk"), sf::Vector2f(600, 300), sf::Vector2f(0.35f, 0.35f));
         bers->setAlien(m_alien);
         bers->setRoom(this);
         m_astronauts.push_back(bers);
