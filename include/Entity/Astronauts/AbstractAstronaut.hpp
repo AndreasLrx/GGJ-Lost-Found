@@ -22,7 +22,6 @@ class AbstractAstronaut : public Entity
         
     protected:
         int m_type;
-        float m_orientation;
 };
 
 #endif /* !ASTRONAUT_HPP */

@@ -1,7 +1,7 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
 project(GJGameJam CXX)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 function (set_flags target)
     #Set C++11
@@ -55,6 +55,8 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity)
 set(SRC
     ${SRC}
+	${SRCROOT}/Alien.cpp
+	${INCROOT}/Alien.hpp
 	${SRCROOT}/AnimatedSprite.cpp
 	${INCROOT}/AnimatedSprite.hpp
 	${INCROOT}/Entity.hpp
