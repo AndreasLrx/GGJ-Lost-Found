@@ -27,8 +27,10 @@ function (set_flags target)
             -Wall 
             -Wextra 
             -pedantic
-            -Wshadow 
+            -Wshadow
             -Wpointer-arith
+            -g
+            -Og
            # -Werror 
         )	
     endif()
@@ -59,6 +61,7 @@ set(SRC
 	${SRCROOT}/Test.cpp
 	${INCROOT}/Test.hpp
 )
+
 
 # Entity/Astronauts Directory
 set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity/Astronauts)
@@ -115,6 +118,18 @@ set(SRC
 	${SRCROOT}/TextShape.cpp
 	${INCROOT}/TextShape.hpp
 )
+
+#States Directory
+set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Map)
+set(INCROOT ${PROJECT_SOURCE_DIR}/include/Map)
+set(SRC
+    ${SRC}
+	${SRCROOT}/Map.cpp
+	${INCROOT}/Floor.hpp
+	${INCROOT}/Room.hpp
+	${INCROOT}/Tile.hpp
+)
+
 
 # States Directory
 set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/States)

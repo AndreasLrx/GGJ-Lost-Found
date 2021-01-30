@@ -7,6 +7,7 @@
 
 #include "GameEngine/Core.hpp"
 #include "States/MenuState.hpp"
+#include <iostream>
 
 Core::Core(unsigned int width, unsigned int height, \
 std::string title, sf::Uint32 style)
@@ -41,6 +42,5 @@ void Core::run()
         }
         interpolation = acccumulator / dt;
         m_data->machine.GetActiveState()->draw(interpolation);
-        
     }
 }

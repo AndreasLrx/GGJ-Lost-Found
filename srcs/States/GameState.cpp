@@ -6,9 +6,13 @@
 */
 
 #include "States/GameState.hpp"
+#include "Map/Floor.hpp"
+#include <iostream>
 
 GameState::GameState(GameDataRef data)
 {
+    std::cout << "DEBUG0\n";
+    m_floor = nullptr;
     m_data = data;
     m_gui = new GUIManager(data);
     m_astronaut.initSprite(m_data->assets.getTexture("squares"), sf::Vector2f(100, 100), sf::Vector2f(2.5, 2.5));
@@ -21,7 +25,9 @@ GameState::~GameState()
 
 void GameState::init()
 {
-    //Ici pour init la map
+    std::cout << "DEBUG1\n";
+    this->m_floor = new Floor(this->m_data);
+    //this->m_floor = this->m_floor.set("11111111");
 }
 
 void GameState::handleInput()
@@ -46,6 +52,7 @@ void GameState::update(float dt)
 void GameState::draw(float interpolation)
 {
     m_data->wind.clear(sf::Color::Black);
+    m_data->wind.draw(*this->m_floor->get_room());
     m_data->wind.draw(m_astronaut);
     m_gui->draw(interpolation);
     m_data->wind.display();

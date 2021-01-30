@@ -10,20 +10,25 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "GameEngine/Core.hpp"
 
 class Tile;
 
-class Room
+class Room : public sf::Drawable
 {
     public:
-        Room(std::string str);
+        Room() {};
+        void set(std::string str, GameDataRef data);
         void drawRoom();
 
-        Tile *getTile(sf::Vector2i pos) {if (pos.x || pos.y) {return nullptr;}return nullptr;};
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        Tile *getTile(sf::Vector2i pos) {if (pos.x || pos.y)return nullptr;};
 
     private:
+        std::vector <sf::Sprite> m_sprites;
         std::string m_room_str;
-        Tile *m_Room_Entity;
+        Tile *m_tiles;
+        GameDataRef m_data;
 };
 
 #endif
