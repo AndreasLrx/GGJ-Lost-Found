@@ -19,6 +19,11 @@ GameState::~GameState()
     delete m_gui;
 }
 
+void GameState::init()
+{
+    //Ici pour init la map
+}
+
 void GameState::handleInput()
 {
     sf::Event event;
