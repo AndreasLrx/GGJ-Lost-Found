@@ -8,6 +8,7 @@
 #include <cmath>
 #include "GameEngine/Core.hpp"
 #include "Entity/Alien.hpp"
+#include "States/GameState.hpp"
 
 Alien::Alien(GameDataRef gameData): m_gameData(gameData) {}
 
@@ -26,15 +27,20 @@ void Alien::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scal
 	this->m_slimeSprite.setTextureRect(this->m_slimeRect);
 	this->m_bodySprite.setOrigin(242, 242);
 	this->m_eyeSprite.setOrigin(242, 242);
-	this->m_slimeSprite.setOrigin(242, 242);
+	this->m_slimeSprite.setOrigin(242, 260);
 	this->setPosition(pos);
 	this->setScale(scale);
 }
 
 void Alien::handleInput(sf::Event event)
 {
-	if (event.type != sf::Event::EventType::KeyPressed)
+	if (event.type != sf::Event::EventType::MouseButtonPressed)
 		return;
+	LaserProjectile* laser = new LaserProjectile();
+
+	laser->init(*this->m_gameData->assets.getTexture("laser"), this->getPosition(), sf::Vector2f(2.5, 2.5));
+	laser->setOrientation(this->getOrientation());
+	this->spawnProjectile(this->m_gameData, laser);
 }
 
 void Alien::onPositionChanged()

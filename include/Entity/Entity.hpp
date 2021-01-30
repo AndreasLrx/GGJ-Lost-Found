@@ -9,8 +9,10 @@
 #define ENTITY_HPP
 
 #include <SFML/Graphics.hpp>
+#include "GameEngine/macro.hpp"
 
 class Room;
+class AbstractProjectile;
 
 class Entity : public sf::Drawable
 {
@@ -18,8 +20,8 @@ class Entity : public sf::Drawable
         virtual ~Entity() {};
 
         virtual void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 }) = 0;
-        virtual void handleInput(sf::Event event) = 0;
         virtual void update(float dt) = 0;
+        virtual void handleInput(sf::Event event) {};
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
         sf::Vector2f getPosition() const;
@@ -43,8 +45,10 @@ class Entity : public sf::Drawable
 
         bool isAlive();
 
+        void spawnProjectile(GameDataRef gameData, AbstractProjectile* projectile);
+
     protected:
-        bool m_isAlive;
+        bool m_isAlive = true;
         Room *m_room;
 
     private:
