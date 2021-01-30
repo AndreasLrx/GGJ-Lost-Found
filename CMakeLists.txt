@@ -50,6 +50,15 @@ set(SRC
 	${SRCROOT}/main.cpp
 )
 
+# Functions Directory
+set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Functions)
+set(INCROOT ${PROJECT_SOURCE_DIR}/include)
+set(SRC
+	${SRC}
+	${INCROOT}/Functions.hpp
+	${SRCROOT}/Functions.cpp
+)
+
 # Entity Directory
 set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity)
@@ -73,6 +82,10 @@ set(SRC
 	${INCROOT}/AbstractAstronaut.hpp
 	${SRCROOT}/Astronaut.cpp
 	${INCROOT}/Astronaut.hpp
+	${SRCROOT}/Scientist.cpp
+	${INCROOT}/Scientist.hpp
+	${SRCROOT}/Shooter.cpp
+	${INCROOT}/Shooter.hpp
 )
 
 # GameEngine Directory

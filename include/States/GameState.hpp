@@ -10,7 +10,8 @@
 
 #include "GameEngine/Core.hpp"
 #include "GUI/GUIManager.hpp"
-#include "Entity/Astronauts/Astronaut.hpp"
+#include "Entity/Astronauts/Shooter.hpp"
+#include "Entity/Astronauts/Scientist.hpp"
 #include "Entity/Alien.hpp"
 #include "Map/Tile.hpp"
 #include "Map/Floor.hpp"
@@ -33,7 +34,8 @@ class GameState : public State
         GameDataRef getData() {return m_data;};
 
     private:
-        Astronaut m_astronaut;
+        Scientist m_scientist;
+        Shooter m_shooter;
         Alien m_alien;
         Floor *m_floor;
 };

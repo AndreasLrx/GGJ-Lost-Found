@@ -13,20 +13,10 @@
 class Scientist : public Astronaut
 {
     public:
-        Scientist();
-        ~Scientist();
+        Scientist() {};
+        ~Scientist() {};
 
-        void init();
-        void handleInput(sf::Event event);
         void update(float dt);
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-        sf::Vector2f getPosition();
-        void setPosition(sf::Vector2f pos);
-        void setPosition(float x, float y);
-
-        int isAlive();
-
     private:
         
 };

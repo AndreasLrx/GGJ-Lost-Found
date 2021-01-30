@@ -10,6 +10,7 @@
 
 #include <random>
 #include "Entity/Entity.hpp"
+#include "Functions.hpp"
 
 class Alien;
 

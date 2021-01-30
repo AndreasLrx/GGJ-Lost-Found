@@ -6,54 +6,15 @@
 */
 
 #include "Entity/Astronauts/Scientist.hpp"
-
-Scientist::Scientist()
-{
-
-}
-
-Scientist::~Scientist()
-{
-
-}
-
-void Scientist::init()
-{
-
-}
-
-void Scientist::handleInput(sf::Event event)
-{
-
-}
+#include "Entity/Alien.hpp"
 
 void Scientist::update(float dt)
 {
-    if (dt)
-        return;
-}
-
-void Scientist::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-    
-}
-
-sf::Vector2f Scientist::getPosition()
-{
-    return sf::Vector2f{ 0, 0 };
-}
-
-void Scientist::setPosition(sf::Vector2f pos)
-{
-
-}
-
-void Scientist::setPosition(float x, float y)
-{
-
-}
-
-int Scientist::isAlive()
-{
-    return 0;
+    this->m_sprite.update(dt);
+    m_pathUpdateTimer += dt;
+    if (m_pathUpdateTimer >= 1) {
+        m_pathUpdateTimer = 0;
+        runAway(m_alien->getPosition());
+    }
+    this->move(m_move * dt);
 }

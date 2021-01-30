@@ -15,8 +15,10 @@ GameState::GameState(GameDataRef data): m_alien(data)
     m_data = data;
     m_gui = new GUIManager(data);
     m_alien.init(*m_data->assets.getTexture("alien"), sf::Vector2f(200, 200), sf::Vector2f(0.25, 0.25));
-    m_astronaut.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(500, 300), sf::Vector2f(0.5, 0.5));
-    m_astronaut.setAlien(&m_alien);
+    m_scientist.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(1100, 100), sf::Vector2f(0.5, 0.5));
+    m_scientist.setAlien(&m_alien);
+    m_shooter.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(500, 600), sf::Vector2f(0.5, 0.5));
+    m_shooter.setAlien(&m_alien);
 }
 
 GameState::~GameState()
@@ -27,7 +29,8 @@ GameState::~GameState()
 void GameState::init()
 {
     this->m_floor = new Floor(this->m_data);
-    m_astronaut.setRoom(m_floor->get_room());
+    m_scientist.setRoom(m_floor->get_room());
+    m_shooter.setRoom(m_floor->get_room());
     //this->m_floor = this->m_floor.set("11111111");
 }
 
@@ -48,7 +51,8 @@ void GameState::handleInput()
 void GameState::update(float dt)
 {
     m_gui->update(dt);
-    m_astronaut.update(dt);
+    m_scientist.update(dt);
+    m_shooter.update(dt);
     m_alien.update(dt);
 }
 
@@ -56,7 +60,8 @@ void GameState::draw(float interpolation)
 {
     m_data->wind.clear(sf::Color::Black);
     m_data->wind.draw(*this->m_floor->get_room());
-    m_data->wind.draw(m_astronaut);
+    m_data->wind.draw(m_shooter);
+    m_data->wind.draw(m_scientist);
     m_data->wind.draw(this->m_alien);
     m_gui->draw(interpolation);
     m_data->wind.display();

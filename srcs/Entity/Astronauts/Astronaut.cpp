@@ -9,18 +9,10 @@
 #include "Entity/Astronauts/Astronaut.hpp"
 #include "Entity/Alien.hpp"
 
-static float getRand(float min, float max)
-{
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = max - min;
-    float r = random * diff;
-    return min + r;
-}
-
 Astronaut::Astronaut()
 {
     m_pathUpdateTimer = 5;
-    this->setOrientation(getRand(0, 360));
+    this->setOrientation(0);
 }
 
 Astronaut::~Astronaut()
@@ -34,6 +26,7 @@ void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f 
 	sf::IntRect frames[] = { {0, 0, 250, 250}, {250, 0, 250, 250}, {500, 0, 250, 250}, {750, 0, 250, 250}};
 
     m_move = sf::Vector2f(0, 0);
+    m_running = 0;
     this->m_sprite.setTexture(texture);
     this->m_sprite.setPosition(pos);
     this->m_sprite.setScale(scale);
@@ -62,11 +55,6 @@ void Astronaut::handleInput(sf::Event event)
         return;
 }
 
-static double distSquared(sf::Vector2f p1, sf::Vector2f p2)
-{
-    return pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2);
-}
-
 void Astronaut::onPositionChanged()
 {
 	this->m_sprite.setPosition(this->getPosition());
@@ -74,41 +62,8 @@ void Astronaut::onPositionChanged()
 
 void Astronaut::update(float dt)
 {
-    this->m_sprite.update(dt);
-    float dist = distSquared(m_sprite.getPosition(), m_alien->getPosition());
-    if (dist < 160000 && seePos(m_alien->getPosition())) {
-        m_path.clear();
-        //shoot
-        //flee if needed
+    if (dt)
         return;
-    }
-    m_pathUpdateTimer += dt;
-    if (m_pathUpdateTimer >= 1) {
-        m_pathUpdateTimer = 0;
-        resetPath();
-        //runAway(m_alien->getPosition());
-    }
-    if (m_path.size() != 0) {
-        sf::Vector2i nextPos = m_path[m_path.size() - 1];
-        sf::Vector2f posTile(nextPos.x * 128, nextPos.y * 128);
-        sf::Vector2f diff = posTile - this->getPosition();
-        float lenSquared = diff.x * diff.x + diff.y * diff.y;
-
-        if (lenSquared <= 400) {
-            m_path.pop_back();
-            if (m_path.size() == 0)
-                return;
-            nextPos = m_path[m_path.size() - 1];
-            posTile = sf::Vector2f(nextPos.x * 128, nextPos.y * 128);
-            diff = posTile - this->getPosition();
-            lenSquared = diff.x * diff.x + diff.y * diff.y;
-        }
-        float lenSqrt = sqrt(lenSquared);
-        this->move(diff.x * (dt * 200) / lenSqrt, diff.y * dt * 200 / lenSqrt);
-    }
-    
-    //this->move(m_move * dt);
-    
 }
 
 void Astronaut::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -130,7 +85,7 @@ static int get_heuristic_cost(sf::Vector2i posA, sf::Vector2i posB)
   return 14 * delta.x + 10 * (delta.y - delta.x);
 }
 
-bool Astronaut::vectContains(std::vector<node *> vect, Tile *tile)
+static bool vectContains(std::vector<node *> vect, Tile *tile)
 {
     for (struct node *n : vect) {
         if (n->tile == tile)
@@ -139,7 +94,7 @@ bool Astronaut::vectContains(std::vector<node *> vect, Tile *tile)
     return false;
 }
 
-void Astronaut::resetPath()
+void Astronaut::resetPath(sf::Vector2f goal)
 {
     node start;
     node end;
@@ -149,7 +104,7 @@ void Astronaut::resetPath()
     start.heuristic_cost = 0;
     start.parent = nullptr;
 
-    end.tile = m_room->getTileAt(m_alien->getPosition());
+    end.tile = m_room->getTileAt(goal);
     end.cost = 0;
     end.heuristic_cost = 0;
     end.parent = nullptr;

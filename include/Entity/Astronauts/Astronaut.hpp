@@ -42,21 +42,20 @@ class Astronaut : public AbstractAstronaut
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         int isAlive();
-        void resetPath();
+        void resetPath(sf::Vector2f goal);
     
-    private:
+    protected:
         void computePath(node *startNode, node *endNode);
-        bool vectContains(std::vector<node *> vect, Tile *tile);
         bool seePos(sf::Vector2f pos);
 
         void runAway(sf::Vector2f fleePos);
         float getMaxDistInDir(float dir);
 
         AnimatedSprite m_sprite;
+        int m_running;
         float m_pathUpdateTimer;
 
         sf::Vector2f m_move;
-        //std::vector<sf::Vector2i> m_moves;
         std::vector<sf::Vector2i> m_path;
 };
 
