@@ -53,6 +53,21 @@ class Entity : public sf::Drawable
         float m_orientation;
 };
 
+inline sf::Vector2f Entity::getPosition()
+{
+    return this->m_pos;
+}
+
+inline sf::Vector2f Entity::getScale()
+{
+    return this->m_scale;
+}
+
+inline float Entity::getOrientation()
+{
+    return this->m_orientation;
+}
+
 inline void Entity::setPosition(sf::Vector2f pos)
 {
     if (pos == this->m_pos)
