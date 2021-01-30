@@ -10,6 +10,8 @@
 
 void Scientist::update(float dt)
 {
+    if (m_room->getTileAt(this->getPosition()) == nullptr)
+        return;
     this->m_sprite.update(dt);
     m_pathUpdateTimer += dt;
     if (m_pathUpdateTimer >= 1) {

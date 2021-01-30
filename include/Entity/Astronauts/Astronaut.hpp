@@ -21,10 +21,6 @@ struct node {
     float cost;
     float heuristic_cost;
     node *parent;
-    bool operator < (const node& n) const
-    {
-        return (cost > n.cost);
-    }
 };
 
 class Astronaut : public AbstractAstronaut

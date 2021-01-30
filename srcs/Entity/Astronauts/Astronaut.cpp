@@ -113,7 +113,9 @@ void Astronaut::resetPath(sf::Vector2f goal)
 
 bool nodeCompare(node *na, node *nb) 
 {
-    return (na->cost >= nb->cost);
+    if (na->cost == nb->cost)
+        return na->heuristic_cost < nb->heuristic_cost;
+    return na->cost < nb->cost;
 }
 
 void Astronaut::computePath(node *startNode, node *endNode)
@@ -128,9 +130,10 @@ void Astronaut::computePath(node *startNode, node *endNode)
     opened.push_back(startNode);
     while (!opened.empty()) {
         std::sort(opened.begin(), opened.end(), &nodeCompare);
-        current = opened.at(opened.size() - 1);
+        current = opened[0];
+        opened.erase(opened.begin());
         closed.push_back(current);
-        opened.pop_back();
+        //opened.pop_back();
         if (current->tile == endNode->tile) {
             while (current && current != startNode) {
                 m_path.push_back(current->tile->getPosition());
@@ -161,8 +164,10 @@ void Astronaut::computePath(node *startNode, node *endNode)
                     neighbour->cost = cost;
                     neighbour->heuristic_cost = get_heuristic_cost(neighbour->tile->getPosition(), endNode->tile->getPosition());
                     neighbour->parent = current;
-                    if (!vectContains(opened, neighbour->tile))
+                    if (!vectContains(opened, neighbour->tile)) {
                         opened.push_back(neighbour);
+                        neighbour = 0;
+                    }
                     else
                         delete neighbour;
                 }
@@ -197,8 +202,10 @@ void Astronaut::runAway(sf::Vector2f fleePos)
     int bestDir = fleeDir + 90;
     float currentDist;
 
-    while (fleeDir >= 360 || fleeDir < 0)
+    while (fleeDir >= 360 || fleeDir < 0) {
         fleeDir += (fleeDir < 0) ? 360 : -360;
+    }
+        
     for (int i = 0; i < 7; i++) {
         currentDist = getMaxDistInDir(fleeDir + i * 30);
         if (currentDist > maxDist) {
@@ -207,7 +214,6 @@ void Astronaut::runAway(sf::Vector2f fleePos)
         }
     }
     bestDir *= (3.14159265359f / 180.f);
-    
     m_move = sf::Vector2f(cos(bestDir) * 200, sin(bestDir) * 200);
 }
 
@@ -218,7 +224,9 @@ float Astronaut::getMaxDistInDir(float dir)
     sf::Vector2f pos = this->getPosition();
     int i = 0;
 
-    while (m_room->getTileAt(pos) && m_room->getTileAt(pos)->isWalkable()) {
+    while (m_room->getTileAt(pos)) {
+        if (!m_room->getTileAt(pos)->isWalkable())
+            return i * 10;
         i++;
         pos += vec;
     }

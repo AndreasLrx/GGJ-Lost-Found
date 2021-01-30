@@ -17,7 +17,7 @@ GameState::GameState(GameDataRef data): m_alien(data)
     m_alien.init(*m_data->assets.getTexture("alien"), sf::Vector2f(200, 200), sf::Vector2f(0.25, 0.25));
     m_scientist.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(1100, 100), sf::Vector2f(0.5, 0.5));
     m_scientist.setAlien(&m_alien);
-    m_shooter.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(500, 600), sf::Vector2f(0.5, 0.5));
+    m_shooter.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(500, 300), sf::Vector2f(0.5, 0.5));
     m_shooter.setAlien(&m_alien);
 }
 

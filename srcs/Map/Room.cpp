@@ -19,7 +19,6 @@ void Room::set(std::string str, GameDataRef data)
     Tile *currTile;
     m_tileSize = 64;
 
-    this->m_tiles = new Tile[TILES_PER_ROOM]; // init Tile array
     this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 64, 64}));
     this->m_sprites.push_back(sf::Sprite(*texture, {64, 0, 64, 64}));
     this->background = sf::Sprite(*data->assets.getTexture("bg"));

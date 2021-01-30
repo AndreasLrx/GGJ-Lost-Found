@@ -27,6 +27,7 @@ class Room : public sf::Drawable
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         Tile *getTileAt(sf::Vector2f pos);
         Tile *getTile(sf::Vector2i pos);
+        unsigned int getTileSize() {return m_tileSize;};
 
     private:
         std::vector <sf::Sprite> m_sprites;
