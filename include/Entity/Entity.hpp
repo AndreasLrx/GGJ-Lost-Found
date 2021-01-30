@@ -33,8 +33,8 @@ class Entity : public sf::Drawable
 
         void setPosition(sf::Vector2f pos);
         void setPosition(float x, float y);
-        void move(sf::Vector2f offset);
-        void move(float ox, float oy);
+        bool move(sf::Vector2f offset);
+        bool move(float ox, float oy);
 
         void setScale(sf::Vector2f scale);
         void setScale(float sx, float sy);
@@ -81,16 +81,17 @@ inline void Entity::setPosition(float x, float y)
     this->setPosition({ x, y });
 }
 
-inline void Entity::move(sf::Vector2f offset)
+inline bool Entity::move(sf::Vector2f offset)
 {
     if (offset == sf::Vector2f(0, 0))
-        return;
+        return false;
     this->setPosition(this->m_pos + offset);
+    return true;
 }
 
-inline void Entity::move(float ox, float oy)
+inline bool Entity::move(float ox, float oy)
 {
-    this->move({ ox, oy });
+    return this->move({ ox, oy });
 }
 
 inline void Entity::setScale(sf::Vector2f scale)

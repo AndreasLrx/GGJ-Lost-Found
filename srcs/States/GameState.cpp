@@ -9,7 +9,7 @@
 #include "Map/Floor.hpp"
 #include <iostream>
 
-GameState::GameState(GameDataRef data)
+GameState::GameState(GameDataRef data): m_alien(data)
 {
     m_floor = nullptr;
     m_data = data;
