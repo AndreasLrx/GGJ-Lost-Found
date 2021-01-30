@@ -32,6 +32,7 @@ class Astronaut : public AbstractAstronaut
         void setPosition(float x, float y);
 
         int isAlive();
+        void resetPath();
     
     private:
         struct node {
@@ -47,6 +48,7 @@ class Astronaut : public AbstractAstronaut
 
         sf::Sprite m_sprite;
         sf::RectangleShape m_rect;
+        float m_pathUpdateTimer;
 
 
         //std::vector<sf::Vector2i> m_moves;

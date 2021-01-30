@@ -9,7 +9,7 @@
 
 Astronaut::Astronaut()
 {
-
+    m_pathUpdateTimer = 5;
 }
 
 Astronaut::~Astronaut()
@@ -36,7 +36,22 @@ void Astronaut::handleInput(sf::Event event)
 
 void Astronaut::update(float dt)
 {
+    m_pathUpdateTimer += dt;
+    if (m_pathUpdateTimer >= 1) {
+        m_pathUpdateTimer = 0;
+        resetPath();
+    }
+    sf::Vector2i nextPos = m_path[m_path.size() - 1];
+    sf::Vector2f posTile(nextPos.x * 32, nextPos.y * 32);
+    sf::Vector2f diff = posTile - m_rect.getPosition();
 
+    if (diff.x * diff.x + diff.y * diff.y <= 5) {
+        m_path.pop_back();
+        nextPos = m_path[m_path.size() - 1];
+        posTile = sf::Vector2f(nextPos.x * 32, nextPos.y * 32);
+        diff = posTile - m_rect.getPosition();
+    }
+    m_rect.move(diff * (dt * 50));    
 }
 
 void Astronaut::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -96,6 +111,23 @@ bool Astronaut::vectContains(std::vector<struct node *> vect, Tile *tile)
     return false;
 }
 
+void Astronaut::resetPath()
+{
+    struct node start;
+    struct node end;
+
+    start.tile = m_room->getTile(sf::Vector2i(m_rect.getPosition().x / 32, m_rect.getPosition().y / 32));
+    start.cost = 0;
+    start.heuristic_cost = 0;
+    start.parent = nullptr;
+
+    end.tile = m_room->getTile(sf::Vector2i(15, 20));
+    end.cost = 0;
+    end.heuristic_cost = 0;
+    end.parent = nullptr;
+    computePath(&start, &end);
+}
+
 void Astronaut::computePath(struct node *startNode, struct node *endNode)
 {
     std::vector<struct node *> closed;
@@ -123,15 +155,19 @@ void Astronaut::computePath(struct node *startNode, struct node *endNode)
                     continue;
                 neighbour = new struct node;
                 neighbour->tile = m_room->getTile(current->tile->getPosition() + sf::Vector2i(x, y));
-                if (!neighbour->tile->isWalkable() || vectContains(closed, neighbour->tile))
+                if (!neighbour->tile->isWalkable() || vectContains(closed, neighbour->tile)) {
+                    delete neighbour;
                     continue;
+                }
                 cost = current->cost + get_heuristic_cost(current->tile->getPosition(), neighbour->tile->getPosition());
                 if (cost < neighbour->cost || !vectContains(closed, neighbour->tile)) {
                     neighbour->cost = cost;
                     neighbour->heuristic_cost = get_heuristic_cost(neighbour->tile->getPosition(), endNode->tile->getPosition());
                     neighbour->parent = current;
-                if (!vectContains(opened, neighbour->tile))
-                    opened.push_back(neighbour);
+                    if (!vectContains(opened, neighbour->tile))
+                        opened.push_back(neighbour);
+                    else
+                        delete neighbour;
                 }
             }
         }
