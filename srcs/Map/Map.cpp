@@ -35,25 +35,24 @@ void Room::set(std::string str, GameDataRef data)
 
     this->m_tiles = new Tile[TILES_PER_ROOM]; // init Tile array
     this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 128, 128}));
+    this->m_sprites.push_back(sf::Sprite(*texture, {512, 0, 128, 128}));
 
     this->m_data = data;
     this->m_tilesVec.push_back(std::vector<Tile *>());
     for (unsigned int i = 0; str[i] != '\0'; i++) {
-        currTile = new Tile;
-        currTile->pos = cur_pos;
-        currTile->index = 0;
-        this->m_tilesVec[cur_pos.y].push_back(currTile);
-
-        this->m_tiles[i].pos = {cur_pos.x, cur_pos.y};
-        this->m_tiles[i].index = 0;
-        cur_pos.x++;
         if (str[i] == '\n') {
             cur_pos.y++;
             cur_pos.x = 0;
             m_tilesVec.push_back(std::vector<Tile *>());
+            continue;
         }
+        currTile = new Tile;
+        currTile->pos = cur_pos;
+        currTile->index = static_cast<unsigned int>(str[i] - '0');
+        currTile->type = static_cast<Tile::Type>(str[i] - '0');
+        this->m_tilesVec[cur_pos.y].push_back(currTile);
+        cur_pos.x++;
     }
-    std::cout<<"room set"<<std::endl;
 }
 
 Floor::Floor(GameDataRef data)
@@ -65,7 +64,6 @@ Floor::Floor(GameDataRef data)
 
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    //J'ai remplacé par un double vec pour les tiles je te laisse check ça
     for (size_t y = 0; y < m_tilesVec.size(); y++) {
         for (size_t x = 0; x < m_tilesVec[y].size(); x++) {
             Tile *cur_tile = this->m_tilesVec[y][x];
@@ -90,5 +88,4 @@ void Floor::set(std::string floor, GameDataRef data)
     std::stringstream buffer;
     buffer << t.rdbuf();
     this->m_room->set(buffer.str(), data);
-    std::cout<<"Floor set"<<std::endl;
 }

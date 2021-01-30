@@ -11,7 +11,6 @@
 
 GameState::GameState(GameDataRef data)
 {
-    std::cout << "DEBUG0\n";
     m_floor = nullptr;
     m_data = data;
     m_gui = new GUIManager(data);
@@ -25,7 +24,6 @@ GameState::~GameState()
 
 void GameState::init()
 {
-    std::cout << "DEBUG1\n";
     this->m_floor = new Floor(this->m_data);
     //this->m_floor = this->m_floor.set("11111111");
 }
