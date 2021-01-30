@@ -24,10 +24,10 @@ class Floor
 
     private:
         std::string m_floor_str;
-        Room *m_room;
         Room *m_cur_room;
         GameDataRef m_data;
         Alien *m_alien;
+        Room *m_rooms;
 };
 
 #endif

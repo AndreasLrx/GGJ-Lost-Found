@@ -18,10 +18,10 @@ void Room::set(std::string str, GameDataRef data)
     sf::Vector2i cur_pos = {0, 0};
     sf::Texture *texture = data->assets.getTexture("TestTile_Set");
     Tile *currTile;
-    m_tileSize = 64;
+    m_tileSize = 55;
 
-    this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 64, 64}));
-    this->m_sprites.push_back(sf::Sprite(*texture, {64, 0, 64, 64}));
+    this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 55, 55}));
+    this->m_sprites.push_back(sf::Sprite(*texture, {55, 0, 55, 55}));
     this->background = sf::Sprite(*data->assets.getTexture("bg"));
     this->m_data = data;
     this->m_tilesVec.push_back(std::vector<Tile *>());
@@ -78,7 +78,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
             current = this->m_tilesVec[y][x];
             tilePos = current->getPosition();
             sprite = this->m_sprites[current->getIndex()];
-            sprite.setPosition(sf::Vector2f(tilePos.x * m_tileSize, tilePos.y * m_tileSize));
+            sprite.setPosition(sf::Vector2f(tilePos.x * m_tileSize + 91, tilePos.y * m_tileSize + 90));
             target.draw(sprite, states);
         }
     }

@@ -31,7 +31,7 @@ Floor::Floor(GameDataRef data, Alien *alien)
 {
     this->m_data = data;
     this->m_alien = alien;
-    this->m_room = nullptr;
+    this->m_rooms = nullptr;
     this->set(std::string("1111111"), data);
 }
 
@@ -48,13 +48,13 @@ void Floor::set(std::string cur_floor, GameDataRef data)
     std::ifstream read_floor((std::string)"Level/Floor/floor_" + "1");
     std::stringstream floor_buffer;
     floor_buffer << read_floor.rdbuf();
-    this->m_room = new Room[floor_buffer.str().size()];
+    this->m_rooms = new Room[floor_buffer.str().size()];
     for (unsigned int i = 0; i < floor_buffer.str().size(); i++) {
         std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[i]);
         std::stringstream room_buffer;
         room_buffer << read_room.rdbuf();
-        this->m_room[i].setAlien(m_alien);
-        this->m_room[i].set(room_buffer.str(), data);
+        this->m_rooms[i].setAlien(m_alien);
+        this->m_rooms[i].set(room_buffer.str(), data);
     }
-    this->m_cur_room = &m_room[0];
+    this->m_cur_room = &m_rooms[0];
 }
