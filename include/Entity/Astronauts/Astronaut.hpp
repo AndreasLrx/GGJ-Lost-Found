@@ -9,6 +9,7 @@
 #define ASTRONAUT_HPP
 
 #include <vector>
+#include "Entity/AnimatedSprite.hpp"
 #include "Entity/Astronauts/AbstractAstronaut.hpp"
 #include "Map/Tile.hpp"
 #include "Map/Room.hpp"
@@ -49,7 +50,7 @@ class Astronaut : public AbstractAstronaut
         bool vectContains(std::vector<struct node *> vect, Tile *tile);
         bool seePos(sf::Vector2f pos);
 
-        sf::Sprite m_sprite;
+        AnimatedSprite m_sprite;
         float m_pathUpdateTimer;
 
 

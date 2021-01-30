@@ -24,7 +24,11 @@ void Astronaut::init()
 
 void Astronaut::initSprite(sf::Texture *texture, sf::Vector2f pos, sf::Vector2f scale)
 {
+    sf::IntRect frames[] = { {0, 0, 32, 32}, {32, 0, 32, 32}, {64, 0, 32, 32}, {96, 0, 32, 32}, {0, 32, 32, 32}, {32, 32, 32, 32}, {64, 32, 32, 32}, {96, 32, 32, 32} };
+
     m_sprite.setTexture(*texture);
+    this->m_sprite.setTextureFrames(8, frames);
+    this->m_sprite.setAnimationSpeed(3.25f);
     m_sprite.setPosition(pos);
     m_sprite.setScale(scale);
 }
@@ -64,6 +68,7 @@ void Astronaut::update(float dt)
         m_sprite.move(0, 200 * dt);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         m_sprite.move(200 * dt, 0);
+    this->m_sprite.update(dt);
 }
 
 void Astronaut::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -177,11 +182,11 @@ bool Astronaut::seePos(sf::Vector2f pos)
     sf::Vector2f delta = pos - m_sprite.getPosition();
     sf::Vector2i tilePos;
     sf::Vector2f pas(delta.x / 100.f, delta.y / 100.f);
-    sf::Vector2f pos = m_sprite.getPosition();
+    sf::Vector2f pos2 = m_sprite.getPosition();
 
     for (int i = 0; i < 100; i++) {
-        pos += pas;
-        if (!m_room->getTile(sf::Vector2i(pos.x / 32, pos.y / 32))->isWalkable())
+        pos2 += pas;
+        if (!m_room->getTile(sf::Vector2i(pos2.x / 32, pos2.y / 32))->isWalkable())
             return false;
     }
     return true;

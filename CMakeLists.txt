@@ -53,6 +53,8 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity)
 set(SRC
     ${SRC}
+	${SRCROOT}/AnimatedSprite.cpp
+	${INCROOT}/AnimatedSprite.hpp
 	${INCROOT}/Entity.hpp
 	${SRCROOT}/Test.cpp
 	${INCROOT}/Test.hpp
