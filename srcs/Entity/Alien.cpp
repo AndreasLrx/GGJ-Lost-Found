@@ -68,7 +68,7 @@ void Alien::onOrientationChanged()
 	float range;
 
 	if (sqrtf(lookVec.x * lookVec.x + lookVec.y * lookVec.y) < 100.0f) {
-			this->m_eyeRect = sf::IntRect(0, 0, 484, 484);
+			this->m_eyeRect = sf::IntRect(0, 0, 500, 500);
 	} else {
 		if (angle >= 90.0f && angle <= 270.0)
 			range = angle - 90;
