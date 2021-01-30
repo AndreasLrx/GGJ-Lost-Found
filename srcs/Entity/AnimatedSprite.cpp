@@ -8,12 +8,18 @@
 #include <cmath>
 #include "Entity/AnimatedSprite.hpp"
 
+AnimatedSprite::AnimatedSprite()
+{
+	this->m_listener = [](auto sprite) {(void)sprite; };
+}
+
 AnimatedSprite::AnimatedSprite(const sf::Texture& texture, std::size_t frameCount, sf::IntRect const frames[], float speed)
 {
 	this->m_inner = sf::Sprite();
 	this->setTexture(texture, true);
 	this->setTextureFrames(frameCount, frames);
 	this->setAnimationSpeed(speed);
+	this->m_listener = [](auto sprite) {(void)sprite; };
 	this->update(0);
 }
 
@@ -22,8 +28,16 @@ void AnimatedSprite::update(float dt)
 	this->m_frame += dt * this->m_speed;
 	if (this->m_frame < 0)
 		this->m_frame = -this->m_frame;
+	if (this->m_frame > this->m_frameMax)
+		(this->m_listener)(*this);
 	this->m_frame = std::fmod(this->m_frame, this->m_frameMax);
-	this->m_inner.setTextureRect(this->m_frames[static_cast<std::size_t>(this->m_frame)]);
+
+	sf::IntRect rect = this->m_frames[static_cast<std::size_t>(this->m_frame)];
+
+	if (this->m_isMirrored)
+		this->m_inner.setTextureRect(sf::IntRect(rect.left + rect.width, rect.top, -rect.width, rect.height));
+	else
+		this->m_inner.setTextureRect(rect);
 	this->m_inner.setPosition(this->getPosition());
 	this->m_inner.setRotation(this->getRotation());
 	this->m_inner.setScale(this->getScale());

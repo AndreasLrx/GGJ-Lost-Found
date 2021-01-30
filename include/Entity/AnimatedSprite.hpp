@@ -10,11 +10,15 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <functional>
+
 
 class AnimatedSprite: public sf::Drawable, public sf::Transformable
 {
 public:
-    AnimatedSprite() {};
+    using AnimationEndListener = std::function<void(AnimatedSprite&)>;
+
+    AnimatedSprite();
     AnimatedSprite(const sf::Texture& texture, std::size_t frameCount, sf::IntRect const frames[], float speed = 1.0f);
 
     /// Updates the animation frames
@@ -25,6 +29,8 @@ public:
     void setAnimationSpeed(float speed);
     sf::FloatRect getLocalBounds() const;
     sf::FloatRect getGlobalBounds() const;
+    void setAnimationEndListener(AnimationEndListener listener);
+    void setMirrored(bool mirrored);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -34,6 +40,18 @@ private:
     float m_speed = 1.0f;
     float m_frame = 0.0f;
     float m_frameMax = 0.0f;
+    bool m_isMirrored = false;
+    AnimationEndListener m_listener;
 };
+
+inline void AnimatedSprite::setAnimationEndListener(AnimationEndListener listener)
+{
+    this->m_listener = listener;
+}
+
+inline void AnimatedSprite::setMirrored(bool mirrored)
+{
+    this->m_isMirrored = mirrored;
+}
 
 #endif // !defined(SPRITE_HPP)
