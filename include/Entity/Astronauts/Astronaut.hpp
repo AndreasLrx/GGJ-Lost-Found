@@ -22,7 +22,7 @@ class Astronaut : public AbstractAstronaut
         ~Astronaut();
 
         void init();
-        void initSprite(sf::Vector2f pos = sf::Vector2f(200, 200), sf::Vector2f scale = sf::Vector2f(50, 100));
+        void initSprite(sf::Texture *texture, sf::Vector2f pos = sf::Vector2f(200, 200), sf::Vector2f scale = sf::Vector2f(1, 1));
         void handleInput(sf::Event event);
         void update(float dt);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -32,6 +32,7 @@ class Astronaut : public AbstractAstronaut
         void setPosition(float x, float y);
 
         int isAlive();
+        void resetPath();
     
     private:
         struct node {
@@ -39,14 +40,16 @@ class Astronaut : public AbstractAstronaut
             float cost;
             float heuristic_cost;
             struct node *parent;
+            bool operator < (const struct node& n) const
+            {
+                return (cost > n.cost);
+            }
         };
-        
-        bool nodeCompare(struct node *nodeA, struct node *nodeB);
         void computePath(struct node *startNode, struct node *endNode);
         bool vectContains(std::vector<struct node *> vect, Tile *tile);
 
         sf::Sprite m_sprite;
-        sf::RectangleShape m_rect;
+        float m_pathUpdateTimer;
 
 
         //std::vector<sf::Vector2i> m_moves;

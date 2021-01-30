@@ -11,7 +11,7 @@ GameState::GameState(GameDataRef data)
 {
     m_data = data;
     m_gui = new GUIManager(data);
-    m_astronaut.initSprite();
+    m_astronaut.initSprite(m_data->assets.getTexture("astronaut"), sf::Vector2f(100, 100), sf::Vector2f(0.15, 0.15));
 }
 
 GameState::~GameState()
@@ -35,6 +35,7 @@ void GameState::handleInput()
 void GameState::update(float dt)
 {
     m_gui->update(dt);
+    m_astronaut.update(dt);
 }
 
 void GameState::draw(float interpolation)
