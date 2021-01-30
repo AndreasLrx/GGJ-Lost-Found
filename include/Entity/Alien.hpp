@@ -8,12 +8,13 @@
 #ifndef ALIEN_HPP
 #define ALIEN_HPP
 
+#include "GameEngine/macro.hpp"
 #include "Entity/Entity.hpp"
 
 class Alien : public Entity
 {
 public:
-	Alien();
+    Alien(GameDataRef gameData);
 	~Alien();
 
     void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 }) override;
@@ -26,6 +27,9 @@ public:
 private:
     sf::Sprite m_bodySprite;
     sf::Sprite m_eyeSprite;
+    sf::IntRect m_bodyRect;
+    sf::IntRect m_eyeRect;
+    GameDataRef m_gameData;
 };
 
 #endif // !defined(ASTRONAUT_HPP)

@@ -9,12 +9,14 @@
 #include "Map/Floor.hpp"
 #include <iostream>
 
-GameState::GameState(GameDataRef data)
+GameState::GameState(GameDataRef data): m_alien(data)
 {
     m_floor = nullptr;
     m_data = data;
     m_gui = new GUIManager(data);
-    m_astronaut.init(*m_data->assets.getTexture("squares"), sf::Vector2f(100, 100), sf::Vector2f(2.5, 2.5));
+    m_alien.init(*m_data->assets.getTexture("alien"), sf::Vector2f(200, 200), sf::Vector2f(0.25, 0.25));
+    m_astronaut.init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(500, 300), sf::Vector2f(0.5, 0.5));
+    m_astronaut.setAlien(&m_alien);
 }
 
 GameState::~GameState()
@@ -25,6 +27,7 @@ GameState::~GameState()
 void GameState::init()
 {
     this->m_floor = new Floor(this->m_data);
+    m_astronaut.setRoom(m_floor->get_room());
     //this->m_floor = this->m_floor.set("11111111");
 }
 
@@ -36,6 +39,7 @@ void GameState::handleInput()
         if (event.type == sf::Event::Closed)
             m_data->wind.close();
         m_gui->handleInput(event);
+        this->m_alien.handleInput(event);
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             m_data->machine.removeState();
     }
@@ -46,6 +50,7 @@ void GameState::update(float dt)
     m_floor->change_room("1");
     m_gui->update(dt);
     m_astronaut.update(dt);
+    m_alien.update(dt);
 }
 
 void GameState::draw(float interpolation)
@@ -53,6 +58,7 @@ void GameState::draw(float interpolation)
     m_data->wind.clear(sf::Color::Black);
     m_data->wind.draw(*this->m_floor->get_room());
     m_data->wind.draw(m_astronaut);
+    m_data->wind.draw(this->m_alien);
     m_gui->draw(interpolation);
     m_data->wind.display();
 }

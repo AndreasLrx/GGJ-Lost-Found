@@ -59,7 +59,7 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 Tile *Room::getTile(sf::Vector2i pos)
 {
-    if (pos.x < 0 || pos.y < 0 || pos.y >= m_tilesVec.size() || pos.x >= m_tilesVec[0].size())
+    if (pos.x < 0 || pos.y < 0 || pos.y >= static_cast<int>(m_tilesVec.size()) || pos.x >= static_cast<int>(m_tilesVec[0].size()))
         return nullptr;
     return m_tilesVec[pos.y][pos.x];
 }
