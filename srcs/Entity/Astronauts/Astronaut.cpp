@@ -36,7 +36,10 @@ void Astronaut::handleInput(sf::Event event)
 
 void Astronaut::update(float dt)
 {
-    /*m_pathUpdateTimer += dt;
+    /*
+    //if dist < max_po && seepos
+    //  empty path, shoot, walk back return
+    m_pathUpdateTimer += dt;
     if (m_pathUpdateTimer >= 1) {
         m_pathUpdateTimer = 0;
         resetPath();
@@ -51,7 +54,8 @@ void Astronaut::update(float dt)
         posTile = sf::Vector2f(nextPos.x * 32, nextPos.y * 32);
         diff = posTile - m_sprite.getPosition();
     }
-    m_sprite.move(diff * (dt * 50));*/
+    m_sprite.move(diff * (dt * 50));
+    */
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         m_sprite.move(0, -200 * dt);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
@@ -166,4 +170,19 @@ void Astronaut::computePath(struct node *startNode, struct node *endNode)
             }
         }
     }
+}
+
+bool Astronaut::seePos(sf::Vector2f pos)
+{
+    sf::Vector2f delta = pos - m_sprite.getPosition();
+    sf::Vector2i tilePos;
+    sf::Vector2f pas(delta.x / 100.f, delta.y / 100.f);
+    sf::Vector2f pos = m_sprite.getPosition();
+
+    for (int i = 0; i < 100; i++) {
+        pos += pas;
+        if (!m_room->getTile(sf::Vector2i(pos.x / 32, pos.y / 32))->isWalkable())
+            return false;
+    }
+    return true;
 }

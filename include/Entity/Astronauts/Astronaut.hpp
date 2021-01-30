@@ -47,6 +47,7 @@ class Astronaut : public AbstractAstronaut
         };
         void computePath(struct node *startNode, struct node *endNode);
         bool vectContains(std::vector<struct node *> vect, Tile *tile);
+        bool seePos(sf::Vector2f pos);
 
         sf::Sprite m_sprite;
         float m_pathUpdateTimer;
