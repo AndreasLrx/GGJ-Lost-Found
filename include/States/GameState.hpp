@@ -11,6 +11,8 @@
 #include "GameEngine/Core.hpp"
 #include "GUI/GUIManager.hpp"
 #include "Entity/Astronauts/Astronaut.hpp"
+#include "Map/Tile.hpp"
+#include "Map/Floor.hpp"
 
 class GameState : public State
 {
@@ -30,6 +32,7 @@ class GameState : public State
     private:
         GameDataRef m_data;
         Astronaut m_astronaut;
+        Floor m_Floor;
 };
 
 #endif /* !STATE_GAME_STATE_H */
