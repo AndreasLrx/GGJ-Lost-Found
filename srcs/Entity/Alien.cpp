@@ -115,8 +115,8 @@ void Alien::update(float dt)
 		else
 			this->m_slimeSprite.setTextureRect(slimeRect);
 	} else {
-		this->m_slimeSprite.setTextureRect(slimeRect);
 		this->m_slimeRect = sf::IntRect(484, 484, 484, 484);
+		this->m_slimeSprite.setTextureRect(slimeRect);
 	}
 	this->setOrientation(angle * 180.0 / 3.141592653589793238463 + 180.0);
 }

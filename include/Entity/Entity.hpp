@@ -50,7 +50,7 @@ class Entity : public sf::Drawable
     private:
         sf::Vector2f m_pos;
         sf::Vector2f m_scale;
-        float m_orientation;
+        float m_orientation = 0;
 };
 
 inline sf::Vector2f Entity::getPosition() const
