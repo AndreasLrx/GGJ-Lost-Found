@@ -36,6 +36,7 @@ class Room : public sf::Drawable
         unsigned int getTileSize() {return m_tileSize;};
 
     private:
+        char type;
         std::vector <sf::Sprite> m_sprites;
         std::string m_room_str;
         std::vector<std::vector<Tile *>> m_tilesVec;

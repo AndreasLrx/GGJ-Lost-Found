@@ -25,9 +25,11 @@ class Floor
     private:
         std::string m_floor_str;
         Room *m_cur_room;
+        std::vector<std::string> floor_map;
         GameDataRef m_data;
         Alien *m_alien;
         Room *m_rooms;
+        sf::Vector2i floor_pos;
 };
 
 #endif

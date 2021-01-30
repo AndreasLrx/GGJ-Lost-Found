@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2021
-** GGJ 
+** GGJ
 ** File description:
 ** Useful functions
 */

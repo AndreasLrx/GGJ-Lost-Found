@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Entity/Astronauts/Astronaut.hpp"
 #include "Entity/Alien.hpp"
-#include "Functions.hpp"
+#include "functions.hpp"
 
 Astronaut::Astronaut()
 {

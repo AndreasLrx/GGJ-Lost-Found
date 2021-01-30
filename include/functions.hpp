@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2021
-** GGJ 
+** GGJ
 ** File description:
-** 
+**
 */
 
 #ifndef _HPP_
@@ -11,6 +11,7 @@
 #include <math.h>
 #include <SFML/Graphics.hpp>
 
+float getRand(float min, float max);
 float getDist(sf::Vector2f posA, sf::Vector2f posB);
 float getDistSquared(sf::Vector2f posA, sf::Vector2f posB);
 float getLenSquared(sf::Vector2f vec);
