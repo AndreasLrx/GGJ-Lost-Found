@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Entity/Astronauts/Astronaut.hpp"
 #include "Entity/Alien.hpp"
+#include "Functions.hpp"
 
 Astronaut::Astronaut()
 {
@@ -31,12 +32,12 @@ void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f 
     this->m_sprite.setPosition(pos);
     this->m_sprite.setScale(scale);
     this->m_sprite.setTextureFrames(4, frames);
-    this->m_sprite.setAnimationSpeed(3.25f);
+    this->m_sprite.setAnimationSpeed(6.f);
     this->setPosition(pos);
     this->setScale(scale);
     m_sprite.update(0);
     bounds = m_sprite.getLocalBounds();
-    this->m_sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+    this->m_sprite.setOrigin(bounds.width / 2.f, bounds.height);
 }
 
 void Astronaut::setAlien(Alien *alien)
@@ -64,6 +65,40 @@ void Astronaut::update(float dt)
 {
     if (dt)
         return;
+}
+
+void Astronaut::updatePathTimer(float dt)
+{
+    if (m_pathUpdateTimer >= 0.5) {
+        m_pathUpdateTimer = 0;
+        if (!m_running)
+            resetPath(m_alien->getPosition());
+        else
+            runAway(m_alien->getPosition());
+    }
+    m_pathUpdateTimer += dt;
+    this->m_sprite.update(dt);
+}
+
+void Astronaut::moveToPath(float speed, float dt)
+{
+    if (m_path.size() != 0) {
+        unsigned int tileSize = m_room->getTileSize();
+        sf::Vector2f tilePos = m_room->getRealTilePos(m_path[m_path.size() - 1]) + sf::Vector2f(tileSize * getRand(0, 1.f), tileSize);
+        sf::Vector2f diff = tilePos - this->getPosition();
+        float lenSquared = diff.x * diff.x + diff.y * diff.y;
+        
+        if (lenSquared <= 50) {
+            m_path.pop_back();
+            if (m_path.size() == 0)
+                return;
+            tilePos = m_room->getRealTilePos(m_path[m_path.size() - 1]) + sf::Vector2f(tileSize * getRand(0, 1.f), tileSize);
+            diff = tilePos - this->getPosition();
+            lenSquared = diff.x * diff.x + diff.y * diff.y;
+        }
+        float lenSqrt = sqrt(lenSquared);
+        this->move(diff.x * dt * speed / lenSqrt, diff.y * dt * speed / lenSqrt);
+    }
 }
 
 void Astronaut::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -125,15 +160,19 @@ void Astronaut::computePath(node *startNode, node *endNode)
     node *current;
     node *neighbour;
     int cost;
+    int id = 0;
     m_path.clear();
-
+    
     opened.push_back(startNode);
     while (!opened.empty()) {
         std::sort(opened.begin(), opened.end(), &nodeCompare);
-        current = opened[0];
-        opened.erase(opened.begin());
+        id = 0;
+        if (opened.size() > 1 && opened[0]->cost == opened[1]->cost) {
+            id = (getRand(0, 100) < 50) ? true : false;
+        }
+        current = opened[id];
+        opened.erase(opened.begin() + id);
         closed.push_back(current);
-        //opened.pop_back();
         if (current->tile == endNode->tile) {
             while (current && current != startNode) {
                 m_path.push_back(current->tile->getPosition());
@@ -178,7 +217,7 @@ void Astronaut::computePath(node *startNode, node *endNode)
 
 bool Astronaut::seePos(sf::Vector2f pos)
 {
-    sf::Vector2f delta = pos - this->getPosition();
+    sf::Vector2f delta = pos - (this->getPosition());
     sf::Vector2i tilePos;
     sf::Vector2f pas(delta.x / 100.f, delta.y / 100.f);
     sf::Vector2f pos2 = this->getPosition();
@@ -195,17 +234,16 @@ bool Astronaut::seePos(sf::Vector2f pos)
 
 void Astronaut::runAway(sf::Vector2f fleePos)
 {
-    sf::Vector2f diff = fleePos - this->getPosition();
+    sf::Vector2f diff = fleePos - (this->getPosition() - sf::Vector2f(0, m_sprite.getLocalBounds().height * 0.5));
     float diffLen = sqrt(diff.x * diff.x + diff.y * diff.y);
     float fleeDir = acos(diff.x / diffLen) * (180 / 3.14159265359f) + 90;
     float maxDist = 0;
-    int bestDir = fleeDir + 90;
+    int bestDir = fleeDir;
     float currentDist;
 
     while (fleeDir >= 360 || fleeDir < 0) {
         fleeDir += (fleeDir < 0) ? 360 : -360;
     }
-        
     for (int i = 0; i < 7; i++) {
         currentDist = getMaxDistInDir(fleeDir + i * 30);
         if (currentDist > maxDist) {
@@ -213,22 +251,28 @@ void Astronaut::runAway(sf::Vector2f fleePos)
             bestDir = fleeDir + i * 30;
         }
     }
-    bestDir *= (3.14159265359f / 180.f);
-    m_move = sf::Vector2f(cos(bestDir) * 200, sin(bestDir) * 200);
+    if (bestDir == fleeDir - 90)
+        m_move == sf::Vector2f(0, 0);
+    else {
+        bestDir *= (3.14159265359f / 180.f);
+        m_move = sf::Vector2f(cos(bestDir) * 250, sin(bestDir) * 250);
+    }
 }
 
 float Astronaut::getMaxDistInDir(float dir)
 {
     float radDir = dir * (3.14159265359f / 180.f);
     sf::Vector2f vec(cos(radDir) * 10, sin(radDir) * 10);
-    sf::Vector2f pos = this->getPosition();
+    sf::Vector2f pos = this->getPosition() - sf::Vector2f(91, 90);
     int i = 0;
 
+    Tile *tile = m_room->getTileAt(pos);
     while (m_room->getTileAt(pos)) {
         if (!m_room->getTileAt(pos)->isWalkable())
-            return i * 10;
+            break;
         i++;
         pos += vec;
+        tile = m_room->getTileAt(pos);
     }
     return i * 10;
 }

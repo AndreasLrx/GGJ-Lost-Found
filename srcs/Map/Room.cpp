@@ -40,7 +40,7 @@ void Room::set(std::string str, GameDataRef data)
     }
     for (int i = 0; i < 1; i++) {
         Scientist *sci = new Scientist();
-        sci->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(1100, 100), sf::Vector2f(0.5f, 0.5f));
+        sci->init(*m_data->assets.getTexture("astronaut"), sf::Vector2f(getRand(100, 1100), getRand(100, 600)), sf::Vector2f(0.5f, 0.5f));
         sci->setAlien(m_alien);
         sci->setRoom(this);
         m_astronauts.push_back(sci);
@@ -96,6 +96,11 @@ Tile *Room::getTile(sf::Vector2i pos)
 
 Tile *Room::getTileAt(sf::Vector2f pos)
 {
-    sf::Vector2i posTile(pos.x / m_tileSize, pos.y / m_tileSize);
+    sf::Vector2i posTile((pos.x - 91)/ m_tileSize, (pos.y - 90) / m_tileSize);
     return getTile(posTile);
+}
+
+sf::Vector2f Room::getRealTilePos(sf::Vector2i tilePos)
+{
+    return sf::Vector2f(tilePos.x * m_tileSize + 91, tilePos.y * m_tileSize + 90);
 }

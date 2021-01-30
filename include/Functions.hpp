@@ -15,5 +15,6 @@ float getDist(sf::Vector2f posA, sf::Vector2f posB);
 float getDistSquared(sf::Vector2f posA, sf::Vector2f posB);
 float getLenSquared(sf::Vector2f vec);
 
+float getRand(float min, float max);
 
 #endif /* !FUNCTIONS_HPP_ */

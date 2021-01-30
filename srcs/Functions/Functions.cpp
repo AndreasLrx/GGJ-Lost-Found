@@ -21,3 +21,9 @@ float getDistSquared(sf::Vector2f posA, sf::Vector2f posB)
 {
     return getLenSquared(posA - posB);
 }
+
+float getRand(float min, float max)
+{
+    float r = (float)rand() / (float)RAND_MAX;
+    return min + r * (max - min);
+}

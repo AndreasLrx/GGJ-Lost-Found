@@ -43,6 +43,8 @@ class Astronaut : public AbstractAstronaut
     protected:
         void computePath(node *startNode, node *endNode);
         bool seePos(sf::Vector2f pos);
+        void updatePathTimer(float dt);
+        void moveToPath(float speed, float dt);
 
         void runAway(sf::Vector2f fleePos);
         float getMaxDistInDir(float dir);

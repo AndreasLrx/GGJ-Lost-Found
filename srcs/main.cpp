@@ -16,6 +16,7 @@ int main(int argc, char **argv)
         std::cout<<"set desc"<<std::endl;
         return 0;
     }
+    srand(time(NULL));
     Core core(1280, 720, "Alien", sf::Style::Close | sf::Style::Titlebar);
     return 0;
 }
