@@ -29,7 +29,7 @@ class Astronaut : public AbstractAstronaut
         Astronaut();
         ~Astronaut();
 
-        void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 });
+        virtual void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 });
         virtual void setAnimationListener() = 0;
         void setAlien(Alien *alien);
         void handleInput(sf::Event event);

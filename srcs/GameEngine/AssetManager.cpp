@@ -35,6 +35,7 @@ void AssetManager::loadAll(void)
     loadTexture("game_end_lose", "res/Textures/game_end_lose.png");
     loadTexture("level_select", "res/Textures/level_select.png");
     loadTexture("scientist", "res/Textures/scientist.png");
+    loadTexture("boss", "res/Textures/boss.png");
     loadTexture("soldier", "res/Textures/soldier.png");
     loadTexture("berserk", "res/Textures/berserk.png");
     loadTexture("doors", "res/Textures/doors.png");

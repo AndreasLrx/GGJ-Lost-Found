@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <sstream>
 #include "States/GameState.hpp"
+#include "Entity/Astronauts/Boss.hpp"
 #include "iostream"
 
 sf::Vector2f Room::getEmptyPos()
@@ -109,7 +110,7 @@ void Room::set(std::string str, GameDataRef data)
         sci->setRoom(this);
         m_astronauts.push_back(sci);
     }
-    for (int i = 0; i < nbEnnemys[2]; i++) {
+    for (int i = 0; i < nbEnnemys[1]; i++) {
         pos = getEmptyPos();
         if (pos.x < 0)
             continue;
@@ -119,7 +120,7 @@ void Room::set(std::string str, GameDataRef data)
         bers->setRoom(this);
         m_astronauts.push_back(bers);
     }
-    for (int i = 0; i < nbEnnemys[1]; i++) {
+    for (int i = 0; i < nbEnnemys[2]; i++) {
         pos = getEmptyPos();
         if (pos.x < 0)
             continue;
@@ -128,6 +129,16 @@ void Room::set(std::string str, GameDataRef data)
         sho->setAlien(m_alien);
         sho->setRoom(this);
         m_astronauts.push_back(sho);
+    }
+    for (int i = 0; i < nbEnnemys[3]; i++) {
+        pos = getEmptyPos();
+        if (pos.x < 0)
+            continue;
+        Boss *boss = new Boss();
+        boss->init(*m_data->assets.getTexture("boss"), pos, sf::Vector2f(0.6f, 0.6f));
+        boss->setAlien(m_alien);
+        boss->setRoom(this);
+        m_astronauts.push_back(boss);
     }
 }
 

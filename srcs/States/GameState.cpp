@@ -47,16 +47,6 @@ void GameState::handleInput()
             m_data->datas = 1;
             m_data->machine.addState(StateRef(new GameEndState(m_data)), 0);
         }
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::I) {
-            m_data->datas = 2;
-            m_data->machine.addState(StateRef(new GameEndState(m_data)), 0);
-        }
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
-            m_data->assets.stopMusic("battletheme");
-        }
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
-            m_data->assets.playMusic("battletheme");
-        }
         m_floor->handleInput(event);
     }
 }
@@ -66,6 +56,10 @@ void GameState::update(float dt)
     m_floor->change_room(dt, "1");
     m_gui->update(dt);
     m_alien.update(dt);
+    if (!m_alien.isAlive()) {
+        m_data->datas = 2;
+        m_data->machine.addState(StateRef(new GameEndState(m_data)), 0);
+    }
 }
 
 void GameState::draw(sf::RenderTarget& target, float interpolation)

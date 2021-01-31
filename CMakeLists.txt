@@ -84,6 +84,8 @@ set(SRC
 	${INCROOT}/Soldier.hpp
 	${SRCROOT}/Berserk.cpp
 	${INCROOT}/Berserk.hpp
+	${SRCROOT}/Boss.cpp
+	${INCROOT}/Boss.hpp
 )
 
 # Entity/Projectiles Directory
