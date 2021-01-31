@@ -10,6 +10,23 @@
 #include "States/GameState.hpp"
 #include "iostream"
 
+sf::Vector2f Room::getEmptyPos()
+{
+    int tries = 0;
+    int empty = 0;
+    sf::Vector2i mapSize(m_tilesVec[0].size(), m_tilesVec.size());
+    sf::Vector2i pos(static_cast<int>(getRand(0, mapSize.x)), static_cast<int>(getRand(0, mapSize.y)));
+
+    empty = getTile(pos)->isWalkable();
+    while (tries < 100 && !empty) {
+        pos = sf::Vector2i(static_cast<int>(getRand(0, mapSize.x)), static_cast<int>(getRand(0, mapSize.y)));
+        tries++;
+    }
+    if (tries >= 100)
+        return sf::Vector2f(-1, -1);
+    return getRealTilePos(pos);
+}
+
 void Room::set(std::string str, GameDataRef data)
 {
     sf::Vector2i cur_pos = {0, 0};
@@ -35,23 +52,33 @@ void Room::set(std::string str, GameDataRef data)
         this->m_tilesVec[cur_pos.y].push_back(currTile);
         cur_pos.x++;
     }
+    sf::Vector2f pos;
     for (int i = 0; i < 1; i++) {
+        pos = getEmptyPos();
+        if (pos.x < 0)
+            continue;
         Scientist *sci = new Scientist();
-        sci->init(*m_data->assets.getTexture("scientist"), sf::Vector2f(getRand(100, 1100), getRand(100, 600)), sf::Vector2f(0.35f, 0.35f));
+        sci->init(*m_data->assets.getTexture("scientist"), pos, sf::Vector2f(0.35f, 0.35f));
         sci->setAlien(m_alien);
         sci->setRoom(this);
         m_astronauts.push_back(sci);
     }
     for (int i = 0; i < 1; i++) {
+        pos = getEmptyPos();
+        if (pos.x < 0)
+            continue;
         Soldier *sho = new Soldier();
-        sho->init(*m_data->assets.getTexture("soldier"), sf::Vector2f(600, 300), sf::Vector2f(0.35f, 0.35f));
+        sho->init(*m_data->assets.getTexture("soldier"), pos, sf::Vector2f(0.35f, 0.35f));
         sho->setAlien(m_alien);
         sho->setRoom(this);
         m_astronauts.push_back(sho);
     }
     for (int i = 0; i < 1; i++) {
+        pos = getEmptyPos();
+        if (pos.x < 0)
+            continue;
         Berserk *bers = new Berserk();
-        bers->init(*m_data->assets.getTexture("berserk"), sf::Vector2f(600, 300), sf::Vector2f(0.35f, 0.35f));
+        bers->init(*m_data->assets.getTexture("berserk"), pos, sf::Vector2f(0.35f, 0.35f));
         bers->setAlien(m_alien);
         bers->setRoom(this);
         m_astronauts.push_back(bers);

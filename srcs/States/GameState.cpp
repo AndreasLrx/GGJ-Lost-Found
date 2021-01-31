@@ -6,6 +6,7 @@
 */
 
 #include "States/GameState.hpp"
+#include "States/GamePauseState.hpp"
 #include "Map/Floor.hpp"
 #include <iostream>
 
@@ -42,7 +43,7 @@ void GameState::handleInput()
         m_gui->handleInput(event);
         this->m_alien.handleInput(event);
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-            m_data->machine.removeState();
+            m_data->machine.addState(StateRef(new GamePauseState(m_data)), 0);
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
             m_data->assets.stopMusic("battletheme");
         }
@@ -61,15 +62,14 @@ void GameState::update(float dt)
         this->m_projectile->update(dt);
 }
 
-void GameState::draw(float interpolation)
+void GameState::draw(sf::RenderTarget& target, float interpolation)
 {
-    m_data->wind.clear(sf::Color::Black);
-    m_data->wind.draw(*this->m_floor->get_room());
-    m_data->wind.draw(this->m_alien);
+    target.clear(sf::Color::Black);
+    target.draw(*this->m_floor->get_room());
+    target.draw(this->m_alien);
     if (this->m_projectile != nullptr)
-        m_data->wind.draw(*this->m_projectile);
+        target.draw(*this->m_projectile);
     m_gui->draw(interpolation);
-    m_data->wind.display();
 }
 
 void GameState::spawnProjectile(AbstractProjectile* projectile, Entity* owner)

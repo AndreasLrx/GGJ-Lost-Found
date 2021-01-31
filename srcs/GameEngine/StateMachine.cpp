@@ -14,6 +14,7 @@ StateMachine::StateMachine()
     m_isRemoving = false;
     m_isReplacing = false;
     m_isAdding = false;
+    m_toRemove = 0;
 }
 
 void StateMachine::addState(StateRef newState, bool isReplacing)
@@ -26,15 +27,24 @@ void StateMachine::addState(StateRef newState, bool isReplacing)
 void StateMachine::removeState()
 {
     m_isRemoving = true;
+    m_toRemove = 1;
+}
+
+void StateMachine::removeStates(int nbStates)
+{
+    m_isRemoving = true;
+    m_toRemove = nbStates;
 }
 
 void StateMachine::processStateChanges()
 {
     if (m_isRemoving && !m_states.empty()) {
-        m_states.top()->end();
-        m_states.pop();
-        if (!m_states.empty())
-            m_states.top()->resume();
+        for (int i = 0; i < m_toRemove; i++) {
+            m_states.top()->end();
+            m_states.pop();
+            if (!m_states.empty())
+                m_states.top()->resume();
+        }
         m_isRemoving = false;
     }
     if (m_isAdding) {

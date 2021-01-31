@@ -46,7 +46,8 @@ void Core::run()
             acccumulator -= dt;
         }
         interpolation = acccumulator / dt;
-        m_data->machine.GetActiveState()->draw(interpolation);
+        m_data->machine.GetActiveState()->draw(m_data->wind, interpolation);
+        m_data->wind.display();
         m_data->assets.updateSounds();
     }
 }

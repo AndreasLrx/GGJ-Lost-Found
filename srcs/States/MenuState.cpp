@@ -8,6 +8,7 @@
 #include <iostream>
 #include "States/MenuState.hpp"
 #include "States/GameState.hpp"
+#include "States/LevelSelectState.hpp"
 #include "GUI/Button.hpp"
 #include "GUI/TextButton.hpp"
 
@@ -23,13 +24,17 @@ MenuState::MenuState(GameDataRef data)
     TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 175 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
-            btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);});
+            btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);
+        btn->getData()->assets.stopMusic("menu_music");});
     playBtn->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
     playBtn->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     playBtn->setCharacterSize(30  * SCL(this));
     playBtn->setTextColors(sf::Color::Black);
 
-    TextButton *tuto = new TextButton("Tutorial", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 268 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)));
+    TextButton *tuto = new TextButton("Tutorial", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 268 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
+    [](GUIAbstract *btn, int tag){
+        if (tag == 0)
+            btn->getData()->machine.addState(StateRef(new LevelSelectState(btn->getData())), 0);});
     tuto->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
     tuto->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     tuto->setCharacterSize(30  * SCL(this));
@@ -78,10 +83,9 @@ void MenuState::update(float dt)
     m_gui->update(dt);
 }
 
-void MenuState::draw(float interpolation)
+void MenuState::draw(sf::RenderTarget& target, float interpolation)
 {
-    m_data->wind.clear(sf::Color(100, 100, 100));
-    m_data->wind.draw(m_background);
+    target.clear(sf::Color(100, 100, 100));
+    target.draw(m_background);
     m_gui->draw(interpolation);
-    m_data->wind.display();
 }

@@ -22,6 +22,7 @@ class StateMachine
 
         void addState(StateRef newState, bool isReplacing = true);
         void removeState();
+        void removeStates(int nbStates);
 
         void processStateChanges();
 
@@ -34,6 +35,7 @@ class StateMachine
         bool m_isRemoving;
         bool m_isReplacing;
         bool m_isAdding;
+        int m_toRemove;
 };
 
 #endif /* !GE_STATE_MACHINE_H */

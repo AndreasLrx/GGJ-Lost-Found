@@ -93,6 +93,8 @@ set(SRC
 	${SRCROOT}/AbstractProjectile.cpp
 	${INCROOT}/LaserProjectile.hpp
 	${SRCROOT}/LaserProjectile.cpp
+	${INCROOT}/BallProjectile.hpp
+	${SRCROOT}/BallProjectile.cpp
 )
 
 # Entity/Tentacles Directory
@@ -102,6 +104,8 @@ set(SRC
     ${SRC}
 	${SRCROOT}/Tentacle.cpp
 	${INCROOT}/Tentacle.hpp
+	${SRCROOT}/RangedTentacle.cpp
+	${INCROOT}/RangedTentacle.hpp
 )
 
 # GameEngine Directory
@@ -171,8 +175,12 @@ set(SRC
     ${SRC}
 	${SRCROOT}/GameState.cpp
 	${INCROOT}/GameState.hpp
+	${SRCROOT}/GamePauseState.cpp
+	${INCROOT}/GamePauseState.hpp
 	${SRCROOT}/MenuState.cpp
 	${INCROOT}/MenuState.hpp
+	${SRCROOT}/LevelSelectState.cpp
+	${INCROOT}/LevelSelectState.hpp
 )
 
 add_executable (alien ${SRC})

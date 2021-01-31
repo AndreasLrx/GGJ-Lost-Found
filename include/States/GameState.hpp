@@ -29,11 +29,11 @@ class GameState : public State
 
         void handleInput();
         void update(float dt);
-        void draw(float interpolation);
+        void draw(sf::RenderTarget& target, float interpolation);
 
         void pause() {};
         void resume() {};
-        void end() {m_data->assets.stopMusic("battletheme");m_data->assets.stopMusic("ambiant");};
+        void end() {m_data->assets.stopMusic("battletheme");m_data->assets.stopMusic("ambiant");m_data->assets.playMusic("menu_music");};
 
         GameDataRef getData() {return m_data;};
         Alien *getAlien() {return &m_alien;};

@@ -24,6 +24,7 @@ class Room : public sf::Drawable
         Room() {};
         ~Room() {};
         void setAlien(Alien *alien) {m_alien = alien;};
+        sf::Vector2f getEmptyPos();
         void set(std::string str, GameDataRef data);
         void drawRoom();
 
