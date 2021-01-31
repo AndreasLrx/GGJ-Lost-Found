@@ -125,6 +125,7 @@ void Room::set(std::string str, GameDataRef data)
 
 void Room::update(float dt)
 {
+    this->m_alien->setRoom(this);
     for (size_t i = 0; i < m_astronauts.size(); i++)
         m_astronauts[i]->update(dt);
     if (m_hasJar)
@@ -132,6 +133,16 @@ void Room::update(float dt)
     if (m_doorAnimated >= 0) {
         if (m_doorTimer < 0)
             m_animatedDoor.update(dt);
+    }
+    for (auto it = this->m_projectiles.begin(); it < this->m_projectiles.end(); ++it) {
+        if (!(*it)->isAlive()) {
+            delete (*it);
+            it = this->m_projectiles.erase(it);
+            if (it >= this->m_projectiles.end())
+                break;
+        } else {
+            (*it)->update(dt);
+        }
     }
 }
 
@@ -195,6 +206,8 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(m_tentacleJar);
     for (size_t i = 0; i < m_astronauts.size(); i++)
         target.draw(*m_astronauts[i]);
+    for (auto it = this->m_projectiles.begin(); it < this->m_projectiles.end(); ++it)
+        target.draw(**it);
 }
 
 Tile *Room::getTile(sf::Vector2i pos)
@@ -257,4 +270,10 @@ void Room::openDoor(int door)
     default:
         break;
     }
+}
+
+void Room::spawnProjectile(AbstractProjectile* projectile, Entity* owner)
+{
+    this->m_projectiles.push_back(projectile);
+    projectile->spawn(owner, this);
 }

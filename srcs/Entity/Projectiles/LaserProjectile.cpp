@@ -10,7 +10,7 @@
 
 LaserProjectile::LaserProjectile()
 {
-    this->m_speed = 3000;
+    this->m_speed = 1000;
     this->m_activeTime = 1.0f;
 }
 
@@ -23,18 +23,26 @@ void LaserProjectile::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vec
 	this->setScale(scale);
 }
 
-void LaserProjectile::spawn(Entity* owner, GameDataRef data)
+void LaserProjectile::spawn(Entity* owner, Room *room)
 {
-    AbstractProjectile::spawn(owner, data);
+    AbstractProjectile::spawn(owner, room);
+
     sf::SoundBuffer *buffer;
     sf::Sound *sound = new sf::Sound();
+    GameDataRef data = this->getGameData();
+
     if (getRand(0, 100) > 50)
-        buffer = m_data->assets.getSound("piou1");
+        buffer = data->assets.getSound("piou1");
     else
-        buffer = m_data->assets.getSound("piou2");
+        buffer = data->assets.getSound("piou2");
     sound->setBuffer(*buffer);
     sound->setPitch(getRand(0.5f, 1.5f));
     sound->play();
     sound->setVolume(20);
-    m_data->assets.keepSound(sound);
+    data->assets.keepSound(sound);
+}
+
+void LaserProjectile::update(float dt)
+{
+    AbstractProjectile::update(dt);
 }

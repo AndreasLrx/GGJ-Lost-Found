@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include "Entity/Alien.hpp"
 #include "GameEngine/Core.hpp"
+#include "Entity/Projectiles/AbstractProjectile.hpp"
 #include "Map/Tile.hpp"
 #include "Entity/AnimatedSprite.hpp"
 
@@ -42,6 +43,11 @@ class Room : public sf::Drawable
         Tile *getTile(sf::Vector2i pos);
         sf::Vector2f getRealTilePos(sf::Vector2i tilePos);
         unsigned int getTileSize() {return m_tileSize;};
+        GameDataRef getGameData();
+
+        void spawnProjectile(AbstractProjectile* projectile, Entity* owner);
+
+        std::vector<Astronaut*>& getAstronauts();
 
     private:
         void initJar(char jar);
@@ -57,6 +63,7 @@ class Room : public sf::Drawable
 
         Alien *m_alien;
         std::vector<Astronaut *> m_astronauts;
+        std::vector<AbstractProjectile*> m_projectiles;
         int m_doors[4];
         bool m_hasJar;
         AnimatedSprite m_tentacleJar;
@@ -64,5 +71,15 @@ class Room : public sf::Drawable
         float m_doorTimer;
         int m_doorAnimated;
 };
+
+inline GameDataRef Room::getGameData()
+{
+    return this->m_data;
+}
+
+inline std::vector<Astronaut *>& Room::getAstronauts()
+{
+    return this->m_astronauts;
+}
 
 #endif
