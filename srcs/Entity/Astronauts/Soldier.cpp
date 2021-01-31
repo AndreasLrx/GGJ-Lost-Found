@@ -11,7 +11,7 @@
 
 static const int SHOOT_RANGE = 160000;
 static const int CAC_MOD_RANGE = 70000;
-static const int CAC_RANGE = 30000;
+static const int CAC_RANGE = 20000;
 
 
 void Soldier::setAnimationListener()

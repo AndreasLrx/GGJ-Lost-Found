@@ -9,7 +9,7 @@
 #include "Entity/Alien.hpp"
 #include <iostream>
 
-static const int ATTACK_RANGE = 40000;
+static const int ATTACK_RANGE = 20000;
 
 void Berserk::setAnimationListener()
 {

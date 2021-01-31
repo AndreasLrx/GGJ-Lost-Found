@@ -109,16 +109,19 @@ void AssetManager::playSound(std::string name)
 
     sound->setBuffer(*buffer);
     sound->play();
+    sound->setVolume(40);
     m_soundsPlaying.push_back(sound);
 }
 
-void AssetManager::playMusic(std::string name)
+void AssetManager::playMusic(std::string name, bool loop)
 {
     sf::Music *music = getMusic(name);
 
     if (!music)
         return;
     music->play();
+    music->setVolume(40);
+    music->setLoop(loop);
     m_musicsPlaying.push_back(music);
 }
 

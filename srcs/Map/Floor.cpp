@@ -70,7 +70,6 @@ void Floor::set(std::string cur_floor, GameDataRef data)
         size += floor_map[i].size();
     this->m_rooms = new Room[size]; // Allocate room
     this->m_floor_str = floor_buffer.str(); // Useless i think ?
-    std::cout << size << '\n';
     for (int index = 0; k < size; index++) { // For each room in the floor
         if (floor_buffer.str()[index] != '\n') { // If index of floor buffer is  a room
             std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[index]); // Load good room

@@ -36,7 +36,7 @@ class AssetManager
         void keepSound(sf::Sound *sound);
 
         void playSound(std::string name);
-        void playMusic(std::string name);
+        void playMusic(std::string name, bool loop = true);
         void stopMusic(std::string name);
         void stopMusics();
         void stopSounds();

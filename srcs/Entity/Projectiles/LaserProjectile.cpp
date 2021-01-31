@@ -35,5 +35,6 @@ void LaserProjectile::spawn(Entity* owner, GameDataRef data)
     sound->setBuffer(*buffer);
     sound->setPitch(getRand(0.5f, 1.5f));
     sound->play();
+    sound->setVolume(20);
     m_data->assets.keepSound(sound);
 }
