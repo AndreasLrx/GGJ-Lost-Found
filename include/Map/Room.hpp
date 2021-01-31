@@ -37,6 +37,7 @@ class Room : public sf::Drawable
 
     private:
         char type;
+        sf::Sprite m_door;
         std::vector <sf::Sprite> m_sprites;
         std::string m_room_str;
         std::vector<std::vector<Tile *>> m_tilesVec;

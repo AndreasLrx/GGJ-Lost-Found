@@ -36,6 +36,7 @@ void AssetManager::loadAll(void)
     loadTexture("TestTile_Set", "res/Textures/tile.png");
     loadTexture("bg", "res/Textures/bg.png");
     loadTexture("laser", "res/Textures/laser.png");
+    loadTexture("door", "res/Textures/porte.png");
 }
 
 void AssetManager::loadTexture(std::string name, std::string fileName)

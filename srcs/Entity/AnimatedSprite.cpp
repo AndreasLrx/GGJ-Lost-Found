@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include "Entity/AnimatedSprite.hpp"
+#include "functions.hpp"
 
 AnimatedSprite::AnimatedSprite()
 {
@@ -26,6 +27,12 @@ AnimatedSprite::AnimatedSprite(const sf::Texture& texture, std::size_t frameCoun
 void AnimatedSprite::resetFrame()
 {
 	m_frame = 0;
+	update(0);
+}
+
+void AnimatedSprite::randomFrame()
+{
+	this->m_frame = getRand(0, this->m_frameMax);
 	update(0);
 }
 
