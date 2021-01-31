@@ -27,6 +27,8 @@ void Floor::handleInput(sf::Event event)
 
     if (event.type != sf::Event::KeyPressed || event.key.code != sf::Keyboard::E)
         return;
+    if (m_rooms[m_roomId].hasEnnemys())
+        return;
     if (getDistSquared(m_alien->getPosition(), sf::Vector2f(windSize.x, windSize.y / 2.f)) < 20000) {
         if (floor_pos.x + 1 < (int)floor_map[floor_pos.y].size() && this->floor_map[floor_pos.y][floor_pos.x +1] != 'E') {
             doorUsed = Room::RIGHT;

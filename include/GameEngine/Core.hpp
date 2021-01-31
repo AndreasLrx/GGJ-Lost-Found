@@ -23,6 +23,7 @@ struct GameData {
     AssetManager assets;
     InputManager input;
     Settings settings;
+    int datas;
 };
 
 class Core

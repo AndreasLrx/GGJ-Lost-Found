@@ -7,6 +7,7 @@
 
 #include "Map/Room.hpp"
 #include <SFML/Graphics/Sprite.hpp>
+#include <sstream>
 #include "States/GameState.hpp"
 #include "iostream"
 
@@ -62,6 +63,9 @@ void Room::set(std::string str, GameDataRef data)
     sf::Vector2i cur_pos = {0, 0};
     sf::Texture *texture = data->assets.getTexture("TestTile_Set");
     Tile *currTile;
+    std::stringstream ss(str);
+    int nbEnnemys[4] = {0};
+    int index = 0;
 
     m_tileSize = 55;
     this->m_door = sf::Sprite(*data->assets.getTexture("doors"));
@@ -72,26 +76,30 @@ void Room::set(std::string str, GameDataRef data)
     this->m_data = data;
     this->m_tilesVec.push_back(std::vector<Tile *>());
     m_astronauts.clear();
-    if (str[0] == 'S' || str[0] == 'A' || str[0] == 'V') {
-        initJar(str[0]);
-        str[0] = '0';
+    for (int i = 0; i < 4; i++)
+        ss >> nbEnnemys[i];
+    index = ss.tellg();
+    index++;
+    if (str[index] == 'S' || str[index] == 'A' || str[index] == 'V') {
+        initJar(str[index]);
+        str[index] = '0';
     }
-    for (unsigned int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '\n') {
+    for (unsigned int i = 0; str[i + index] != '\0'; i++) {
+        if (str[i + index] == '\n') {
             cur_pos.y++;
             cur_pos.x = 0;
             m_tilesVec.push_back(std::vector<Tile *>());
             continue;
         }
         currTile = new Tile;
-        currTile->init(static_cast<Tile::Type>(str[i] - '0'), cur_pos, static_cast<unsigned int>(str[i] - '0'));
+        currTile->init(static_cast<Tile::Type>(str[index + i] - '0'), cur_pos, static_cast<unsigned int>(str[index + i] - '0'));
         this->m_tilesVec[cur_pos.y].push_back(currTile);
         cur_pos.x++;
     }
     if (m_hasJar)
         return;
     sf::Vector2f pos;
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < nbEnnemys[0]; i++) {
         pos = getEmptyPos();
         if (pos.x < 0)
             continue;
@@ -101,17 +109,7 @@ void Room::set(std::string str, GameDataRef data)
         sci->setRoom(this);
         m_astronauts.push_back(sci);
     }
-    for (int i = 0; i < 1; i++) {
-        pos = getEmptyPos();
-        if (pos.x < 0)
-            continue;
-        Soldier *sho = new Soldier();
-        sho->init(*m_data->assets.getTexture("soldier"), pos, sf::Vector2f(0.3f, 0.3f));
-        sho->setAlien(m_alien);
-        sho->setRoom(this);
-        m_astronauts.push_back(sho);
-    }
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < nbEnnemys[2]; i++) {
         pos = getEmptyPos();
         if (pos.x < 0)
             continue;
@@ -120,6 +118,16 @@ void Room::set(std::string str, GameDataRef data)
         bers->setAlien(m_alien);
         bers->setRoom(this);
         m_astronauts.push_back(bers);
+    }
+    for (int i = 0; i < nbEnnemys[1]; i++) {
+        pos = getEmptyPos();
+        if (pos.x < 0)
+            continue;
+        Soldier *sho = new Soldier();
+        sho->init(*m_data->assets.getTexture("soldier"), pos, sf::Vector2f(0.3f, 0.3f));
+        sho->setAlien(m_alien);
+        sho->setRoom(this);
+        m_astronauts.push_back(sho);
     }
 }
 

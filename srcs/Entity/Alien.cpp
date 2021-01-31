@@ -11,6 +11,7 @@
 #include "States/GameState.hpp"
 #include "Entity/Tentacles/Tentacle.hpp"
 #include "Entity/Tentacles/RangedTentacle.hpp"
+#include "Map/Room.hpp"
 #include "Entity/Tentacles/ShieldTentacle.hpp"
 
 Alien::Alien(GameDataRef gameData): m_gameData(gameData) {
@@ -139,6 +140,16 @@ void Alien::onOrientationChanged()
 	
 	this->m_bounds[1].m_pos = this->m_bounds[0].m_pos + sf::Vector2f(hitboxOffset.x * 70.0f, hitboxOffset.y * 70.0f);
 	this->m_bounds[2].m_pos = this->m_bounds[0].m_pos + sf::Vector2f(hitboxOffset.x * 125.0f, hitboxOffset.y * 120.0f);
+}
+
+bool Alien::move(sf::Vector2f offset)
+{
+    if (offset == sf::Vector2f(0, 0))
+        return false;
+	if (m_room->getTileAt(this->m_pos + offset) == nullptr)
+		return false;
+    this->setPosition(this->m_pos + offset);
+    return true;
 }
 
 void Alien::update(float dt)

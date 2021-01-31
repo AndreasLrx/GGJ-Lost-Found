@@ -28,6 +28,8 @@ public:
     void onOrientationChanged() override;
     Circle const* getCircleBounds(std::size_t& size) const override;
 
+    bool move(sf::Vector2f offset) override;
+
 private:
     sf::Sprite m_slimeSprite;
     sf::Sprite m_bodySprite;

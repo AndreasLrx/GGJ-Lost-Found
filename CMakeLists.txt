@@ -183,6 +183,8 @@ set(SRC
 	${INCROOT}/GameState.hpp
 	${SRCROOT}/GamePauseState.cpp
 	${INCROOT}/GamePauseState.hpp
+	${SRCROOT}/GameEndState.cpp
+	${INCROOT}/GameEndState.hpp
 	${SRCROOT}/MenuState.cpp
 	${INCROOT}/MenuState.hpp
 	${SRCROOT}/LevelSelectState.cpp

@@ -33,6 +33,7 @@ class LevelSelectState : public State
         void initBtn(std::string text, sf::Vector2f pos, int tag, inputReactFct input = nullptr);
 
         GameDataRef m_data;
+        sf::RectangleShape m_bg;
 };
 
 #endif /* !STATES_LEVEL_SELECT_H */

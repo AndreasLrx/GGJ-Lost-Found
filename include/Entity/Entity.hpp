@@ -38,7 +38,7 @@ class Entity : public sf::Drawable
 
         void setPosition(sf::Vector2f pos);
         void setPosition(float x, float y);
-        bool move(sf::Vector2f offset);
+        virtual bool move(sf::Vector2f offset);
         bool move(float ox, float oy);
 
         void setScale(sf::Vector2f scale);
@@ -63,9 +63,9 @@ class Entity : public sf::Drawable
     protected:
         bool m_isAlive = true;
         Room *m_room;
+        sf::Vector2f m_pos;
 
     private:
-        sf::Vector2f m_pos;
         sf::Vector2f m_scale;
         float m_orientation = 0;
 };

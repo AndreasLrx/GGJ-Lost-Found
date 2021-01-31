@@ -13,6 +13,8 @@ LevelSelectState::LevelSelectState(GameDataRef data)
 {
     m_data = data;
     m_gui = new GUIManager(data);
+    m_bg.setSize(sf::Vector2f(1280 * SCL(this), 720 * SCL(this)));
+    m_bg.setTexture(m_data->assets.getTexture("level_select"));
 
     initBtn("Tutorial", sf::Vector2f(525 * SCL(this), 120 * SCL(this)), 0, [](GUIAbstract *btn, int tag){
         if (tag == 0)
@@ -62,5 +64,6 @@ void LevelSelectState::update(float dt)
 void LevelSelectState::draw(sf::RenderTarget& target, float interpolation)
 {
     target.clear(sf::Color(130, 130, 130));
+    target.draw(m_bg);
     m_gui->draw(interpolation);
 }

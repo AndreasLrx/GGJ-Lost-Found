@@ -8,6 +8,7 @@
 #include "States/GameState.hpp"
 #include "States/GamePauseState.hpp"
 #include "Map/Floor.hpp"
+#include "States/GameEndState.hpp"
 #include <iostream>
 
 GameState::GameState(GameDataRef data): m_alien(data)
@@ -29,7 +30,6 @@ GameState::~GameState()
 void GameState::init()
 {
     this->m_floor = new Floor(this->m_data, &m_alien);
-    //this->m_floor = this->m_floor.set("11111111");
 }
 
 void GameState::handleInput()
@@ -43,6 +43,14 @@ void GameState::handleInput()
         this->m_alien.handleInput(event);
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             m_data->machine.addState(StateRef(new GamePauseState(m_data)), 0);
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::U) {
+            m_data->datas = 1;
+            m_data->machine.addState(StateRef(new GameEndState(m_data)), 0);
+        }
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::I) {
+            m_data->datas = 2;
+            m_data->machine.addState(StateRef(new GameEndState(m_data)), 0);
+        }
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
             m_data->assets.stopMusic("battletheme");
         }

@@ -11,7 +11,7 @@
 #include "GUI/GUIManager.hpp"
 #include "GameEngine/Core.hpp"
 
-class GameEndState {
+class GameEndState : public State
 {
     public:
         GameEndState(GameDataRef data);
@@ -30,12 +30,13 @@ class GameEndState {
         GameDataRef getData() {return m_data;};
 
     private:
-        void initBtn(std::string text, sf::Vector2f pos, int tag, inputReactFct input = nullptr);
 
         GameDataRef m_data;
-        sf::RectangleShape m_background;
-        sf::RectangleShape m_menu;
+        sf::RectangleShape m_backgroundInit;
+        sf::RectangleShape m_endBackground;
         sf::RenderTexture m_texture;
+        float m_timer;
+        bool m_endReady;
 };
 
 #endif /* !STATES_GAME_END_H */

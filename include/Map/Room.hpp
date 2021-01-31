@@ -35,6 +35,7 @@ class Room : public sf::Drawable
         void initDoors(std::vector<std::string> mapStr, sf::Vector2i pos);
         void openDoor(int door);
         int needChangeDoor();
+        int hasEnnemys() {return !m_astronauts.empty();};
 
         void update(float dt);
 

@@ -30,6 +30,10 @@ void AssetManager::loadAll(void)
     loadTexture("button", "res/Textures/GUI/Button.png");
     loadTexture("menu", "res/Textures/Menu.png");
     loadTexture("menu_background", "res/Textures/menu_background.png");
+    loadTexture("game_end_win", "res/Textures/game_end_win.png");
+    loadTexture("game_end_win2", "res/Textures/game_end_win2.png");
+    loadTexture("game_end_lose", "res/Textures/game_end_lose.png");
+    loadTexture("level_select", "res/Textures/level_select.png");
     loadTexture("scientist", "res/Textures/scientist.png");
     loadTexture("soldier", "res/Textures/soldier.png");
     loadTexture("berserk", "res/Textures/berserk.png");
