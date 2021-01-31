@@ -59,15 +59,15 @@ void GameState::update(float dt)
     m_alien.update(dt);
 
     for (auto it = this->m_projectiles.begin(); it < this->m_projectiles.end(); ++it) {
-      //  if (!(*it)->isAlive()) {
-     //       delete (*it);
-     //       it = this->m_projectiles.erase(it);
-     //   }
-    //    else {
+        if (!(*it)->isAlive()) {
+            delete (*it);
+            it = this->m_projectiles.erase(it);
+            if (it >= this->m_projectiles.end())
+                break;
+        } else {
             (*it)->update(dt);
-    //    }
+        }
     }
-    //std::cout << "size: " << this->m_projectiles.size() << std::endl;
 }
 
 void GameState::draw(sf::RenderTarget& target, float interpolation)
