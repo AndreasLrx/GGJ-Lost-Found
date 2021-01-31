@@ -26,21 +26,37 @@ Astronaut::~Astronaut()
 void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
 {
     sf::FloatRect bounds;
-	sf::IntRect frames[] = { {0, 0, 400, 400}, {400, 0, 400, 400}, {800, 0, 400, 400}, {1200, 0, 400, 400}};
+    sf::IntRect *move = new sf::IntRect[4]{{0, 0, 400, 400}, {400, 0, 400, 400}, {800, 0, 400, 400}, {1200, 0, 400, 400}};
+    sf::IntRect *idle = new sf::IntRect[1]{{0, 400, 400, 400}};
+    sf::IntRect *cac = new sf::IntRect[1]{{400, 400, 400, 400}};
+    sf::IntRect *shoot = new sf::IntRect[1]{{800, 400, 400, 400}};
+	sf::IntRect *move_shoot = new sf::IntRect[4]{{0, 800, 400, 400}, {400, 800, 400, 400}, {800, 800, 400, 400}, {1200, 800, 400, 400}};
+    m_animTextRectTabs[MOVE] = move;
+    m_animTextRectTabs[IDLE] = idle;
+    m_animTextRectTabs[CAC] = cac;
+    m_animTextRectTabs[SHOOT] = shoot;
+    m_animTextRectTabs[MOVE_SHOOT] = move_shoot;
+    m_animDatas[MOVE] = {6.f, 4};
+    m_animDatas[IDLE] = {6.f, 1};
+    m_animDatas[CAC] = {6.f, 1};
+    m_animDatas[SHOOT] = {2.f, 1};
+    m_animDatas[MOVE_SHOOT] = {6.f, 4};
 
     m_move = sf::Vector2f(0, 0);
     m_running = 0;
+    m_state = MOVE;
+    m_attackCooldown = 0;
     this->m_sprite.setTexture(texture);
     this->m_sprite.setPosition(pos);
     this->m_sprite.setScale(scale);
-    this->m_sprite.setTextureFrames(4, frames);
-    this->m_sprite.setAnimationSpeed(6.f);
+    this->changeState(MOVE);
     this->setPosition(pos);
     this->setScale(scale);
     m_sprite.update(0);
     bounds = m_sprite.getLocalBounds();
     this->m_sprite.setOrigin(bounds.width / 2.f, bounds.height);
     this->m_sprite.setMirrored(true);
+    setAnimationListener();
 }
 
 void Astronaut::setAlien(Alien *alien)
@@ -51,6 +67,32 @@ void Astronaut::setAlien(Alien *alien)
 void Astronaut::setRoom(Room *room)
 {
     m_room = room;
+}
+
+void Astronaut::cac()
+{
+    if (m_attackCooldown > 1.f) {
+        //attack
+        changeState(CAC);
+        m_attackCooldown = 0;
+    }
+}
+
+void Astronaut::shoot()
+{
+    if (m_attackCooldown > 2.f && m_state != SHOOT && m_state != MOVE_SHOOT) {
+        //shoot
+        changeState((m_state == MOVE) ? MOVE_SHOOT : SHOOT);
+        m_attackCooldown = 0;
+    }
+}
+
+void Astronaut::changeState(int newState)
+{
+    this->m_sprite.setTextureFrames(m_animDatas[newState].second, m_animTextRectTabs[newState]);
+    this->m_sprite.setAnimationSpeed(m_animDatas[newState].first);
+    m_state = newState;
+    this->m_sprite.resetFrame();
 }
 
 void Astronaut::handleInput(sf::Event event)
@@ -84,6 +126,7 @@ void Astronaut::update(float dt)
 
 void Astronaut::updatePathTimer(float dt)
 {
+    m_attackCooldown += dt;
     if (m_pathUpdateTimer >= 0.5) {
         m_pathUpdateTimer = 0;
         if (!m_running)

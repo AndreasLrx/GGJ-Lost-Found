@@ -31,6 +31,7 @@ public:
     sf::FloatRect getGlobalBounds() const;
     void setAnimationEndListener(AnimationEndListener listener);
     void setMirrored(bool mirrored);
+    void resetFrame();
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

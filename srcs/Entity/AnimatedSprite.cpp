@@ -23,12 +23,18 @@ AnimatedSprite::AnimatedSprite(const sf::Texture& texture, std::size_t frameCoun
 	this->update(0);
 }
 
+void AnimatedSprite::resetFrame()
+{
+	m_frame = 0;
+	update(0);
+}
+
 void AnimatedSprite::update(float dt)
 {
 	this->m_frame += dt * this->m_speed;
 	if (this->m_frame < 0)
 		this->m_frame = -this->m_frame;
-	if (this->m_frame > this->m_frameMax)
+	if (this->m_frame >= this->m_frameMax)
 		(this->m_listener)(*this);
 	this->m_frame = std::fmod(this->m_frame, this->m_frameMax);
 
