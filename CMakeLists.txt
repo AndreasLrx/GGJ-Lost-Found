@@ -106,10 +106,10 @@ set(SRC
     ${SRC}
 	${SRCROOT}/RangedTentacle.cpp
 	${INCROOT}/RangedTentacle.hpp
+	${SRCROOT}/ShieldTentacle.cpp
+	${INCROOT}/ShieldTentacle.hpp
 	${SRCROOT}/Tentacle.cpp
 	${INCROOT}/Tentacle.hpp
-	${SRCROOT}/RangedTentacle.cpp
-	${INCROOT}/RangedTentacle.hpp
 )
 
 # GameEngine Directory

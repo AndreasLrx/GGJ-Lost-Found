@@ -11,9 +11,10 @@
 #include "States/GameState.hpp"
 #include "Entity/Tentacles/Tentacle.hpp"
 #include "Entity/Tentacles/RangedTentacle.hpp"
+#include "Entity/Tentacles/ShieldTentacle.hpp"
 
 Alien::Alien(GameDataRef gameData): m_gameData(gameData) {
-	this->m_passiveTentacles = { new Tentacle(), new RangedTentacle(), new Tentacle(), new Tentacle(), new Tentacle() };
+	this->m_passiveTentacles = { new ShieldTentacle(), new RangedTentacle(), new ShieldTentacle(), new Tentacle(), new Tentacle() };
 	this->m_active_tentacle = new RangedTentacle();
 }
 
@@ -178,7 +179,7 @@ void Alien::spreadTentacles()
 {
 	std::size_t count = this->m_passiveTentacles.size();
 	float increment = 1 / static_cast<float>(count + 1);
-	float spread = 90.0f;
+	float spread = 180.0f;
 	float hspread = spread / 2;
 
 	for (size_t i = 0; i < count; ++i) {

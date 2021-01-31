@@ -37,7 +37,7 @@ public:
 protected:
     Alien* m_owner = nullptr;
     float m_health;
-    float const m_maxHealth;
+    float m_maxHealth;
     AnimatedSprite m_sprite;
     float m_cooldownMax = 0.0f;
     float m_cooldown = 0.0f;
