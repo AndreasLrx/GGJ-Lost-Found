@@ -17,6 +17,8 @@ GameState::GameState(GameDataRef data): m_alien(data)
     m_alien.init(*m_data->assets.getTexture("alien"), sf::Vector2f(200, 200), sf::Vector2f(0.25, 0.25));
     this->m_projectile = nullptr;
     m_data->assets.playMusic("battletheme");
+    m_data->assets.getMusic("ambiant")->setVolume(60);
+    m_data->assets.playMusic("ambiant");
 }
 
 GameState::~GameState()
@@ -41,6 +43,12 @@ void GameState::handleInput()
         this->m_alien.handleInput(event);
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             m_data->machine.removeState();
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
+            m_data->assets.stopMusic("battletheme");
+        }
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
+            m_data->assets.playMusic("battletheme");
+        }
     }
 }
 

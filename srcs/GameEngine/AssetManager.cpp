@@ -23,6 +23,7 @@ void AssetManager::loadAll(void)
 {
     loadMusic("menu_music", "res/Musics/main_menu_1.ogg");
     loadMusic("battletheme", "res/Musics/battletheme-rock.ogg");
+    loadMusic("ambiant", "res/Musics/ambiant1.ogg");
     loadSound("piou1", "res/Sounds/laser_type1.ogg");
     loadSound("piou2", "res/Sounds/laser_type2.ogg");
     loadTexture("button", "res/Textures/GUI/Button.png");
