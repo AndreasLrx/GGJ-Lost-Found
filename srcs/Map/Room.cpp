@@ -8,10 +8,7 @@
 #include "Map/Room.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 #include "States/GameState.hpp"
-
-static const unsigned int TILES_VERT = 18;
-static const unsigned int TILES_HORZ = 32;
-static const unsigned int TILES_PER_ROOM = TILES_HORZ * TILES_VERT - 1;
+#include "iostream"
 
 void Room::set(std::string str, GameDataRef data)
 {
@@ -19,7 +16,7 @@ void Room::set(std::string str, GameDataRef data)
     sf::Texture *texture = data->assets.getTexture("TestTile_Set");
     Tile *currTile;
     m_tileSize = 55;
-
+    this->m_door = sf::Sprite(*data->assets.getTexture("door"));
     this->m_sprites.push_back(sf::Sprite(*texture, {0, 0, 55, 55}));
     this->m_sprites.push_back(sf::Sprite(*texture, {55, 0, 55, 55}));
     this->background = sf::Sprite(*data->assets.getTexture("bg"));
@@ -70,9 +67,32 @@ void Room::update(float dt)
 void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     sf::Sprite sprite;
+    sf::Sprite s_door;
     Tile *current;
     sf::Vector2i tilePos;
 
+    target.draw(background, states);
+    for (unsigned int i = 0; i != 4; i++) {
+        s_door = this->m_door;
+        s_door.setScale(sf::Vector2f(0.4, 0.4));
+        if (i == 0) {
+            s_door.setRotation(0);
+            s_door.setPosition(sf::Vector2f(1200, 300));
+        }
+        if (i == 1) {
+            s_door.setRotation(90);
+            s_door.setPosition(sf::Vector2f(700, 650));
+        }
+        if (i == 2) {
+            s_door.setRotation(180);
+            s_door.setPosition(sf::Vector2f(80, 400));
+        }
+        if (i == 3) {
+            s_door.setRotation(270);
+            s_door.setPosition(sf::Vector2f(600, 80));
+        }
+        target.draw(s_door, states);
+    }
     for (size_t y = 0; y < m_tilesVec.size(); y++) {
         for (size_t x = 0; x < m_tilesVec[y].size(); x++) {
             current = this->m_tilesVec[y][x];
@@ -82,7 +102,6 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
             target.draw(sprite, states);
         }
     }
-    target.draw(background, states);
     for (size_t i = 0; i < m_astronauts.size(); i++)
         target.draw(*m_astronauts[i]);
 }

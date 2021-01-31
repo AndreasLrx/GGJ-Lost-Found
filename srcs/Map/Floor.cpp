@@ -11,22 +11,6 @@
 #include <fstream>
 #include "Map/Floor.hpp"
 
-/*
-Tile::Tile(unsigned char const type, sf::Vector2i pos)
-{
-    this->m_entity->setPosition(pos.y, pos.y);
-    this->m_type = type;
-}
-
-void Tile::set(unsigned char const type, sf::Vector2i vect, sf::Texture *texture)
-{
-    sf::Vector2f true_vect = {(float)vect.x, (float)vect.y};
-
-    this->m_type = type;
-    this->m_entity->init(true_vect, texture);
-}
-*/
-
 Floor::Floor(GameDataRef data, Alien *alien)
 {
     this->m_data = data;
@@ -39,28 +23,24 @@ Floor::Floor(GameDataRef data, Alien *alien)
 void Floor::change_room(float dt, std::string cur_room)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && floor_pos.y - 1 >= 0)
-        if (this->floor_map[floor_pos.y - 1][floor_pos.x] != '.') {
+        if (this->floor_map[floor_pos.y - 1][floor_pos.x] != 'E') {
             floor_pos.y--;
             m_roomId -= floor_map[0].size();
-            //this->m_cur_room -= floor_map.size();
         }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && floor_pos.y + 1 < (int)floor_map.size()) {
-        if (this->floor_map[floor_pos.y + 1][floor_pos.x] != '.') {
+        if (this->floor_map[floor_pos.y + 1][floor_pos.x] != 'E') {
             m_roomId += floor_map[0].size();
-            //this->m_cur_room += floor_map.size();
             this->floor_pos.y++;
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && floor_pos.x -1 >= 0)
-        if (this->floor_map[floor_pos.y][floor_pos.x - 1] != '.'){
+        if (this->floor_map[floor_pos.y][floor_pos.x - 1] != 'E'){
             m_roomId -= 1;
-            //this->m_cur_room--;
             floor_pos.x--;
         }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && floor_pos.x + 1 < (int)floor_map[floor_pos.y].size())
-        if (this->floor_map[floor_pos.y][floor_pos.x +1] != '.') {
+        if (this->floor_map[floor_pos.y][floor_pos.x +1] != 'E') {
             m_roomId += 1;
-            //this->m_cur_room++;
             floor_pos.x++;
         }
     m_cur_room = &m_rooms[m_roomId];
@@ -90,7 +70,8 @@ void Floor::set(std::string cur_floor, GameDataRef data)
         size += floor_map[i].size();
     this->m_rooms = new Room[size]; // Allocate room
     this->m_floor_str = floor_buffer.str(); // Useless i think ?
-    for (int index = 0; index < size; index++) { // For each room in the floor
+    std::cout << size << '\n';
+    for (int index = 0; k < size; index++) { // For each room in the floor
         if (floor_buffer.str()[index] != '\n') { // If index of floor buffer is  a room
             std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[index]); // Load good room
             std::stringstream room_buffer;
