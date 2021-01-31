@@ -16,6 +16,7 @@ class Scientist : public Astronaut
         Scientist() {};
         ~Scientist() {};
 
+        void setAnimationListener();
         void update(float dt);
     private:
         

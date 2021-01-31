@@ -16,6 +16,7 @@ class Soldier : public Astronaut
         Soldier() {};
         ~Soldier() {};
 
+        void setAnimationListener();
         void update(float dt);
 
     private:

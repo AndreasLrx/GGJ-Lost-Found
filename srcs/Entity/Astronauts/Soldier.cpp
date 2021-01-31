@@ -13,6 +13,19 @@ static const int SHOOT_RANGE = 160000;
 static const int CAC_MOD_RANGE = 70000;
 static const int CAC_RANGE = 30000;
 
+
+void Soldier::setAnimationListener()
+{
+    this->m_sprite.setAnimationEndListener([=](auto sprite){
+        if (m_state == MOVE || m_state == IDLE)
+            return;
+        if (m_state == MOVE_SHOOT)
+            changeState(MOVE);
+        if (m_state == CAC || m_state == SHOOT)
+            changeState(IDLE);
+    });
+}
+
 void Soldier::update(float dt)
 {
     float dist;
@@ -25,12 +38,17 @@ void Soldier::update(float dt)
     if (dist < SHOOT_RANGE && seePos(m_alien->getPosition())) {
         if (dist < CAC_RANGE) {
             m_path.clear();
-            //attack cac
+            cac();
         } else if (dist > CAC_MOD_RANGE) {
-            //shoot
+            if (m_state != SHOOT && m_state != MOVE_SHOOT) {
+                changeState(IDLE);
+                shoot();
+            }
             return;
         }
     }
+    if (!m_path.empty() && m_state == IDLE)
+        changeState(MOVE);
     moveToPath(180, dt);
 }
 

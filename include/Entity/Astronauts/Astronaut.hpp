@@ -30,6 +30,7 @@ class Astronaut : public AbstractAstronaut
         ~Astronaut();
 
         void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 });
+        virtual void setAnimationListener() = 0;
         void setAlien(Alien *alien);
         void setRoom(Room *room);
         void handleInput(sf::Event event);
@@ -42,6 +43,10 @@ class Astronaut : public AbstractAstronaut
         void resetPath(sf::Vector2f goal);
     
     protected:
+        void changeState(int newState);
+        void shoot();
+        void cac();
+
         void computePath(node *startNode, node *endNode);
         bool seePos(sf::Vector2f pos);
         void updatePathTimer(float dt);

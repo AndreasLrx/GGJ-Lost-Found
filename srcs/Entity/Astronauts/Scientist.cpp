@@ -12,6 +12,18 @@
 static const int SHOOT_RANGE = 160000;
 static const int FLEE_RANGE = 70000;
 
+void Scientist::setAnimationListener()
+{
+    this->m_sprite.setAnimationEndListener([=](auto sprite){
+        if (m_state == MOVE || m_state == IDLE)
+            return;
+        if (m_state == MOVE_SHOOT)
+            changeState(MOVE);
+        if (m_state == SHOOT)
+            changeState(IDLE);
+    });
+}
+
 void Scientist::update(float dt)
 {
     float dist;
@@ -25,19 +37,26 @@ void Scientist::update(float dt)
     if (dist < SHOOT_RANGE && seePlayer) {
         if (dist < FLEE_RANGE) {
             m_path.clear();
-            if (!m_running)
+            if (m_running == 0) {
+                changeState(MOVE);
                 runAway(m_alien->getPosition());
+            }
             m_running = 1;
             this->move(m_move * dt);
+            shoot();
             Tile *tile = m_room->getTileAt(this->getPosition());
             if (tile == nullptr)
                 this->move(m_move * -dt);
         } else {
-            //shoot
+            if (m_state == MOVE)
+                changeState(IDLE);
             m_running = 0;
+            shoot();
         }
     } else {
         m_running = 0;
+        if (!m_path.empty() && m_state == IDLE)
+            changeState(MOVE);
         moveToPath(250, dt);
     }
 }

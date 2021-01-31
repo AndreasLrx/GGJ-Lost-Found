@@ -16,6 +16,7 @@ class Berserk : public Astronaut
         Berserk() {};
         ~Berserk() {};
 
+        void setAnimationListener();
         void update(float dt);
 };
 

@@ -22,8 +22,13 @@ class AbstractAstronaut : public Entity
         virtual ~AbstractAstronaut() {};
         
     protected:
+        enum STATES {MOVE, IDLE, CAC, SHOOT, MOVE_SHOOT};
+        sf::IntRect *m_animTextRectTabs[5];
+        std::pair<float, int> m_animDatas[5];
         Alien *m_alien;
         int m_type;
+        int m_state;
+        float m_attackCooldown;
 };
 
 #endif /* !ASTRONAUT_HPP */
