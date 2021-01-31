@@ -23,7 +23,7 @@ class Tile
         bool isWalkable() {return m_type == EMPTY;};
 
         Type getType() {return m_type;};
-        sf::Vector2i getPosition() {return m_pos;};
+       sf::Vector2i getPosition() {return m_pos;};
         unsigned int getIndex() {return m_index;};
 
     private:

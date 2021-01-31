@@ -91,6 +91,8 @@ set(SRC
     ${SRC}
 	${INCROOT}/AbstractProjectile.hpp
 	${SRCROOT}/AbstractProjectile.cpp
+	${INCROOT}/BallProjectile.hpp
+	${SRCROOT}/BallProjectile.cpp
 	${INCROOT}/LaserProjectile.hpp
 	${SRCROOT}/LaserProjectile.cpp
 )
@@ -100,6 +102,8 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity/Tentacles)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity/Tentacles)
 set(SRC
     ${SRC}
+	${SRCROOT}/RangedTentacle.cpp
+	${INCROOT}/RangedTentacle.hpp
 	${SRCROOT}/Tentacle.cpp
 	${INCROOT}/Tentacle.hpp
 )

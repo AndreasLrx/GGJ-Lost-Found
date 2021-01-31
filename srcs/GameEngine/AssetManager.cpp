@@ -26,6 +26,7 @@ void AssetManager::loadAll(void)
     loadMusic("ambiant", "res/Musics/ambiant1.ogg");
     loadSound("piou1", "res/Sounds/laser_type1.ogg");
     loadSound("piou2", "res/Sounds/laser_type2.ogg");
+    loadSound("shoot_ball", "res/Sounds/tentacle_type1.ogg");
     loadTexture("button", "res/Textures/GUI/Button.png");
     loadTexture("menu", "res/Textures/Menu.png");
     loadTexture("scientist", "res/Textures/scientist.png");
@@ -37,6 +38,7 @@ void AssetManager::loadAll(void)
     loadTexture("TestTile_Set", "res/Textures/tile.png");
     loadTexture("bg", "res/Textures/bg.png");
     loadTexture("laser", "res/Textures/laser.png");
+    loadTexture("ball", "res/Textures/goo_ball.png");
     loadTexture("door", "res/Textures/porte.png");
 }
 

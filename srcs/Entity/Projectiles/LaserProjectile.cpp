@@ -22,7 +22,7 @@ void LaserProjectile::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vec
 	this->setPosition(pos);
 	this->setScale(scale);
 }
-#include <iostream>
+
 void LaserProjectile::spawn(Entity* owner, GameDataRef data)
 {
     AbstractProjectile::spawn(owner, data);

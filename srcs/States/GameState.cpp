@@ -15,7 +15,6 @@ GameState::GameState(GameDataRef data): m_alien(data)
     m_data = data;
     m_gui = new GUIManager(data);
     m_alien.init(*m_data->assets.getTexture("alien"), sf::Vector2f(200, 200), sf::Vector2f(0.25, 0.25));
-    this->m_projectile = nullptr;
     m_data->assets.playMusic("battletheme");
     m_data->assets.getMusic("ambiant")->setVolume(60);
     m_data->assets.playMusic("ambiant");
@@ -57,8 +56,17 @@ void GameState::update(float dt)
     m_floor->change_room(dt, "1");
     m_gui->update(dt);
     m_alien.update(dt);
-    if (this->m_projectile != nullptr)
-        this->m_projectile->update(dt);
+
+    for (auto it = this->m_projectiles.begin(); it < this->m_projectiles.end(); ++it) {
+      //  if (!(*it)->isAlive()) {
+     //       delete (*it);
+     //       it = this->m_projectiles.erase(it);
+     //   }
+    //    else {
+            (*it)->update(dt);
+    //    }
+    }
+    //std::cout << "size: " << this->m_projectiles.size() << std::endl;
 }
 
 void GameState::draw(float interpolation)
@@ -66,16 +74,14 @@ void GameState::draw(float interpolation)
     m_data->wind.clear(sf::Color::Black);
     m_data->wind.draw(*this->m_floor->get_room());
     m_data->wind.draw(this->m_alien);
-    if (this->m_projectile != nullptr)
-        m_data->wind.draw(*this->m_projectile);
+    for (auto it = this->m_projectiles.begin(); it < this->m_projectiles.end(); ++it)
+        m_data->wind.draw(**it);
     m_gui->draw(interpolation);
     m_data->wind.display();
 }
 
 void GameState::spawnProjectile(AbstractProjectile* projectile, Entity* owner)
 {
-    if (this->m_projectile != nullptr)
-        delete this->m_projectile;
-    this->m_projectile = projectile;
+    this->m_projectiles.push_back(projectile);
     projectile->spawn(owner, m_data);
 }

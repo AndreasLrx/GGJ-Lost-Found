@@ -10,10 +10,11 @@
 #include "Entity/Alien.hpp"
 #include "States/GameState.hpp"
 #include "Entity/Tentacles/Tentacle.hpp"
+#include "Entity/Tentacles/RangedTentacle.hpp"
 
 Alien::Alien(GameDataRef gameData): m_gameData(gameData) {
-	this->m_passiveTentacles = { new Tentacle(), new Tentacle(), new Tentacle(), new Tentacle(), new Tentacle() };
-	this->m_active_tentacle = new Tentacle();
+	this->m_passiveTentacles = { new Tentacle(), new RangedTentacle(), new Tentacle(), new Tentacle(), new Tentacle() };
+	this->m_active_tentacle = new RangedTentacle();
 }
 
 Alien::~Alien() {
@@ -48,11 +49,7 @@ void Alien::handleInput(sf::Event event)
 {
 	if (event.type != sf::Event::EventType::MouseButtonPressed)
 		return;
-	LaserProjectile* laser = new LaserProjectile();
-
-	laser->init(*this->m_gameData->assets.getTexture("laser"), this->getPosition(), sf::Vector2f(2.5, 2.5));
-	laser->setOrientation(this->getOrientation());
-	this->spawnProjectile(this->m_gameData, laser);
+	this->m_active_tentacle->attack(this->m_gameData);
 }
 
 void Alien::onPositionChanged()

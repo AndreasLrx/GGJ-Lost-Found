@@ -35,8 +35,22 @@ void Tentacle::update(float dt) {
         this->m_sprite.setOrigin(sf::Vector2f(700, 250));
     else
         this->m_sprite.setOrigin(sf::Vector2f(-200, 250));
-
     this->m_sprite.update(dt);
+    if (this->m_cooldownMax > 0.0f) {
+        this->m_cooldown -= dt;
+        if (this->m_cooldown <= 0.0f) {
+            this->m_cooldown = 0;
+            this->m_cooldownMax = 0;
+        }
+    }
+
+    float scaling;
+
+    if (this->m_cooldown > 0.0f)
+        scaling = 0.25 * (this->m_cooldown / this->m_cooldownMax) + 1.0;
+    else
+        scaling = 1.0f;
+    this->m_sprite.setScale(this->m_scale.x * scaling, this->m_scale.y * scaling);
 }
 
 void Tentacle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -46,4 +60,16 @@ void Tentacle::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 void Tentacle::setTentacleIndex(std::size_t index, std::size_t count)
 {
     this->m_sprite.setProgress(static_cast<float>(index) / static_cast<float>(count));
+}
+
+void Tentacle::setCooldown(float cooldown)
+{
+    this->m_cooldownMax = cooldown;
+    this->m_cooldown = cooldown;
+}
+
+void Tentacle::setScale(sf::Vector2f scale)
+{
+    this->m_scale = scale;
+    this->m_sprite.setScale(scale);
 }
