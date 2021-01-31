@@ -49,12 +49,12 @@ void Room::initJar(char jar)
         m_hasJar = false;
         return;
     }
-    this->m_tentacleJar.setScale(sf::Vector2f(0.25, 0.25));
+    this->m_tentacleJar.setScale(sf::Vector2f(0.24, 0.24));
     this->m_tentacleJar.setTextureFrames(6, rect);
     m_tentacleJar.update(0);
     bounds = m_tentacleJar.getLocalBounds();
     this->m_tentacleJar.setOrigin(bounds.width / 2.f, bounds.height);
-    this->m_tentacleJar.setPosition(sf::Vector2f(640, 500));
+    this->m_tentacleJar.setPosition(sf::Vector2f(640, 400));
 }
 
 void Room::set(std::string str, GameDataRef data)
@@ -96,7 +96,7 @@ void Room::set(std::string str, GameDataRef data)
         if (pos.x < 0)
             continue;
         Scientist *sci = new Scientist();
-        sci->init(*m_data->assets.getTexture("scientist"), pos, sf::Vector2f(0.35f, 0.35f));
+        sci->init(*m_data->assets.getTexture("scientist"), pos, sf::Vector2f(0.3f, 0.3f));
         sci->setAlien(m_alien);
         sci->setRoom(this);
         m_astronauts.push_back(sci);
@@ -106,7 +106,7 @@ void Room::set(std::string str, GameDataRef data)
         if (pos.x < 0)
             continue;
         Soldier *sho = new Soldier();
-        sho->init(*m_data->assets.getTexture("soldier"), pos, sf::Vector2f(0.35f, 0.35f));
+        sho->init(*m_data->assets.getTexture("soldier"), pos, sf::Vector2f(0.3f, 0.3f));
         sho->setAlien(m_alien);
         sho->setRoom(this);
         m_astronauts.push_back(sho);
@@ -116,7 +116,7 @@ void Room::set(std::string str, GameDataRef data)
         if (pos.x < 0)
             continue;
         Berserk *bers = new Berserk();
-        bers->init(*m_data->assets.getTexture("berserk"), pos, sf::Vector2f(0.35f, 0.35f));
+        bers->init(*m_data->assets.getTexture("berserk"), pos, sf::Vector2f(0.3f, 0.3f));
         bers->setAlien(m_alien);
         bers->setRoom(this);
         m_astronauts.push_back(bers);
