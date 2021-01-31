@@ -9,6 +9,7 @@
 #define TENTACLE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <math.h>
 #include "GameEngine/macro.hpp"
 #include "Entity/AnimatedSprite.hpp"
 
