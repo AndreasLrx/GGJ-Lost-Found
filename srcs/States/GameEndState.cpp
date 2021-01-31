@@ -43,7 +43,7 @@ void GameEndState::handleInput()
     while (m_data->wind.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             m_data->wind.close();
-        if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Space && m_timer > TRANSITION_TIME)) {
+        if ((event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Space)) && m_timer > TRANSITION_TIME) {
             if (m_endReady != 1) {
                 m_endReady ++;
                 if (m_endReady == 0)
@@ -70,6 +70,7 @@ void GameEndState::update(float dt)
 
 void GameEndState::draw(sf::RenderTarget& target, float interpolation)
 {
+    (void)interpolation;
     target.clear(sf::Color(130, 130, 130));
     target.draw(m_backgroundInit);
     target.draw(m_endBackground);

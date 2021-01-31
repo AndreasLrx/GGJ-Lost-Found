@@ -17,6 +17,6 @@ int main(int argc, char **argv)
         return 0;
     }
     srand(time(NULL));
-    Core core(1280, 720, "Alien", sf::Style::Close | sf::Style::Titlebar);
+    Core core(1280, 720, "An Eye to Rul'em All", sf::Style::Close | sf::Style::Titlebar);
     return 0;
 }

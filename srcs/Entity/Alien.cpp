@@ -259,6 +259,7 @@ bool Alien::cycleTentacles()
 
 void Alien::takeDamage(float damage)
 {
+	return;
 	float newDamage = this->m_active_tentacle->absorbDamage(damage);
 	if (newDamage == damage) {
 		delete this->m_active_tentacle;
