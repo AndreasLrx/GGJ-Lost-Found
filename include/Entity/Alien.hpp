@@ -8,7 +8,10 @@
 #ifndef ALIEN_HPP
 #define ALIEN_HPP
 
+#include <vector>
 #include "Entity/Entity.hpp"
+
+class Tentacle;
 
 class Alien : public Entity
 {
@@ -23,6 +26,7 @@ public:
     void onPositionChanged() override;
     void onScaleChanged() override;
     void onOrientationChanged() override;
+
 private:
     sf::Sprite m_slimeSprite;
     sf::Sprite m_bodySprite;
@@ -31,6 +35,11 @@ private:
     sf::IntRect m_slimeRect;
     sf::IntRect m_eyeRect;
     GameDataRef m_gameData;
+    std::vector<Tentacle *> m_passiveTentacles;
+    Tentacle *m_active_tentacle;
+
+    void initTentacle(Tentacle* tentacle, std::size_t index, sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale);
+    void spreadTentacles();
 };
 
 #endif // !defined(ALIEN_HPP)

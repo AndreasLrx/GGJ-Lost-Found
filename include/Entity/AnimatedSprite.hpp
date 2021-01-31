@@ -31,7 +31,10 @@ public:
     sf::FloatRect getGlobalBounds() const;
     void setAnimationEndListener(AnimationEndListener listener);
     void setMirrored(bool mirrored);
+    bool isMirrored();
     void resetFrame();
+    void randomFrame();
+    void setProgress(float frame);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -53,6 +56,16 @@ inline void AnimatedSprite::setAnimationEndListener(AnimationEndListener listene
 inline void AnimatedSprite::setMirrored(bool mirrored)
 {
     this->m_isMirrored = mirrored;
+}
+
+inline bool AnimatedSprite::isMirrored()
+{
+    return this->m_isMirrored;
+}
+
+inline void AnimatedSprite::setProgress(float frame)
+{
+    this->m_frame = this->m_frameMax * frame;
 }
 
 #endif // !defined(SPRITE_HPP)

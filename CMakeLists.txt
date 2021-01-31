@@ -84,7 +84,7 @@ set(SRC
 	${INCROOT}/Berserk.hpp
 )
 
-# Entity/Astronauts Directory
+# Entity/Projectiles Directory
 set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity/Projectiles)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity/Projectiles)
 set(SRC
@@ -93,6 +93,15 @@ set(SRC
 	${SRCROOT}/AbstractProjectile.cpp
 	${INCROOT}/LaserProjectile.hpp
 	${SRCROOT}/LaserProjectile.cpp
+)
+
+# Entity/Tentacles Directory
+set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs/Entity/Tentacles)
+set(INCROOT ${PROJECT_SOURCE_DIR}/include/Entity/Tentacles)
+set(SRC
+    ${SRC}
+	${SRCROOT}/Tentacle.cpp
+	${INCROOT}/Tentacle.hpp
 )
 
 # GameEngine Directory
