@@ -32,14 +32,16 @@ void AssetManager::loadAll(void)
     loadTexture("scientist", "res/Textures/scientist.png");
     loadTexture("soldier", "res/Textures/soldier.png");
     loadTexture("berserk", "res/Textures/berserk.png");
-    loadTexture("squares", "res/Textures/squares.png");
+    loadTexture("doors", "res/Textures/doors.png");
+    loadTexture("vanilla_jar", "res/Textures/vanilla_jar.png");
+    loadTexture("armored_jar", "res/Textures/armored_jar.png");
+    loadTexture("shot_jar", "res/Textures/shot_jar.png");
     loadTexture("alien", "res/Textures/alien.png");
     loadFont("spincycle", "res/Fonts/spincycle_ot.otf");
     loadTexture("TestTile_Set", "res/Textures/tile.png");
     loadTexture("bg", "res/Textures/bg.png");
     loadTexture("laser", "res/Textures/laser.png");
     loadTexture("ball", "res/Textures/goo_ball.png");
-    loadTexture("door", "res/Textures/porte.png");
 }
 
 void AssetManager::loadTexture(std::string name, std::string fileName)

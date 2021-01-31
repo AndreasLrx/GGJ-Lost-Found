@@ -31,8 +31,6 @@ void Scientist::update(float dt)
     int seePlayer = seePos(m_alien->getPosition());
 
     Astronaut::update(dt);
-    if (m_room->getTileAt(this->getPosition()) == nullptr)
-        return;
     updatePathTimer(dt);
     dist = getDistSquared(this->getPosition(), m_alien->getPosition());
     if (dist < SHOOT_RANGE && seePlayer) {

@@ -28,8 +28,6 @@ void Berserk::update(float dt)
     float dist;
 
     Astronaut::update(dt);
-    if (m_room->getTileAt(this->getPosition()) == nullptr)
-        return;
     updatePathTimer(dt);
     dist = getDistSquared(this->getPosition(), m_alien->getPosition());
     if (dist < ATTACK_RANGE && seePos(m_alien->getPosition())) {
