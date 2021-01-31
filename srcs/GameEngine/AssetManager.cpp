@@ -29,6 +29,7 @@ void AssetManager::loadAll(void)
     loadSound("shoot_ball", "res/Sounds/tentacle_type1.ogg");
     loadTexture("button", "res/Textures/GUI/Button.png");
     loadTexture("menu", "res/Textures/Menu.png");
+    loadTexture("menu_background", "res/Textures/menu_background.png");
     loadTexture("scientist", "res/Textures/scientist.png");
     loadTexture("soldier", "res/Textures/soldier.png");
     loadTexture("berserk", "res/Textures/berserk.png");

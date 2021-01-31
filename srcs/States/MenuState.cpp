@@ -20,44 +20,39 @@ MenuState::MenuState(GameDataRef data)
     m_background.setSize(backgroundSize);
     m_background.setTexture(m_data->assets.getTexture("menu"));
     m_background.setPosition((m_data->wind.getSize().x - backgroundSize.x) / 2.f,  (m_data->wind.getSize().y - backgroundSize.y) / 2.f);
+    m_bg2.setSize(sf::Vector2f(1280 * SCL(this), 720 * SCL(this)));
+    m_bg2.setTexture(m_data->assets.getTexture("menu_background"));
 
-    TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 175 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
+    TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 195 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
             btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);
         btn->getData()->assets.stopMusic("menu_music");});
-    playBtn->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
+    playBtn->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 0, 165, 52}, {0, 52, 165, 52});
     playBtn->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     playBtn->setCharacterSize(30  * SCL(this));
-    playBtn->setTextColors(sf::Color::Black);
+    playBtn->setTextFillColoredUpdate(sf::Color(205, 240, 238), sf::Color(247, 239, 201), sf::Color(247, 239, 201));
 
-    TextButton *tuto = new TextButton("Tutorial", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 268 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
+    TextButton *tuto = new TextButton("Tutorial", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 308 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
             btn->getData()->machine.addState(StateRef(new LevelSelectState(btn->getData())), 0);});
-    tuto->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
+    tuto->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 0, 165, 52}, {0, 52, 165, 52});
     tuto->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     tuto->setCharacterSize(30  * SCL(this));
-    tuto->setTextColors(sf::Color::Black);
+    tuto->setTextFillColoredUpdate(sf::Color(205, 240, 238), sf::Color(247, 239, 201), sf::Color(247, 239, 201));
 
-    TextButton *settings = new TextButton("Settings", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 361 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)));
-    settings->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
-    settings->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
-    settings->setCharacterSize(30  * SCL(this));
-    settings->setTextColors(sf::Color::Black);
-
-    TextButton *quit = new TextButton("Quit", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 453 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
+    TextButton *quit = new TextButton("Quit", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 423 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
             btn->getData()->wind.close();});
-    quit->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 52, 165, 52}, {0, 52, 165, 52});
+    quit->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 0, 165, 52}, {0, 52, 165, 52});
     quit->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     quit->setCharacterSize(30  * SCL(this));
-    quit->setTextColors(sf::Color::Black);
+    quit->setTextFillColoredUpdate(sf::Color(205, 240, 238), sf::Color(247, 239, 201), sf::Color(247, 239, 201));
 
     m_gui->addItem(playBtn->getBase(), PLAY_BUTTON);
     m_gui->addItem(tuto->getBase(), TUTORIAL_BUTTON);
-    m_gui->addItem(settings->getBase(), SETTINGS_BUTTON);
     m_gui->addItem(quit->getBase(), QUIT_BUTTON);
     m_data->assets.playMusic("menu_music");
 }
@@ -86,6 +81,7 @@ void MenuState::update(float dt)
 void MenuState::draw(sf::RenderTarget& target, float interpolation)
 {
     target.clear(sf::Color(100, 100, 100));
+    target.draw(m_bg2);
     target.draw(m_background);
     m_gui->draw(interpolation);
 }

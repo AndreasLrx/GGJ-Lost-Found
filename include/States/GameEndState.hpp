@@ -2,22 +2,20 @@
 ** EPITECH PROJECT, 2021
 ** GGJ States
 ** File description:
-** Menu State
+** GameEnd
 */
 
-#ifndef STATES_MENU_STATE_H
-#define STATES_MENU_STATE_H
+#ifndef STATES_GAME_END_H
+#define STATES_GAME_END_H
 
-#include <SFML/Graphics.hpp>
-#include "GameEngine/State.hpp"
-#include "GameEngine/Core.hpp"
 #include "GUI/GUIManager.hpp"
+#include "GameEngine/Core.hpp"
 
-class MenuState : public State
+class GameEndState {
 {
     public:
-        MenuState(GameDataRef data);
-        ~MenuState();
+        GameEndState(GameDataRef data);
+        ~GameEndState();
 
         void init() {};
 
@@ -32,9 +30,12 @@ class MenuState : public State
         GameDataRef getData() {return m_data;};
 
     private:
-        enum GUI_ITEMS {PLAY_BUTTON, TUTORIAL_BUTTON, SETTINGS_BUTTON, QUIT_BUTTON};
+        void initBtn(std::string text, sf::Vector2f pos, int tag, inputReactFct input = nullptr);
+
+        GameDataRef m_data;
         sf::RectangleShape m_background;
-        sf::RectangleShape m_bg2;
+        sf::RectangleShape m_menu;
+        sf::RenderTexture m_texture;
 };
 
-#endif /* !STATES_MENU_STATE_H */
+#endif /* !STATES_GAME_END_H */
