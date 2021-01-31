@@ -58,17 +58,6 @@ void GameState::update(float dt)
     m_floor->change_room(dt, "1");
     m_gui->update(dt);
     m_alien.update(dt);
-
-    for (auto it = this->m_projectiles.begin(); it < this->m_projectiles.end(); ++it) {
-        if (!(*it)->isAlive()) {
-            delete (*it);
-            it = this->m_projectiles.erase(it);
-            if (it >= this->m_projectiles.end())
-                break;
-        } else {
-            (*it)->update(dt);
-        }
-    }
 }
 
 void GameState::draw(sf::RenderTarget& target, float interpolation)
@@ -76,13 +65,5 @@ void GameState::draw(sf::RenderTarget& target, float interpolation)
     target.clear(sf::Color::Black);
     target.draw(*this->m_floor->get_room());
     target.draw(this->m_alien);
-    for (auto it = this->m_projectiles.begin(); it < this->m_projectiles.end(); ++it)
-        target.draw(**it);
     m_gui->draw(interpolation);
-}
-
-void GameState::spawnProjectile(AbstractProjectile* projectile, Entity* owner)
-{
-    this->m_projectiles.push_back(projectile);
-    projectile->spawn(owner, m_data);
 }

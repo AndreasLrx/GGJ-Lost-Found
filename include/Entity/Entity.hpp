@@ -1,5 +1,5 @@
 /*
-a*
+**
 ** EPITECH PROJECT, 2021
 ** GGJ Entity
 ** File description:
@@ -11,6 +11,7 @@ a*
 
 #include <SFML/Graphics.hpp>
 #include "GameEngine/macro.hpp"
+#include "Circle.hpp"
 #include "functions.hpp"
 
 class Room;
@@ -24,7 +25,7 @@ class Entity : public sf::Drawable
         virtual void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 }) = 0;
         virtual void update(float dt) = 0;
         virtual void handleInput(sf::Event event) {(void)event;};
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         sf::Vector2f getPosition() const;
         sf::Vector2f getScale();
@@ -47,7 +48,15 @@ class Entity : public sf::Drawable
 
         bool isAlive();
 
-        void spawnProjectile(GameDataRef gameData, AbstractProjectile* projectile);
+        void spawnProjectile(AbstractProjectile* projectile);
+
+        void setRoom(Room *room);
+
+        virtual Circle const* getCircleBounds(std::size_t &size) const;
+
+        bool collidesWith(Entity const& other) const;
+
+        GameDataRef getGameData();
 
     protected:
         bool m_isAlive = true;

@@ -32,16 +32,19 @@ class Astronaut : public AbstractAstronaut
         void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 });
         virtual void setAnimationListener() = 0;
         void setAlien(Alien *alien);
-        void setRoom(Room *room);
         void handleInput(sf::Event event);
         void onPositionChanged() override;
         void onOrientationChanged() override;
+        void onScaleChanged() override;
         void update(float dt);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
         int isAlive();
+
         void resetPath(sf::Vector2f goal);
-    
+
+        Circle const* getCircleBounds(std::size_t& size) const override;
+
     protected:
         void changeState(int newState);
         void shoot();
@@ -61,6 +64,9 @@ class Astronaut : public AbstractAstronaut
 
         sf::Vector2f m_move;
         std::vector<sf::Vector2i> m_path;
+
+    private:
+        Circle m_bounds[2];
 };
 
 #endif /* !ASTRONAUT_HPP */

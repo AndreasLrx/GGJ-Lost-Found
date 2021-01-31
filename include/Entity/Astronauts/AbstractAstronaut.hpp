@@ -20,7 +20,7 @@ class AbstractAstronaut : public Entity
         enum Types {SCIENTISTS, JETPACK, DISTANCE};
 
         virtual ~AbstractAstronaut() {};
-        
+
     protected:
         enum STATES {MOVE, IDLE, CAC, SHOOT, MOVE_SHOOT};
         sf::IntRect *m_animTextRectTabs[5];

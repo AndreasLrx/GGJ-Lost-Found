@@ -47,6 +47,8 @@ find_package(SFML 2.5 COMPONENTS graphics window audio system REQUIRED)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/srcs)
 set(INCROOT ${PROJECT_SOURCE_DIR}/include)
 set(SRC
+	${INCROOT}/Circle.hpp
+	${SRCROOT}/Circle.cpp
 	${INCROOT}/functions.hpp
 	${SRCROOT}/functions.cpp
 	${SRCROOT}/main.cpp

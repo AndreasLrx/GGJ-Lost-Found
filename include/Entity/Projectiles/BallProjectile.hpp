@@ -16,7 +16,14 @@ public:
     BallProjectile();
 
     void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 });
-    void spawn(Entity* owner, GameDataRef data) override;
+    void spawn(Entity* owner, Room *) override;
+    void update(float dt) override;
+    Circle const* getCircleBounds(std::size_t &size) const override;
+
+    void onPositionChanged() override;
+
+private:
+    Circle m_bounds;
 };
 
 #endif // !defined(BALL_PROJECTILE_HPP)

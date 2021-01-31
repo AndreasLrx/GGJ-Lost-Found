@@ -30,7 +30,7 @@ public:
 
     void setTentacleIndex(std::size_t index, std::size_t count);
 
-    virtual void attack(GameDataRef gameData) {(void)gameData;}
+    virtual void attack() {}
     virtual void update(float dt);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

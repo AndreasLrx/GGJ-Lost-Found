@@ -27,7 +27,6 @@ void AbstractProjectile::onOrientationChanged()
     this->m_sprite.setRotation(this->getOrientation());
 }
 
-#include <iostream>
 void AbstractProjectile::update(float dt)
 {
     if (this->m_activeTime <= 0.0f)
@@ -46,12 +45,14 @@ void AbstractProjectile::update(float dt)
 
 void AbstractProjectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if (this->m_activeTime > 0.0f)
-        target.draw(this->m_sprite, states);
+   // if (this->m_activeTime <= 0.0f)
+     //   return;
+    Entity::draw(target, states);
+    target.draw(this->m_sprite, states);
 }
 
-void AbstractProjectile::spawn(Entity* owner, GameDataRef data)
+void AbstractProjectile::spawn(Entity* owner, Room *room)
 {
     this->m_owner = owner;
-    this->m_data = data;
+    this->m_room = room;
 }

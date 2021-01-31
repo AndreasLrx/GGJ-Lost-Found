@@ -17,7 +17,7 @@ class RangedTentacle : public Tentacle
 public:
     RangedTentacle();
 
-    virtual void attack(GameDataRef gameData) override;
+    virtual void attack() override;
 };
 
 #endif // !defined(RANGED_TENTACLE_HPP)

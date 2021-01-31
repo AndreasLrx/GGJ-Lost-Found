@@ -50,7 +50,7 @@ void Alien::handleInput(sf::Event event)
 {
 	if (event.type != sf::Event::EventType::MouseButtonPressed)
 		return;
-	this->m_active_tentacle->attack(this->m_gameData);
+	this->m_active_tentacle->attack();
 }
 
 void Alien::onPositionChanged()
@@ -159,6 +159,7 @@ void Alien::update(float dt)
 
 void Alien::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	Entity::draw(target, states);
 	target.draw(this->m_slimeSprite, states);
 	target.draw(this->m_bodySprite, states);
 	target.draw(this->m_eyeSprite, states);

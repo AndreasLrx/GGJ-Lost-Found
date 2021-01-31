@@ -10,6 +10,7 @@
 #include "Entity/Astronauts/Astronaut.hpp"
 #include "Entity/Alien.hpp"
 #include "functions.hpp"
+#include "Entity/Projectiles/LaserProjectile.hpp"
 
 Astronaut::Astronaut()
 {
@@ -64,11 +65,6 @@ void Astronaut::setAlien(Alien *alien)
     m_alien = alien;
 }
 
-void Astronaut::setRoom(Room *room)
-{
-    m_room = room;
-}
-
 void Astronaut::cac()
 {
     if (m_attackCooldown > 1.f) {
@@ -81,8 +77,16 @@ void Astronaut::cac()
 void Astronaut::shoot()
 {
     if (m_attackCooldown > 2.f && m_state != SHOOT && m_state != MOVE_SHOOT) {
-        //shoot
-        changeState((m_state == MOVE) ? MOVE_SHOOT : SHOOT);
+	    LaserProjectile* laser = new LaserProjectile();
+        sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
+        sf::Vector2f laserPos = sf::Vector2f(bounds.left + bounds.width / 10, bounds.top + bounds.height / 2);
+	    sf::Vector2f laserVec = laserPos - this->m_alien->getPosition();
+	    float angle = atan2(laserVec.y, laserVec.x);
+
+        laser->init(*this->getGameData()->assets.getTexture("laser"), laserPos, sf::Vector2f(2.5, 2.5));
+	    laser->setOrientation(toDegrees(angle) + 180.0);
+	    this->spawnProjectile(laser);
+        changeState((m_state == AbstractAstronaut::MOVE) ? AbstractAstronaut::MOVE_SHOOT : AbstractAstronaut::SHOOT);
         m_attackCooldown = 0;
     }
 }
@@ -101,8 +105,17 @@ void Astronaut::handleInput(sf::Event event)
         return;
 }
 
+Circle const* Astronaut::getCircleBounds(std::size_t& size) const
+{
+    size = 1;
+    return this->m_bounds;
+}
+
 void Astronaut::onPositionChanged()
 {
+    sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
+
+    this->m_bounds[0].m_pos = sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.width / 2.0f);
 	this->m_sprite.setPosition(this->getPosition());
 }
 
@@ -114,6 +127,13 @@ void Astronaut::onOrientationChanged()
         this->m_sprite.setMirrored(true);
     else
         this->m_sprite.setMirrored(false);
+}
+
+void Astronaut::onScaleChanged()
+{
+    sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
+
+    this->m_bounds[0].m_radius = 1;
 }
 
 void Astronaut::update(float dt)
@@ -162,6 +182,7 @@ void Astronaut::moveToPath(float speed, float dt)
 
 void Astronaut::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    Entity::draw(target, states);
     target.draw(m_sprite, states);
 }
 
@@ -203,9 +224,8 @@ void Astronaut::resetPath(sf::Vector2f goal)
     end.heuristic_cost = 0;
     end.parent = nullptr;
     if (start.tile == nullptr || end.tile == nullptr)
-        m_path.clear();
-    else
-        computePath(&start, &end);
+        return;
+    computePath(&start, &end);
 }
 
 bool nodeCompare(node *na, node *nb) 

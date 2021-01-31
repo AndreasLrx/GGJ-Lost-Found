@@ -17,16 +17,16 @@ RangedTentacle::RangedTentacle()
     this->m_sprite.setTextureFrames(4, frames);
 }
 
-void RangedTentacle::attack(GameDataRef gameData)
+void RangedTentacle::attack()
 {
 	if (this->m_cooldown > 0)
 		return;
 
 	BallProjectile* ball = new BallProjectile();
 
-	ball->init(*gameData->assets.getTexture("ball"), this->m_owner->getPosition(), sf::Vector2f(0.25, 0.25));
+	ball->init(*this->m_owner->getGameData()->assets.getTexture("ball"), this->m_owner->getPosition(), sf::Vector2f(0.25, 0.25));
 	ball->setOrientation(this->m_owner->getOrientation());
-	this->m_owner->spawnProjectile(gameData, ball);
+	this->m_owner->spawnProjectile(ball);
 	this->setCooldown(0.7f);
 }
 
