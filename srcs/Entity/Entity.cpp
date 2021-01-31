@@ -30,7 +30,6 @@ Circle const* Entity::getCircleBounds(std::size_t& size) const
     return nullptr;
 }
 
-#include <iostream>
 bool Entity::collidesWith(Entity const& other) const
 {
     std::size_t countA;
@@ -40,23 +39,18 @@ bool Entity::collidesWith(Entity const& other) const
 
     for (size_t i = 0; i < countA; ++i) {
         Circle c = boundsA[i];
-        for (size_t j = 0; i < countB; ++j)
-            if (c.collidesWith(boundsB[j])) {
-                std::cout << "COLLISION: ax: " << c.m_pos.x << ", ay: " << c.m_pos.y << ", ar: " << c.m_radius << " | bx: " << boundsB[j].m_pos.x << ", by: " << boundsB[j].m_pos.y << ", br:" << boundsB[j].m_radius << std::endl;
+        for (size_t j = 0; j < countB; ++j)
+            if (c.collidesWith(boundsB[j]))
                 return true;
-            }
     }
     return false;
 }
 
-#include <iostream>
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     std::size_t count;
     Circle const* circles = this->getCircleBounds(count);
 
-    for (std::size_t i = 0; i < count; ++i) {
-        //std::cout << "x: " << circles[i].m_pos.x << ", y: " << circles[i].m_pos.y << ", radius: " << circles[i].m_radius << std::endl;
+    for (std::size_t i = 0; i < count; ++i)
         circles[i].draw(target, states);
-    }
 }

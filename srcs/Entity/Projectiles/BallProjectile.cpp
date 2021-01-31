@@ -14,6 +14,7 @@ BallProjectile::BallProjectile()
 {
     this->m_speed = 1000.0f;
     this->m_activeTime = 3.0f;
+    this->m_bounds = Circle();
 }
 
 void BallProjectile::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)

@@ -17,6 +17,8 @@ Astronaut::Astronaut()
     m_pathUpdateTimer = 5;
     this->setOrientation(0);
     this->m_running = false;
+    this->m_bounds[0] = Circle();
+    this->m_bounds[1] = Circle();
 }
 
 Astronaut::~Astronaut()
@@ -133,7 +135,7 @@ void Astronaut::onScaleChanged()
 {
     sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
 
-    this->m_bounds[0].m_radius = 1;
+    this->m_bounds[0].m_radius = bounds.height;
 }
 
 void Astronaut::update(float dt)

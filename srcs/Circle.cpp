@@ -28,5 +28,5 @@ bool Circle::collidesWith(Circle other) const
     float dy = other.m_pos.y - this->m_pos.y;
     float radiusSum = this->m_radius + other.m_radius;
 
-    return dx * dx + dy * dy >= radiusSum * radiusSum;
+    return dx * dx + dy * dy <= radiusSum * radiusSum;
 }
