@@ -19,7 +19,9 @@ std::string title, sf::Uint32 style)
     m_data->settings.setWindSize(width, height);
     m_data->machine.addState(StateRef(new MenuState(m_data)));
     m_data->datas = 0;
-    
+    sf::Image icon;
+    icon.loadFromFile("res/Textures/icon.png");
+    m_data->wind.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     run();
     m_data->assets.stopMusics();
     m_data->assets.stopSounds();

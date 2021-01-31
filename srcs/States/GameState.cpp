@@ -47,6 +47,7 @@ void GameState::handleInput()
             m_data->datas = 1;
             m_data->machine.addState(StateRef(new GameEndState(m_data)), 0);
         }
+
         m_floor->handleInput(event);
     }
 }

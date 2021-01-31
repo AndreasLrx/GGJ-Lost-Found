@@ -15,6 +15,7 @@
 MenuState::MenuState(GameDataRef data)
 {
     m_data = data;
+    m_data->datas = 1;
     sf::Vector2f backgroundSize(500 * SCL(this), 590 * SCL(this));
     m_gui = new GUIManager(data);
     m_background.setSize(backgroundSize);
@@ -55,6 +56,9 @@ MenuState::MenuState(GameDataRef data)
     m_gui->addItem(tuto->getBase(), TUTORIAL_BUTTON);
     m_gui->addItem(quit->getBase(), QUIT_BUTTON);
     m_data->assets.playMusic("menu_music");
+
+    //m_title.setFillColor(sf::Color(247, 239, 201));
+    //m_title.setPosition(sf::Vector2f(480, 20));
 }
 
 MenuState::~MenuState()
@@ -83,5 +87,6 @@ void MenuState::draw(sf::RenderTarget& target, float interpolation)
     target.clear(sf::Color(100, 100, 100));
     target.draw(m_bg2);
     target.draw(m_background);
+    target.draw(m_title);
     m_gui->draw(interpolation);
 }

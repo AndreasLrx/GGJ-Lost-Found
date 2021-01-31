@@ -35,7 +35,13 @@ LevelSelectState::~LevelSelectState()
 
 void LevelSelectState::initBtn(std::string text, sf::Vector2f pos, int tag, inputReactFct input)
 {
-    TextButton *btn = new TextButton(text, m_data->assets.getFont("spincycle"), pos, sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), input);
+    inputReactFct inputf = input;
+    if (inputf == nullptr) {
+        inputf = [](GUIAbstract *btn, int tag){
+        btn->getData()->datas = btn->getTag() + 1;
+        btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);};
+    }
+    TextButton *btn = new TextButton(text, m_data->assets.getFont("spincycle"), pos, sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), inputf);
     btn->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 0, 165, 52}, {0, 52, 165, 52});
     btn->setCharacterSize(30  * SCL(this));
     btn->setTextFillColoredUpdate(sf::Color(205, 240, 238), sf::Color(247, 239, 201), sf::Color(247, 239, 201));
