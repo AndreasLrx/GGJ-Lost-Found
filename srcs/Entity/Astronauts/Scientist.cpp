@@ -17,6 +17,7 @@ void Scientist::update(float dt)
     float dist;
     int seePlayer = seePos(m_alien->getPosition());
 
+    Astronaut::update(dt);
     if (m_room->getTileAt(this->getPosition()) == nullptr)
         return;
     updatePathTimer(dt);

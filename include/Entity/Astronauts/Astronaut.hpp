@@ -34,6 +34,7 @@ class Astronaut : public AbstractAstronaut
         void setRoom(Room *room);
         void handleInput(sf::Event event);
         void onPositionChanged() override;
+        void onOrientationChanged() override;
         void update(float dt);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
