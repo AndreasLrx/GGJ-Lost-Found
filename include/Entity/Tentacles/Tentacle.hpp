@@ -39,6 +39,11 @@ protected:
     float m_health;
     float const m_maxHealth;
     AnimatedSprite m_sprite;
+    float m_cooldownMax = 0.0f;
+    float m_cooldown = 0.0f;
+    sf::Vector2f m_scale;
+
+    void setCooldown(float cooldown);
 };
 
 inline void Tentacle::setPosition(sf::Vector2f pos)
@@ -51,16 +56,10 @@ inline void Tentacle::setPosition(float x, float y)
     this->m_sprite.setPosition(x, y);
 }
 
-inline void Tentacle::setScale(sf::Vector2f scale)
-{
-    this->m_sprite.setScale(scale);
-}
-
 inline void Tentacle::setScale(float sx, float sy)
 {
     this->m_sprite.setScale(sx, sy);
 }
-
 
 inline void Tentacle::setMirrored(bool mirrored)
 {

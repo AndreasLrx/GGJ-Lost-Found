@@ -45,7 +45,7 @@ class GameState : public State
         Soldier m_shooter;
         Alien m_alien;
         Floor *m_floor;
-        AbstractProjectile* m_projectile;
+        std::vector<AbstractProjectile*> m_projectiles;
 };
 
 #endif /* !STATE_GAME_STATE_H */

@@ -27,6 +27,6 @@ void RangedTentacle::attack(GameDataRef gameData)
 	ball->init(*gameData->assets.getTexture("ball"), this->m_owner->getPosition(), sf::Vector2f(0.25, 0.25));
 	ball->setOrientation(this->m_owner->getOrientation());
 	this->m_owner->spawnProjectile(gameData, ball);
-	this->setCooldown(0.6f);
+	this->setCooldown(0.1f);
 }
 
