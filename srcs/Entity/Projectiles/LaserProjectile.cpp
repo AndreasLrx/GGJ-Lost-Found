@@ -56,7 +56,7 @@ void LaserProjectile::update(float dt)
     AbstractAstronaut* astronaut = static_cast<Astronaut*>(this->m_owner);
     Alien* alien = astronaut->getAlien();
 
-    if (this->collidesWith(*alien)) {
+    if (alien->isAlive() && this->collidesWith(*alien)) {
         this->m_activeTime = 0.0f;
         this->m_isAlive = false;
         alien->takeDamage(1.0f);

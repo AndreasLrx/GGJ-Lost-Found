@@ -56,7 +56,8 @@ void GameState::update(float dt)
 {
     m_floor->change_room(dt, "1");
     m_gui->update(dt);
-    m_alien.update(dt);
+    if (m_alien.isAlive())
+        m_alien.update(dt);
     if (!m_alien.isAlive()) {
         m_data->datas = 2;
         m_data->machine.addState(StateRef(new GameEndState(m_data)), 0);
@@ -67,6 +68,7 @@ void GameState::draw(sf::RenderTarget& target, float interpolation)
 {
     target.clear(sf::Color::Black);
     target.draw(*this->m_floor->get_room());
-    target.draw(this->m_alien);
+    if (m_alien.isAlive())
+        target.draw(this->m_alien);
     m_gui->draw(interpolation);
 }

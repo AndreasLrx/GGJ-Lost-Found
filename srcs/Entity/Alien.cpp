@@ -145,7 +145,7 @@ void Alien::onOrientationChanged()
 bool Alien::move(sf::Vector2f offset)
 {
     if (offset == sf::Vector2f(0, 0))
-        return false;
+    	return false;
 	if (m_room->getTileAt(this->m_pos + offset) == nullptr)
 		return false;
     this->setPosition(this->m_pos + offset);
@@ -227,6 +227,7 @@ void Alien::spreadTentacles()
 	}
 }
 
+#include <iostream>
 bool Alien::cycleTentacles()
 {
 	if (this->m_active_tentacle == nullptr) {
@@ -259,10 +260,9 @@ bool Alien::cycleTentacles()
 void Alien::takeDamage(float damage)
 {
 	float newDamage = this->m_active_tentacle->absorbDamage(damage);
-
 	if (newDamage == damage) {
 		delete this->m_active_tentacle;
-		this->m_active_tentacle = false;
+		this->m_active_tentacle = nullptr;
 		this->cycleTentacles();
 	}
 }
