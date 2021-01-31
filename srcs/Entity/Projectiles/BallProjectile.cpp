@@ -19,11 +19,17 @@ BallProjectile::BallProjectile()
 
 void BallProjectile::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale)
 {
+    sf::IntRect frames = { 0, 0, 144, 129 };
+
     this->m_sprite.setTexture(texture);
-    this->m_sprite.setTextureRect(sf::IntRect(0, 0, 144, 129));
-    this->m_sprite.setOrigin(sf::Vector2f(75, 60));
+    this->m_sprite.setTextureFrames(1, &frames);
+    this->m_sprite.setOrigin(sf::Vector2f(80, 60));
 	this->setPosition(pos);
 	this->setScale(scale);
+    this->m_sprite.update(0);
+    this->m_sprite.setAnimationEndListener([=](auto sprite) {
+        this->m_terminalVelocity = true;
+    });
 }
 
 void BallProjectile::onPositionChanged()
@@ -41,7 +47,7 @@ void BallProjectile::onScaleChanged()
 
     sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
 
-    this->m_bounds.m_radius = bounds.width * 0.5;
+    this->m_bounds.m_radius = bounds.width * 0.1;
 }
 
 void BallProjectile::spawn(Entity* owner, Room *room)

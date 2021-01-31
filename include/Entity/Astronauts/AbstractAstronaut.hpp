@@ -21,6 +21,8 @@ class AbstractAstronaut : public Entity
 
         virtual ~AbstractAstronaut() {};
 
+        Alien *getAlien() {return this->m_alien;};
+
     protected:
         enum STATES {MOVE, IDLE, CAC, SHOOT, MOVE_SHOOT};
         sf::IntRect *m_animTextRectTabs[5];
