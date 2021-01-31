@@ -15,8 +15,8 @@
 #include "Entity/Tentacles/ShieldTentacle.hpp"
 
 Alien::Alien(GameDataRef gameData): m_gameData(gameData) {
-	this->m_passiveTentacles = { new ShieldTentacle(), new RangedTentacle(), new ShieldTentacle(), new Tentacle(), new Tentacle() };
-	this->m_active_tentacle = new RangedTentacle();
+	this->m_passiveTentacles = { new ShieldTentacle(), new RangedTentacle(), new ShieldTentacle(), new Tentacle(), new RangedTentacle() };
+	this->m_active_tentacle = new ShieldTentacle();
 }
 
 Alien::~Alien() {
@@ -224,5 +224,45 @@ void Alien::spreadTentacles()
 			angle = angleOffset;
 			*/
 		this->m_passiveTentacles[i]->setOrientation(angle);
+	}
+}
+
+bool Alien::cycleTentacles()
+{
+	if (this->m_active_tentacle == nullptr) {
+		if (this->m_passiveTentacles.size() == 0) {
+			this->m_isAlive = false;
+			return false;
+		}
+		this->m_active_tentacle = this->m_passiveTentacles[this->m_passiveTentacles.size() - 1];
+		this->m_passiveTentacles.pop_back();
+		this->m_active_tentacle->setTentacleIndex(0, this->m_passiveTentacles.size());
+		this->m_active_tentacle->setMirrored(false);
+	}
+	else {
+		Tentacle* oldActive = this->m_active_tentacle;
+
+		oldActive->setMirrored(true);
+		this->m_active_tentacle = this->m_passiveTentacles[this->m_passiveTentacles.size() - 1];
+		this->m_passiveTentacles.pop_back();
+		this->m_active_tentacle->setMirrored(false);
+		this->m_passiveTentacles.push_back(oldActive);
+	}
+		this->spreadTentacles();
+		this->onPositionChanged();
+		this->onScaleChanged();
+		this->onOrientationChanged();
+		this->update(0);
+	return true;
+}
+
+void Alien::takeDamage(float damage)
+{
+	float newDamage = this->m_active_tentacle->absorbDamage(damage);
+
+	if (newDamage == damage) {
+		delete this->m_active_tentacle;
+		this->m_active_tentacle = false;
+		this->cycleTentacles();
 	}
 }

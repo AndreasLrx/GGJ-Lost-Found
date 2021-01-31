@@ -85,7 +85,7 @@ void Astronaut::shoot()
 	    sf::Vector2f laserVec = laserPos - this->m_alien->getPosition();
 	    float angle = atan2(laserVec.y, laserVec.x);
 
-        laser->init(*this->getGameData()->assets.getTexture("laser"), laserPos, sf::Vector2f(2.5, 2.5));
+        laser->init(*this->getGameData()->assets.getTexture("laser"), laserPos, sf::Vector2f(0.5, 0.5));
 	    laser->setOrientation(toDegrees(angle) + 180.0);
 	    this->spawnProjectile(laser);
         changeState((m_state == AbstractAstronaut::MOVE) ? AbstractAstronaut::MOVE_SHOOT : AbstractAstronaut::SHOOT);

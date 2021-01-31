@@ -27,6 +27,7 @@ public:
     void onScaleChanged() override;
     void onOrientationChanged() override;
     Circle const* getCircleBounds(std::size_t& size) const override;
+    void takeDamage(float damage) override;
 
     bool move(sf::Vector2f offset) override;
 
@@ -44,6 +45,7 @@ private:
 
     void initTentacle(Tentacle* tentacle, std::size_t index, sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale);
     void spreadTentacles();
+    bool cycleTentacles();
 };
 
 #endif // !defined(ALIEN_HPP)

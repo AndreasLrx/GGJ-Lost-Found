@@ -20,14 +20,20 @@ void Tentacle::attach(Alien* owner, sf::Texture const& texture)
 {
     this->m_owner = owner;
     this->m_sprite.setTexture(texture);
+    this->m_health = this->m_maxHealth;
 }
 
 float Tentacle::absorbDamage(float damage)
 {
-    float newHealth = fmax(0, this->m_health - damage);
+    this->m_health = this->m_health - damage;
     
-    this->m_health = newHealth;
-    return this->m_health - newHealth;
+    if (this->m_health <= 0.0f) {
+        float ret = -this->m_health;
+
+        this->m_health = 0.0f;
+        return ret;
+    }
+    return 0.0f;
 }
 
 void Tentacle::update(float dt) {

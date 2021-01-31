@@ -41,6 +41,9 @@ void AbstractProjectile::update(float dt)
         this->m_activeTime = 0.0f;
         this->m_isAlive = false;
     }
+    this->m_sprite.update(dt);
+    if (this->m_terminalVelocity)
+        this->m_sprite.setProgress(99.9f);
 }
 
 void AbstractProjectile::draw(sf::RenderTarget& target, sf::RenderStates states) const

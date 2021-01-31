@@ -9,6 +9,7 @@
 #define PROJECTILE_HPP
 
 #include "Entity/Entity.hpp"
+#include "Entity/AnimatedSprite.hpp"
 
 class AbstractProjectile : public Entity
 {
@@ -26,8 +27,9 @@ public:
 protected:
     float m_speed = 1.0f;
     float m_activeTime = 1.0f;
-    sf::Sprite m_sprite;
+    AnimatedSprite m_sprite;
     Entity* m_owner = nullptr;
+    bool m_terminalVelocity = false;
 };
 
 #endif // !defined(PROJECTILE_HPP)
