@@ -26,6 +26,7 @@ public:
     void onPositionChanged() override;
     void onScaleChanged() override;
     void onOrientationChanged() override;
+    Circle const* getCircleBounds(std::size_t& size) const override;
 
 private:
     sf::Sprite m_slimeSprite;
@@ -37,6 +38,7 @@ private:
     GameDataRef m_gameData;
     std::vector<Tentacle *> m_passiveTentacles;
     Tentacle *m_active_tentacle;
+    Circle m_bounds[3];
 
     void initTentacle(Tentacle* tentacle, std::size_t index, sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scale);
     void spreadTentacles();

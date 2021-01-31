@@ -53,6 +53,12 @@ void Alien::handleInput(sf::Event event)
 	this->m_active_tentacle->attack();
 }
 
+Circle const* Alien::getCircleBounds(std::size_t& size) const
+{
+    size = 3;
+    return this->m_bounds;
+}
+
 void Alien::onPositionChanged()
 {
 	this->m_bodySprite.setPosition(this->getPosition());
@@ -63,6 +69,12 @@ void Alien::onPositionChanged()
 		(*it)->setPosition(this->getPosition());
 		(*it)->setMirrored(true);
 	}
+
+    sf::FloatRect bounds = this->m_eyeSprite.getGlobalBounds();
+
+    this->m_bounds[0].m_pos = sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.width / 3.0f);
+	this->m_bounds[1].m_pos = this->m_bounds[0].m_pos;
+	this->m_bounds[2].m_pos = this->m_bounds[0].m_pos;
 }
 
 void Alien::onScaleChanged()
@@ -73,6 +85,12 @@ void Alien::onScaleChanged()
 	this->m_active_tentacle->setScale(this->getScale());
 	for (auto it = this->m_passiveTentacles.begin(); it != this->m_passiveTentacles.end(); it++)
 		(*it)->setScale(this->getScale());
+
+    sf::FloatRect bounds = this->m_eyeSprite.getGlobalBounds();
+
+    this->m_bounds[0].m_radius = bounds.width * 0.4;
+    this->m_bounds[1].m_radius = bounds.width * 0.25;
+    this->m_bounds[2].m_radius = bounds.width * 0.20;
 }
 
 void Alien::onOrientationChanged()
@@ -109,18 +127,18 @@ void Alien::onOrientationChanged()
 	if (angle >= 270.0f || angle < 90.0f) {
 		this->m_bodySprite.setTextureRect(bodyRect);
 		this->m_eyeSprite.setTextureRect(eyeRect);
-		//this->m_active_tentacle->setMirrored(false);
-		//for (auto it = this->m_passiveTentacles.begin(); it != this->m_passiveTentacles.end(); it++)
-			//(*it)->setMirrored(true);
 	} else {
 		this->m_bodySprite.setTextureRect(sf::IntRect(bodyRect.left + bodyRect.width, bodyRect.top, -bodyRect.width, bodyRect.height));
 		this->m_eyeSprite.setTextureRect(sf::IntRect(eyeRect.left + eyeRect.width, eyeRect.top, -eyeRect.width, eyeRect.height));
-		//this->m_active_tentacle->setMirrored(true);
-		//for (auto it = this->m_passiveTentacles.begin(); it != this->m_passiveTentacles.end(); it++)
-			//(*it)->setMirrored(false);
 	}
 	this->m_active_tentacle->setOrientation(angle);
 	this->spreadTentacles();
+
+	float radians = toRadians(angle);
+    sf::Vector2f hitboxOffset(cosf(radians), sinf(radians));
+	
+	this->m_bounds[1].m_pos = this->m_bounds[0].m_pos + sf::Vector2f(hitboxOffset.x * 70.0f, hitboxOffset.y * 70.0f);
+	this->m_bounds[2].m_pos = this->m_bounds[0].m_pos + sf::Vector2f(hitboxOffset.x * 125.0f, hitboxOffset.y * 120.0f);
 }
 
 void Alien::update(float dt)
@@ -150,7 +168,7 @@ void Alien::update(float dt)
 		this->m_slimeRect = sf::IntRect(500, 500, 500, 500);
 		this->m_slimeSprite.setTextureRect(slimeRect);
 	}
-	this->setOrientation(angle * 180.0 / 3.141592653589793238463 + 180.0);
+	this->setOrientation(toDegrees(angle) + 180.0);
 
 	this->m_active_tentacle->update(dt);
 	for (auto it = this->m_passiveTentacles.begin(); it != this->m_passiveTentacles.end(); it++)
