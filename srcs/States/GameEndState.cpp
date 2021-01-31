@@ -17,8 +17,8 @@ GameEndState::GameEndState(GameDataRef data)
     m_endBackground.setSize(sf::Vector2f(1280 * SCL(this), 720 * SCL(this)));
     m_endReady = true;
     if (m_data->datas == 1) {
-        m_endReady = false;
-        m_endBackground.setTexture(m_data->assets.getTexture("game_end_win"));
+        m_endReady = -1;
+        m_endBackground.setTexture(m_data->assets.getTexture("game_end_win0"));
     } else
         m_endBackground.setTexture(m_data->assets.getTexture("game_end_lose"));
     m_endBackground.setFillColor(sf::Color::Transparent);
@@ -44,9 +44,12 @@ void GameEndState::handleInput()
         if (event.type == sf::Event::Closed)
             m_data->wind.close();
         if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Space && m_timer > TRANSITION_TIME)) {
-            if (!m_endReady) {
-                m_endReady = true;
-                m_endBackground.setTexture(m_data->assets.getTexture("game_end_win2"));
+            if (m_endReady != 1) {
+                m_endReady ++;
+                if (m_endReady == 0)
+                    m_endBackground.setTexture(m_data->assets.getTexture("game_end_win"));
+                else
+                    m_endBackground.setTexture(m_data->assets.getTexture("game_end_win2"));
             } else
                 m_data->machine.removeStates(2);
         }

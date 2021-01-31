@@ -36,7 +36,7 @@ class GameEndState : public State
         sf::RectangleShape m_endBackground;
         sf::RenderTexture m_texture;
         float m_timer;
-        bool m_endReady;
+        int m_endReady;
 };
 
 #endif /* !STATES_GAME_END_H */

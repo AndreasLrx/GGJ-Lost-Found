@@ -104,7 +104,7 @@ void Floor::set(std::string cur_floor, GameDataRef data)
 {
     sf::Vector2i pos(0, 0);
     (void)cur_floor;
-    std::ifstream read_floor((std::string)"Level/Floor/floor_" + "5"); // Load the floor (level) you want. WIP
+    std::ifstream read_floor((std::string)"Level/Floor/floor_" + "1"); // Load the floor (level) you want. WIP
     std::stringstream floor_buffer;
     int size = 0; // number of room.
     int k = 0; // index to naviguate through room;
