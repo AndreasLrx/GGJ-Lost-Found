@@ -49,6 +49,7 @@ void GameState::handleInput()
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
             m_data->assets.playMusic("battletheme");
         }
+        m_floor->handleInput(event);
     }
 }
 

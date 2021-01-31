@@ -20,31 +20,47 @@ Floor::Floor(GameDataRef data, Alien *alien)
     this->set(std::string("1111111"), data);
 }
 
+void Floor::handleInput(sf::Event event)
+{
+    int id = m_roomId;
+    sf::Vector2f windSize(m_data->wind.getSize().x, m_data->wind.getSize().y);
+
+    if (event.type != sf::Event::KeyPressed || event.key.code != sf::Keyboard::E)
+        return;
+    if (getDistSquared(m_alien->getPosition(), sf::Vector2f(windSize.x, windSize.y / 2.f)) < 20000) {
+        if (floor_pos.x + 1 < (int)floor_map[floor_pos.y].size() && this->floor_map[floor_pos.y][floor_pos.x +1] != 'E') {
+            m_roomId++;
+            floor_pos.x++;
+            m_alien->setPosition(100, windSize.y / 2.f);
+        }
+    } else if (getDistSquared(m_alien->getPosition(), sf::Vector2f(0, windSize.y / 2.f)) < 20000) {
+        if (floor_pos.x -1 >= 0 && this->floor_map[floor_pos.y][floor_pos.x - 1] != 'E') {
+            m_roomId--;
+            floor_pos.x--;
+            m_alien->setPosition(windSize.x - 100, windSize.y / 2.f);
+        }
+    } else if (getDistSquared(m_alien->getPosition(), sf::Vector2f(windSize.x / 2.f, 0)) < 20000) {
+        if (floor_pos.y - 1 >= 0 && this->floor_map[floor_pos.y - 1][floor_pos.x] != 'E') {
+            m_roomId -= floor_map[0].size();
+            floor_pos.y--;
+            m_alien->setPosition(windSize.x / 2.f, windSize.y - 100);
+        }
+    } else if (getDistSquared(m_alien->getPosition(), sf::Vector2f(windSize.x / 2.f, windSize.y)) < 20000) {
+        if (floor_pos.y + 1 < (int)floor_map.size() && this->floor_map[floor_pos.y + 1][floor_pos.x] != 'E') {
+            m_roomId += floor_map[0].size();
+            floor_pos.y++;
+            m_alien->setPosition(windSize.x / 2.f, 100);
+        }
+    }
+    if (id != m_roomId) {
+        m_cur_room = &m_rooms[m_roomId];
+        m_cur_room->update(0);
+    }
+}
+
 void Floor::change_room(float dt, std::string cur_room)
 {
     (void)cur_room;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && floor_pos.y - 1 >= 0)
-        if (this->floor_map[floor_pos.y - 1][floor_pos.x] != 'E') {
-            floor_pos.y--;
-            m_roomId -= floor_map[0].size();
-        }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && floor_pos.y + 1 < (int)floor_map.size()) {
-        if (this->floor_map[floor_pos.y + 1][floor_pos.x] != 'E') {
-            m_roomId += floor_map[0].size();
-            this->floor_pos.y++;
-        }
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && floor_pos.x -1 >= 0)
-        if (this->floor_map[floor_pos.y][floor_pos.x - 1] != 'E'){
-            m_roomId -= 1;
-            floor_pos.x--;
-        }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && floor_pos.x + 1 < (int)floor_map[floor_pos.y].size())
-        if (this->floor_map[floor_pos.y][floor_pos.x +1] != 'E') {
-            m_roomId += 1;
-            floor_pos.x++;
-        }
-    m_cur_room = &m_rooms[m_roomId];
     m_cur_room->update(dt);
 }
 
@@ -61,6 +77,7 @@ std::vector<std::string> floor_map_init(std::string str)
 
 void Floor::set(std::string cur_floor, GameDataRef data)
 {
+    sf::Vector2i pos(0, 0);
     (void)cur_floor;
     std::ifstream read_floor((std::string)"Level/Floor/floor_" + "1"); // Load the floor (level) you want. WIP
     std::stringstream floor_buffer;
@@ -68,18 +85,25 @@ void Floor::set(std::string cur_floor, GameDataRef data)
     int k = 0; // index to naviguate through room;
     floor_buffer << read_floor.rdbuf();  // idk
     this->floor_map = floor_map_init(floor_buffer.str()); // init string vector.
-    for (unsigned long i = 0; i < floor_map.size(); i++) // compute size
+    for (unsigned long i = 0; i < floor_map.size(); i++) // compute size 
         size += floor_map[i].size();
     this->m_rooms = new Room[size]; // Allocate room
     this->m_floor_str = floor_buffer.str(); // Useless i think ?
     for (int index = 0; k < size; index++) { // For each room in the floor
         if (floor_buffer.str()[index] != '\n') { // If index of floor buffer is  a room
-            std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[index]); // Load good room
-            std::stringstream room_buffer;
-            room_buffer << read_room.rdbuf();
-            this->m_rooms[k].setAlien(m_alien);
-            this->m_rooms[k].set(room_buffer.str(), data);
+            if (floor_buffer.str()[index] != 'E') {
+                std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[index]); // Load good room
+                std::stringstream room_buffer;
+                room_buffer << read_room.rdbuf();
+                this->m_rooms[k].setAlien(m_alien);
+                this->m_rooms[k].set(room_buffer.str(), data);
+                this->m_rooms[k].initDoors(floor_map, pos);
+            }
+            pos.x++;
             k++;
+        } else {
+            pos.x = 0;
+            pos.y++;
         }
     }
     m_roomId = 0;

@@ -28,6 +28,8 @@ class Room : public sf::Drawable
         void set(std::string str, GameDataRef data);
         void drawRoom();
 
+        void initDoors(std::vector<std::string> mapStr, sf::Vector2i pos);
+
         void update(float dt);
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -37,6 +39,7 @@ class Room : public sf::Drawable
         unsigned int getTileSize() {return m_tileSize;};
 
     private:
+        enum DOORS{LEFT = 2, TOP = 3, RIGHT = 0, BOTTOM = 1};
         char type;
         sf::Sprite m_door;
         std::vector <sf::Sprite> m_sprites;
@@ -49,6 +52,7 @@ class Room : public sf::Drawable
 
         Alien *m_alien;
         std::vector<Astronaut *> m_astronauts;
+        int m_doors[4];
 };
 
 #endif

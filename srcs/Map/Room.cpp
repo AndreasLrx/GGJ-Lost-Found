@@ -118,7 +118,8 @@ void Room::draw(sf::RenderTarget& target, sf::RenderStates states) const
             s_door.setRotation(270);
             s_door.setPosition(sf::Vector2f(600, 80));
         }
-        target.draw(s_door, states);
+        if (m_doors[i])
+            target.draw(s_door, states);
     }
     for (size_t y = 0; y < m_tilesVec.size(); y++) {
         for (size_t x = 0; x < m_tilesVec[y].size(); x++) {
@@ -149,4 +150,14 @@ Tile *Room::getTileAt(sf::Vector2f pos)
 sf::Vector2f Room::getRealTilePos(sf::Vector2i tilePos)
 {
     return sf::Vector2f(tilePos.x * m_tileSize + 91, tilePos.y * m_tileSize + 90);
+}
+
+void Room::initDoors(std::vector<std::string> mapStr, sf::Vector2i pos)
+{
+    sf::Vector2i size(mapStr[0].size(), mapStr.size());
+
+    m_doors[LEFT] = !(pos.x == 0 || mapStr[pos.y][pos.x - 1] == 'E'); // Left
+    m_doors[TOP] = !(pos.y == 0 || mapStr[pos.y - 1][pos.x] == 'E'); // Top
+    m_doors[RIGHT] = !(pos.x + 1 >= size.x || mapStr[pos.y][pos.x + 1] == 'E'); // Right
+    m_doors[BOTTOM] = !(pos.y + 1 >= size.y || mapStr[pos.y + 1][pos.x] == 'E'); // Bottom
 }

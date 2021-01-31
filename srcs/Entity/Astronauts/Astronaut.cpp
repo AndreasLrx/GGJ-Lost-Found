@@ -202,7 +202,10 @@ void Astronaut::resetPath(sf::Vector2f goal)
     end.cost = 0;
     end.heuristic_cost = 0;
     end.parent = nullptr;
-    computePath(&start, &end);
+    if (start.tile == nullptr || end.tile == nullptr)
+        m_path.clear();
+    else
+        computePath(&start, &end);
 }
 
 bool nodeCompare(node *na, node *nb) 
