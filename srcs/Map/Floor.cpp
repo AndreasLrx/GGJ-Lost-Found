@@ -20,6 +20,7 @@ Floor::Floor(GameDataRef data, Alien *alien)
     this->set(std::string("1111111"), data);
 }
 
+
 void Floor::handleInput(sf::Event event)
 {
     int doorUsed = -1;
