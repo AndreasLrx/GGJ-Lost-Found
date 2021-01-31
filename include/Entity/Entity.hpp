@@ -58,7 +58,7 @@ class Entity : public sf::Drawable
 
         GameDataRef getGameData();
 
-        virtual void takeDamage(float damage) {};
+        virtual void takeDamage(float damage) {(void)damage;};
 
     protected:
         bool m_isAlive = true;

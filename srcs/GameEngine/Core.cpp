@@ -12,16 +12,24 @@
 Core::Core(unsigned int width, unsigned int height, \
 std::string title, sf::Uint32 style)
 {
+    sf::Texture temp;
+    sf::RectangleShape rect;
     sf::ContextSettings settings;
     settings.antialiasingLevel = 0;
     m_data->wind.create(sf::VideoMode(width, height, 32), title, style, settings);
+    sf::Image icon;
+    icon.loadFromFile("res/Textures/icon.png");
+    m_data->wind.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    temp.loadFromFile("res/Textures/menu_background.png");
+    rect.setSize(sf::Vector2f(1280, 720));
+    rect.setTexture(&temp);
+    m_data->wind.clear(sf::Color::Black);
+    m_data->wind.draw(rect);
+    m_data->wind.display();
     m_data->assets.loadAll();
     m_data->settings.setWindSize(width, height);
     m_data->machine.addState(StateRef(new MenuState(m_data)));
     m_data->datas = 0;
-    sf::Image icon;
-    icon.loadFromFile("res/Textures/icon.png");
-    m_data->wind.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     run();
     m_data->assets.stopMusics();
     m_data->assets.stopSounds();

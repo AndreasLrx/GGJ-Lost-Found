@@ -30,7 +30,7 @@ class LevelSelectState : public State
         GameDataRef getData() {return m_data;};
 
     private:
-        void initBtn(std::string text, sf::Vector2f pos, int tag, inputReactFct input = nullptr);
+        void initBtn(std::string text, sf::Vector2f pos, int tag, inputReactFct input = nullptr, bool available = false);
 
         GameDataRef m_data;
         sf::RectangleShape m_bg;

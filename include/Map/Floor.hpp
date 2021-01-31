@@ -16,11 +16,11 @@ class Room;
 class Floor
 {
     public:
-    Floor(GameDataRef data, Alien *alien);
+    Floor(GameDataRef data, Alien *alien, int id);
 
     void handleInput(sf::Event event);
 
-    void set(std::string cur_room, GameDataRef data);
+    void set(int id, GameDataRef data);
     void change_room(float dt, std::string cur_room);
     Room *get_room() {return (&this->m_rooms[m_roomId]);};
 

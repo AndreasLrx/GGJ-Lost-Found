@@ -26,6 +26,7 @@ void LaserProjectile::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vec
     this->m_sprite.update(0);
     this->m_sprite.setAnimationSpeed(10.0f);
     this->m_sprite.setAnimationEndListener([=](auto sprite) {
+        (void)sprite;
         this->m_terminalVelocity = true;
     });
     this->m_sprite.setOrigin(sf::Vector2f(150, 95));

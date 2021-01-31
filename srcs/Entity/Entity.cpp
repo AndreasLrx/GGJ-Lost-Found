@@ -48,9 +48,12 @@ bool Entity::collidesWith(Entity const& other) const
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+    (void)target;
+    (void)states;
+    /*
     std::size_t count;
     Circle const* circles = this->getCircleBounds(count);
 
-    //for (std::size_t i = 0; i < count; ++i)
-        //circles[i].draw(target, states);
+    for (std::size_t i = 0; i < count; ++i)
+        circles[i].draw(target, states);*/
 }

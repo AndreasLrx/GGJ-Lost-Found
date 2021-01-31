@@ -27,8 +27,7 @@ MenuState::MenuState(GameDataRef data)
     TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 195 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
-            btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);
-        btn->getData()->assets.stopMusic("menu_music");});
+            btn->getData()->machine.addState(StateRef(new LevelSelectState(btn->getData())), 0);});
     playBtn->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 0, 165, 52}, {0, 52, 165, 52});
     playBtn->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     playBtn->setCharacterSize(30  * SCL(this));
@@ -36,8 +35,10 @@ MenuState::MenuState(GameDataRef data)
 
     TextButton *tuto = new TextButton("Tutorial", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 308 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
+        btn->getData()->datas = 1;
         if (tag == 0)
-            btn->getData()->machine.addState(StateRef(new LevelSelectState(btn->getData())), 0);});
+            btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);
+        btn->getData()->assets.stopMusic("menu_music");});
     tuto->setShapeTexturedRectUpdate(m_data->assets.getTexture("button"), {0, 0, 165, 52}, {0, 0, 165, 52}, {0, 52, 165, 52});
     tuto->center(m_data->wind.getSize(), sf::Vector2i(1, 0));
     tuto->setCharacterSize(30  * SCL(this));

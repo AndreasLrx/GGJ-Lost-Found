@@ -11,13 +11,13 @@
 #include <fstream>
 #include "Map/Floor.hpp"
 
-Floor::Floor(GameDataRef data, Alien *alien)
+Floor::Floor(GameDataRef data, Alien *alien, int id)
 {
     this->m_data = data;
     this->m_alien = alien;
     this->m_rooms = nullptr;
     this->floor_pos = {0, 0};
-    this->set(std::string("1111111"), data);
+    this->set(id, data);
 }
 
 
@@ -100,11 +100,10 @@ std::vector<std::string> floor_map_init(std::string str)
     return (seglist);
 }
 
-void Floor::set(std::string cur_floor, GameDataRef data)
+void Floor::set(int id, GameDataRef data)
 {
     sf::Vector2i pos(0, 0);
-    (void)cur_floor;
-    std::ifstream read_floor((std::string)"Level/Floor/floor_" + "1"); // Load the floor (level) you want. WIP
+    std::ifstream read_floor((std::string)"Level/Floor/floor_" + std::to_string(id)); // Load the floor (level) you want. WIP
     std::stringstream floor_buffer;
     int size = 0; // number of room.
     int k = 0; // index to naviguate through room;

@@ -28,6 +28,7 @@ void BallProjectile::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vect
 	this->setScale(scale);
     this->m_sprite.update(0);
     this->m_sprite.setAnimationEndListener([=](auto sprite) {
+        (void)sprite;
         this->m_terminalVelocity = true;
     });
 }

@@ -49,6 +49,9 @@ void Alien::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f scal
 
 void Alien::handleInput(sf::Event event)
 {
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
+		cycleTentacles();
+	}
 	if (event.type != sf::Event::EventType::MouseButtonPressed)
 		return;
 	this->m_active_tentacle->attack();
@@ -144,9 +147,7 @@ void Alien::onOrientationChanged()
 
 bool Alien::move(sf::Vector2f offset)
 {
-    if (offset == sf::Vector2f(0, 0))
-    	return false;
-	if (m_room->getTileAt(this->m_pos + offset) == nullptr)
+    if (offset == sf::Vector2f(0, 0) || m_room->getTileAt(this->m_pos + offset) == nullptr)
 		return false;
     this->setPosition(this->m_pos + offset);
     return true;
@@ -227,7 +228,6 @@ void Alien::spreadTentacles()
 	}
 }
 
-#include <iostream>
 bool Alien::cycleTentacles()
 {
 	if (this->m_active_tentacle == nullptr) {

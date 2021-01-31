@@ -29,7 +29,7 @@ GameState::~GameState()
 
 void GameState::init()
 {
-    this->m_floor = new Floor(this->m_data, &m_alien);
+    this->m_floor = new Floor(this->m_data, &m_alien, m_data->datas);
 }
 
 void GameState::handleInput()
