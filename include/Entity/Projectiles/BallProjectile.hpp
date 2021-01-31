@@ -21,6 +21,7 @@ public:
     Circle const* getCircleBounds(std::size_t &size) const override;
 
     void onPositionChanged() override;
+    void onScaleChanged() override;
 
 private:
     Circle m_bounds;

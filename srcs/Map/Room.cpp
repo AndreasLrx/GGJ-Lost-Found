@@ -144,6 +144,16 @@ void Room::update(float dt)
             (*it)->update(dt);
         }
     }
+    for (auto it = this->m_astronauts.begin(); it < this->m_astronauts.end(); ++it) {
+        if (!(*it)->isAlive()) {
+            delete (*it);
+            it = this->m_astronauts.erase(it);
+            if (it >= this->m_astronauts.end())
+                break;
+        } else {
+            (*it)->update(dt);
+        }
+    }
 }
 
 int Room::needChangeDoor()

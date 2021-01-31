@@ -109,7 +109,7 @@ void Astronaut::handleInput(sf::Event event)
 
 Circle const* Astronaut::getCircleBounds(std::size_t& size) const
 {
-    size = 1;
+    size = 2;
     return this->m_bounds;
 }
 
@@ -117,8 +117,9 @@ void Astronaut::onPositionChanged()
 {
     sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
 
-    this->m_bounds[0].m_pos = sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.width / 2.0f);
 	this->m_sprite.setPosition(this->getPosition());
+    this->m_bounds[0].m_pos = sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.width / 3.0f);
+    this->m_bounds[1].m_pos = sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + (2.0f * bounds.width / 3.0f));
 }
 
 void Astronaut::onOrientationChanged()
@@ -135,7 +136,8 @@ void Astronaut::onScaleChanged()
 {
     sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
 
-    this->m_bounds[0].m_radius = bounds.height;
+    this->m_bounds[0].m_radius = bounds.width / 3;
+    this->m_bounds[1].m_radius = bounds.width / 3;
 }
 
 void Astronaut::update(float dt)
@@ -357,4 +359,11 @@ float Astronaut::getMaxDistInDir(float dir)
         pos += vec;
     }
     return i * 10;
+}
+
+void Astronaut::takeDamage(float damage)
+{
+    if (damage <= 0.0f)
+        return;
+    this->m_isAlive = false;
 }

@@ -45,6 +45,8 @@ class Astronaut : public AbstractAstronaut
 
         Circle const* getCircleBounds(std::size_t& size) const override;
 
+        void takeDamage(float damage);
+
     protected:
         void changeState(int newState);
         void shoot();

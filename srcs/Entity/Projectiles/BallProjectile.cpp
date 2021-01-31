@@ -31,7 +31,16 @@ void BallProjectile::onPositionChanged()
     AbstractProjectile::onPositionChanged();
 
     sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
+
     this->m_bounds.m_pos = sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.width / 2.0f);
+}
+
+void BallProjectile::onScaleChanged()
+{
+    AbstractProjectile::onScaleChanged();
+
+    sf::FloatRect bounds = this->m_sprite.getGlobalBounds();
+
     this->m_bounds.m_radius = bounds.width * 0.5;
 }
 
@@ -57,6 +66,7 @@ void BallProjectile::update(float dt)
         if (this->collidesWith(**it)) {
             this->m_activeTime = 0.0f;
             this->m_isAlive = false;
+            (*it)->takeDamage(1.0f);
             break;
         }
     }
