@@ -16,6 +16,7 @@ GameState::GameState(GameDataRef data): m_alien(data)
     m_gui = new GUIManager(data);
     m_alien.init(*m_data->assets.getTexture("alien"), sf::Vector2f(200, 200), sf::Vector2f(0.25, 0.25));
     this->m_projectile = nullptr;
+    m_data->assets.playMusic("battletheme");
 }
 
 GameState::~GameState()
@@ -68,5 +69,5 @@ void GameState::spawnProjectile(AbstractProjectile* projectile, Entity* owner)
     if (this->m_projectile != nullptr)
         delete this->m_projectile;
     this->m_projectile = projectile;
-    projectile->spawn(owner);
+    projectile->spawn(owner, m_data);
 }

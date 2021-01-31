@@ -50,7 +50,8 @@ void AbstractProjectile::draw(sf::RenderTarget& target, sf::RenderStates states)
         target.draw(this->m_sprite, states);
 }
 
-void AbstractProjectile::spawn(Entity* owner)
+void AbstractProjectile::spawn(Entity* owner, GameDataRef data)
 {
     this->m_owner = owner;
+    this->m_data = data;
 }

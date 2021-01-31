@@ -25,8 +25,8 @@ class MenuState : public State
         void update(float dt);
         void draw(float interpolation);
 
-        void pause() {};
-        void resume() {};
+        void pause() {m_data->assets.stopMusic("menu_music");};
+        void resume() {m_data->assets.playMusic("menu_music");};
 
         GameDataRef getData() {return m_data;};
 

@@ -54,6 +54,7 @@ MenuState::MenuState(GameDataRef data)
     m_gui->addItem(tuto->getBase(), TUTORIAL_BUTTON);
     m_gui->addItem(settings->getBase(), SETTINGS_BUTTON);
     m_gui->addItem(quit->getBase(), QUIT_BUTTON);
+    m_data->assets.playMusic("menu_music");
 }
 
 MenuState::~MenuState()

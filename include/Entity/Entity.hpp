@@ -10,6 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "GameEngine/macro.hpp"
+#include "functions.hpp"
 
 class Room;
 class AbstractProjectile;

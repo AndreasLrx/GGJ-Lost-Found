@@ -20,6 +20,8 @@ std::string title, sf::Uint32 style)
     m_data->machine.addState(StateRef(new MenuState(m_data)));
     
     run();
+    m_data->assets.stopMusics();
+    m_data->assets.stopSounds();
 }
 
 void Core::run()
@@ -45,5 +47,6 @@ void Core::run()
         }
         interpolation = acccumulator / dt;
         m_data->machine.GetActiveState()->draw(interpolation);
+        m_data->assets.updateSounds();
     }
 }

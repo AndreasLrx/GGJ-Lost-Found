@@ -21,9 +21,10 @@ public:
     void onPositionChanged() override;
     void onScaleChanged() override;
     void onOrientationChanged() override;
-    void spawn(Entity* owner);
+    virtual void spawn(Entity* owner, GameDataRef data);
 
 protected:
+    GameDataRef m_data;
     float m_speed = 1.0f;
     float m_activeTime = 1.0f;
     sf::Sprite m_sprite;

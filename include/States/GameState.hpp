@@ -31,7 +31,7 @@ class GameState : public State
         void update(float dt);
         void draw(float interpolation);
 
-        void pause() {};
+        void pause() {m_data->assets.stopMusic("battletheme");};
         void resume() {};
 
         GameDataRef getData() {return m_data;};
