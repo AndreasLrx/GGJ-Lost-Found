@@ -40,31 +40,41 @@ void Floor::change_room(float dt, std::string cur_room)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && floor_pos.y - 1 >= 0)
         if (this->floor_map[floor_pos.y - 1][floor_pos.x] != '.') {
+            std::cout<<"up"<<std::endl;
             floor_pos.y--;
-            this->m_cur_room -= floor_map.size();
+            m_roomId -= floor_map[0].size();
+            //this->m_cur_room -= floor_map.size();
         }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && floor_pos.y + 1 < (int)floor_map.size()) {
         if (this->floor_map[floor_pos.y + 1][floor_pos.x] != '.') {
-            this->m_cur_room += floor_map.size();
+            std::cout<<"Down"<<std::endl;
+            m_roomId += floor_map[0].size();
+            //this->m_cur_room += floor_map.size();
             this->floor_pos.y++;
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && floor_pos.x -1 >= 0)
         if (this->floor_map[floor_pos.y][floor_pos.x - 1] != '.'){
-            this->m_cur_room--;
+            std::cout<<"Left"<<std::endl;
+            m_roomId -= 1;
+            //this->m_cur_room--;
             floor_pos.x--;
         }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && floor_pos.x + 1 < (int)floor_map[floor_pos.y].size())
         if (this->floor_map[floor_pos.y][floor_pos.x +1] != '.') {
-            this->m_cur_room++;
+            std::cout<<"Right"<<std::endl;
+            m_roomId += 1;
+            //this->m_cur_room++;
             floor_pos.x++;
         }
-/*    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+    m_cur_room = &m_rooms[m_roomId];
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         for (int i = 0; i < (int)this->floor_map.size(); i++) {
             std::cout << floor_map[i] << " :  " << &m_rooms[i * 3 + 0] << ",  " << &m_rooms[i * 3 + 1] << ",  " << &m_rooms[i * 3 + 2] <<'\n';
         }
-        std::cout << floor_pos.x << '.' << floor_pos.y << " :  " << this->m_cur_room << "\n\n\n";
-    }*/
+        std::cout<<"Map size = "<<floor_map.size()<<std::endl;
+        std::cout << floor_pos.x << '.' << floor_pos.y << " <=> "<<floor_pos.x + floor_map.size() * floor_pos.y<<" : " << this->m_cur_room << "\n\n\n";
+    }
     m_cur_room->update(dt);
 }
 
@@ -84,7 +94,7 @@ void Floor::set(std::string cur_floor, GameDataRef data)
     std::ifstream read_floor((std::string)"Level/Floor/floor_" + "1"); // Load the floor (level) you want. WIP
     std::stringstream floor_buffer;
     int size = 0; // number of room.
-    int i = 0; // index to naviguate through room;
+    int k = 0; // index to naviguate through room;
     floor_buffer << read_floor.rdbuf();  // idk
     this->floor_map = floor_map_init(floor_buffer.str()); // init string vector.
     for (unsigned long i = 0; i < floor_map.size(); i++) // compute size
@@ -93,17 +103,18 @@ void Floor::set(std::string cur_floor, GameDataRef data)
     this->m_floor_str = floor_buffer.str(); // Useless i think ?
     for (int index = 0; index < size; index++) { // For each room in the floor
         if (floor_buffer.str()[index] != '\n') { // If index of floor buffer is  a room
-            if (floor_buffer.str()[index] == '.') {
-                i++;
-        } else {
-                std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[index]); // Load good room
-                std::stringstream room_buffer;
-                room_buffer << read_room.rdbuf();
-                this->m_rooms[i].setAlien(m_alien);
-                this->m_rooms[i].set(room_buffer.str(), data);
-                i++;
-            }
+            std::cout << "Character : " << floor_buffer.str()[index] << " go with the room :" << k << " at address : " << &this->m_rooms[k] <<  '\n';
+            std::ifstream read_room((std::string)"Level/Room/basic" + floor_buffer.str()[index]); // Load good room
+            std::stringstream room_buffer;
+            room_buffer << read_room.rdbuf();
+            this->m_rooms[k].setAlien(m_alien);
+            this->m_rooms[k].set(room_buffer.str(), data);
+            k++;
         }
     }
-    this->m_cur_room = &m_rooms[0];
+    for (int i = 0; i < k; i++) {
+        std::cout<<"Room "<<i<<" = "<<&this->m_rooms[i]<<std::endl;;
+    }
+    m_roomId = 0;
+    this->m_cur_room = &m_rooms[m_roomId];
 }

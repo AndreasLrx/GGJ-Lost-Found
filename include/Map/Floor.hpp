@@ -20,7 +20,7 @@ class Floor
 
     void set(std::string cur_room, GameDataRef data);
     void change_room(float dt, std::string cur_room);
-    Room *get_room() {return (this->m_cur_room);};
+    Room *get_room() {return (&this->m_rooms[m_roomId]);};
 
     private:
         std::string m_floor_str;
@@ -30,6 +30,7 @@ class Floor
         Alien *m_alien;
         Room *m_rooms;
         sf::Vector2i floor_pos;
+        int m_roomId;
 };
 
 #endif

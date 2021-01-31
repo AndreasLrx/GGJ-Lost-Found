@@ -15,11 +15,11 @@ MenuState::MenuState(GameDataRef data)
 {
     m_data = data;
     m_gui = new GUIManager(data);
-    m_background.setSize(sf::Vector2f(470, 520));
+    m_background.setSize(sf::Vector2f(500, 590));
     m_background.setTexture(m_data->assets.getTexture("menu"));
-    m_background.setPosition((m_data->wind.getSize().x - 470) / 2.f,  (m_data->wind.getSize().y - 520) / 2.f);
+    m_background.setPosition((m_data->wind.getSize().x - 500) / 2.f,  (m_data->wind.getSize().y - 590) / 2.f);
 
-    TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 200 * SCL(this)), sf::Vector2f(198  * SCL(this), 62.4f  * SCL(this)), \
+    TextButton *playBtn = new TextButton("Play", m_data->assets.getFont("spincycle"), sf::Vector2f(0, 200 * SCL(this)), sf::Vector2f(230  * SCL(this), 69.3f  * SCL(this)), \
     [](GUIAbstract *btn, int tag){
         if (tag == 0)
             btn->getData()->machine.addState(StateRef(new GameState(btn->getData())), 0);});

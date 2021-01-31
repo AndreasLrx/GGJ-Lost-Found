@@ -23,7 +23,6 @@ void AssetManager::loadAll(void)
 {
     loadTexture("button", "res/Textures/GUI/Button.png");
     loadTexture("menu", "res/Textures/Menu.png");
-    //loadTexture("astronaut", "res/Textures/astro.png");
     loadTexture("scientist", "res/Textures/scientist.png");
     loadTexture("soldier", "res/Textures/soldier.png");
     loadTexture("berserk", "res/Textures/berserk.png");
@@ -39,8 +38,10 @@ void AssetManager::loadTexture(std::string name, std::string fileName)
 {
     sf::Texture *texture = new sf::Texture;
 
-    if (texture->loadFromFile(fileName))
+    if (texture->loadFromFile(fileName)) {
+        texture->setSmooth(true);
         m_textures[name] = texture;
+    }
 }
 
 sf::Texture *AssetManager::getTexture(std::string name)
