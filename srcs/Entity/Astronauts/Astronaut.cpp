@@ -5,6 +5,7 @@
 ** Astronaut
 */
 
+#include <cmath>
 #include <iostream>
 #include "Entity/Astronauts/Astronaut.hpp"
 #include "Entity/Alien.hpp"
@@ -39,6 +40,7 @@ void Astronaut::init(sf::Texture const& texture, sf::Vector2f pos, sf::Vector2f 
     m_sprite.update(0);
     bounds = m_sprite.getLocalBounds();
     this->m_sprite.setOrigin(bounds.width / 2.f, bounds.height);
+    this->m_sprite.setMirrored(true);
 }
 
 void Astronaut::setAlien(Alien *alien)
@@ -62,10 +64,22 @@ void Astronaut::onPositionChanged()
 	this->m_sprite.setPosition(this->getPosition());
 }
 
+void Astronaut::onOrientationChanged()
+{
+    float angle = this->getOrientation();
+
+    if (angle >= 270.0f || angle < 90.0f)
+        this->m_sprite.setMirrored(true);
+    else
+        this->m_sprite.setMirrored(false);
+}
+
 void Astronaut::update(float dt)
 {
-    if (dt)
-        return;
+	sf::Vector2f lookVec = this->getPosition() - this->m_alien->getPosition();
+	float angle = atan2(lookVec.y, lookVec.x);
+
+    this->setOrientation(toDegrees(angle) + 180.0);
 }
 
 void Astronaut::updatePathTimer(float dt)
