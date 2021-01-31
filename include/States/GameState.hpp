@@ -31,8 +31,9 @@ class GameState : public State
         void update(float dt);
         void draw(float interpolation);
 
-        void pause() {m_data->assets.stopMusic("battletheme");};
+        void pause() {};
         void resume() {};
+        void end() {m_data->assets.stopMusic("battletheme");m_data->assets.stopMusic("ambiant");};
 
         GameDataRef getData() {return m_data;};
         Alien *getAlien() {return &m_alien;};

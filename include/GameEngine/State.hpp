@@ -24,6 +24,7 @@ class State
 
         virtual void pause() = 0;
         virtual void resume() = 0;
+        virtual void end() = 0;
 
         virtual GameDataRef getData() = 0;
     

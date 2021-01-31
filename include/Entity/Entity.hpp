@@ -23,7 +23,7 @@ class Entity : public sf::Drawable
 
         virtual void init(sf::Texture const& texture, sf::Vector2f pos = { 0, 0 }, sf::Vector2f scale = { 0, 0 }) = 0;
         virtual void update(float dt) = 0;
-        virtual void handleInput(sf::Event event) {};
+        virtual void handleInput(sf::Event event) {(void)event;};
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
         sf::Vector2f getPosition() const;

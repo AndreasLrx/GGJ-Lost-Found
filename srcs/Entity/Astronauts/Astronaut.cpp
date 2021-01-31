@@ -121,6 +121,7 @@ void Astronaut::update(float dt)
 	sf::Vector2f lookVec = this->getPosition() - this->m_alien->getPosition();
 	float angle = atan2(lookVec.y, lookVec.x);
 
+    (void)dt;
     this->setOrientation(toDegrees(angle) + 180.0);
 }
 
@@ -324,13 +325,11 @@ float Astronaut::getMaxDistInDir(float dir)
     sf::Vector2f pos = this->getPosition() - sf::Vector2f(91, 90);
     int i = 0;
 
-    Tile *tile = m_room->getTileAt(pos);
     while (m_room->getTileAt(pos)) {
         if (!m_room->getTileAt(pos)->isWalkable())
             break;
         i++;
         pos += vec;
-        tile = m_room->getTileAt(pos);
     }
     return i * 10;
 }

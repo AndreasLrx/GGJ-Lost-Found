@@ -17,6 +17,7 @@ static const int CAC_RANGE = 20000;
 void Soldier::setAnimationListener()
 {
     this->m_sprite.setAnimationEndListener([=](auto sprite){
+        (void)sprite;
         if (m_state == MOVE || m_state == IDLE)
             return;
         if (m_state == MOVE_SHOOT)

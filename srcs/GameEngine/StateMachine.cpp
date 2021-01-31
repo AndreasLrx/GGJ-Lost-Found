@@ -31,6 +31,7 @@ void StateMachine::removeState()
 void StateMachine::processStateChanges()
 {
     if (m_isRemoving && !m_states.empty()) {
+        m_states.top()->end();
         m_states.pop();
         if (!m_states.empty())
             m_states.top()->resume();
@@ -38,9 +39,10 @@ void StateMachine::processStateChanges()
     }
     if (m_isAdding) {
         if (!m_states.empty()) {
-            if (m_isReplacing)
+            if (m_isReplacing) {
+                m_states.top()->end();
                 m_states.pop();
-            else
+            } else
                 m_states.top()->pause();
         }
         m_states.push(std::move(m_newState));

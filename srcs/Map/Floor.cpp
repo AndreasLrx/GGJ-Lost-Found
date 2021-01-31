@@ -22,6 +22,7 @@ Floor::Floor(GameDataRef data, Alien *alien)
 
 void Floor::change_room(float dt, std::string cur_room)
 {
+    (void)cur_room;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && floor_pos.y - 1 >= 0)
         if (this->floor_map[floor_pos.y - 1][floor_pos.x] != 'E') {
             floor_pos.y--;
@@ -60,6 +61,7 @@ std::vector<std::string> floor_map_init(std::string str)
 
 void Floor::set(std::string cur_floor, GameDataRef data)
 {
+    (void)cur_floor;
     std::ifstream read_floor((std::string)"Level/Floor/floor_" + "1"); // Load the floor (level) you want. WIP
     std::stringstream floor_buffer;
     int size = 0; // number of room.

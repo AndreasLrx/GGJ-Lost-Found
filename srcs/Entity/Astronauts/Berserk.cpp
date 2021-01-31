@@ -14,6 +14,7 @@ static const int ATTACK_RANGE = 20000;
 void Berserk::setAnimationListener()
 {
     this->m_sprite.setAnimationEndListener([=](auto sprite){
+        (void)sprite;
         //std::cout<<"End anim state "<<m_state<<std::endl;
         if (m_state == MOVE || m_state == IDLE)
             return;

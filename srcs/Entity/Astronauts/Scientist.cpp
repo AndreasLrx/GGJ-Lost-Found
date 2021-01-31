@@ -15,6 +15,7 @@ static const int FLEE_RANGE = 70000;
 void Scientist::setAnimationListener()
 {
     this->m_sprite.setAnimationEndListener([=](auto sprite){
+        (void)sprite;
         if (m_state == MOVE || m_state == IDLE)
             return;
         if (m_state == MOVE_SHOOT)
